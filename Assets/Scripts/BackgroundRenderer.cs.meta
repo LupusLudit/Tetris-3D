@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f933639f97b96f64fa185ec56bd03a1f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - BackgroundMaterial: {fileID: 2100000, guid: 4ec4bb5063db6db4ea5856c2120ba990,
+      type: 2}
+  - LineMaterial: {fileID: 2100000, guid: 1b3c8ea338689d449aa04b23df5ca83c, type: 2}
+  - RedLineMaterial: {fileID: 2100000, guid: c06ef27c34e50d941a879c1822a3781e, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
