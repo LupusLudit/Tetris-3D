@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Rendering.Universal.ShaderGUI;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -16,6 +18,8 @@ public class GameExecuter : MonoBehaviour
     public Image NextImage;
     public Image HoldImage;
     public TextMeshProUGUI ScoreText;
+    public LinesCompleted MessageUI;
+    public GameOver GameOverUI;
 
     private Game game = new Game();
     private Score score = new Score();
@@ -61,7 +65,6 @@ public class GameExecuter : MonoBehaviour
 
     void Update()
     {
-
         if (!game.GameOver)
         {
             currentDelay = 750;
@@ -83,9 +86,10 @@ public class GameExecuter : MonoBehaviour
         }
         else
         {
-            Debug.Log("Game over");
+            GameOverUI.ShowEndGameScreen();
         }
     }
+
 
     private void Restart()
     {
@@ -204,14 +208,14 @@ public class GameExecuter : MonoBehaviour
     {
         if (heldBlock != null)
         {
-            HoldImage.sprite = BlockImages[heldBlock.Id-1];
+            HoldImage.sprite = BlockImages[heldBlock.Id - 1];
         }
     }
 
     private void DrawNextBlock(BlockHolder holder)
     {
         Block next = holder.NextBlock;
-        NextImage.sprite = BlockImages[next.Id-1];
+        NextImage.sprite = BlockImages[next.Id - 1];
     }
 
     private void DrawScore()
@@ -226,22 +230,24 @@ public class GameExecuter : MonoBehaviour
         GameGrid grid = game.Grid;
 
         for (int y = game.Grid.Y - 1; y > 0; y--)
-            {
+        {
             if (game.Grid.IsLayerFull(y))
-             {
-                Debug.Log("Clearing");
+            {
                 ClearBlocksInRow(y);
                 numOfCleared++;
                 linesCleaned++;
-
             }
-             else if (numOfCleared > 0) MoveBlocksDown(y, numOfCleared);
-            }
+            else if (numOfCleared > 0) MoveBlocksDown(y, numOfCleared);
+        }
 
         if (numOfCleared > 0)
         {
             CheckLevelUp();
-            score.AddLayerScore(level, numOfCleared);
+
+            MessageUI.Message.text = score.GetMessage(numOfCleared);
+            MessageUI.PlusScore.text = $"+{score.AddLayerScore(level, numOfCleared)}";
+            MessageUI.ShowUI();
+
             DrawScore();
         }
     }
@@ -285,7 +291,7 @@ public class GameExecuter : MonoBehaviour
         Vector3 dropVector = new Vector3(0, drop, 0);
         foreach (var tile in placedBlocks)
         {
-            if (tile.transform.position.y == 21-y+0.5)
+            if (tile.transform.position.y == 21 - y + 0.5)
             {
                 Vector3 newPosition = tile.transform.position - dropVector;
                 tile.transform.position = newPosition;

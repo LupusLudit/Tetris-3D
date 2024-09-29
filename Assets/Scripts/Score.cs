@@ -16,10 +16,11 @@ namespace Assets.Scripts
             CurrentScore = 0;
         }
 
-        public void AddLayerScore(int level, int cleared)
+        public int AddLayerScore(int level, int cleared)
         {
             int multiplier = GetMultiplier(cleared);
-            CurrentScore += multiplier*(1+level);
+            CurrentScore += multiplier * (1 + level);
+            return multiplier * (1 + level);
         }
 
         public void IncrementScore()
@@ -27,18 +28,29 @@ namespace Assets.Scripts
             CurrentScore += 1;
         }
 
+        public string GetMessage(int cleared)
+        {
+            switch (cleared)
+            {
+                case 1: return "Single";
+                case 2: return "Double";
+                case 3: return "Triple";
+                case 4: return "Tetris";
+            }
+            return "";
+        }
+
         private int GetMultiplier(int cleared)
         {
             switch (cleared)
             {
-                case 1: return 40;
-                case 2: return 100;
-                case 3: return 300;
-                case 4: return 1200;
+                case 1: return 400;
+                case 2: return 2000;
+                case 3: return 3000;
+                case 4: return 12000;
             }
             return 0;
         }
-
 
     }
 }
