@@ -103,7 +103,4 @@ public class BackgorundRenderer : MonoBehaviour
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
     }
-
-
 }
-

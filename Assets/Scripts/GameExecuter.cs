@@ -4,11 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Rendering.Universal.ShaderGUI;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class GameExecuter : MonoBehaviour
@@ -18,26 +14,29 @@ public class GameExecuter : MonoBehaviour
     public Image NextImage;
     public Image HoldImage;
     public TextMeshProUGUI ScoreText;
+    public GameObject CountdownPanel;
+    public TextMeshProUGUI CountdownText;
+
+    //temp
     public LinesCompleted MessageUI;
     public GameOver GameOverUI;
+    public LevelUp LevelUI;
 
     private Game game = new Game();
+    private BlockManager blockManager;
     private Score score = new Score();
+    private List<GameObject> placedBlocks = new List<GameObject>();
+
     private int level = 0;
     private int linesCleaned = 0;
+
     private readonly int maxDelay = 750;
     private readonly int minDelay = 50;
     private readonly int delayDecrease = 25;
     private int currentDelay = 750;
-
-    private List<GameObject> currentBlockTiles = new List<GameObject>();
-    private List<GameObject> predictedBlockTiles = new List<GameObject>();
-    private List<GameObject> placedBlocks = new List<GameObject>();
-
-    private float timeSinceLastFall;  // Track the time since the block last moved down
+    private float timeSinceLastFall;
 
     private Dictionary<KeyCode, Action> keyActions;
-
     private void InitializeKeyMappings()
     {
         keyActions = new Dictionary<KeyCode, Action>
@@ -51,21 +50,49 @@ public class GameExecuter : MonoBehaviour
             { KeyCode.A, () => game.SwitchToDifAxis(0) },
             { KeyCode.S, () => game.SwitchToDifAxis(1) },
             { KeyCode.D, () => game.SwitchToDifAxis(2) },
-            { KeyCode.C, () => HoldBlock(game.CurrentBlock) }
+            { KeyCode.C, () => 
+                {
+                blockManager.HoldCurrentBlock();
+                DrawHeldBlock(game.HeldBlock);
+                DrawNextBlock(game.Holder);
+                }
+            }
         };
     }
 
     void Start()
     {
+        blockManager = new BlockManager(game, BlockPrefabs, placedBlocks);
+
         InitializeKeyMappings();
-        CreateNewBlock(game.CurrentBlock);
-        CreateBlockPrediction(game.CurrentBlock);
+        StartCoroutine(CountdownCoroutine());
+        blockManager.CreateNewBlock(game.CurrentBlock);
+        blockManager.CreateBlockPrediction(game.CurrentBlock);
         timeSinceLastFall = 0f;
+    }
+
+    // Countdown coroutine
+    IEnumerator CountdownCoroutine()
+    {
+        CountdownText.gameObject.SetActive(true);
+
+        CountdownText.text = "GET READY!";
+        yield return new WaitForSeconds(1f);
+        for (int i = 3; i > 0; i--)
+        {
+            CountdownText.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+        CountdownText.text = "START!";
+        yield return new WaitForSeconds(1f);
+
+        CountdownText.gameObject.SetActive(false);
+        CountdownPanel.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if (!game.GameOver)
+        if (!game.GameOver && CountdownText.gameObject.activeSelf == false)
         {
             currentDelay = 750;
             HandleKeys();
@@ -75,133 +102,24 @@ public class GameExecuter : MonoBehaviour
             {
                 game.MoveBlockDown();
                 if (game.BlockPlaced) Restart();
-                else
-                {
-                    UpdateBlock(game.CurrentBlock);
-                    UpdatePrediction(game.CurrentBlock);
-                }
+
+                blockManager.UpdateBlock(game.CurrentBlock);
+                blockManager.UpdatePrediction(game.CurrentBlock);
 
                 timeSinceLastFall = 0f;
             }
         }
-        else
-        {
-            GameOverUI.ShowEndGameScreen();
-        }
+        else if (game.GameOver) GameOverUI.ShowEndGameScreen();
     }
-
 
     private void Restart()
     {
-        PlaceCurrentBlock();
-        game.NextBlock();
-        CreateNewBlock(game.CurrentBlock);
-        CreateBlockPrediction(game.CurrentBlock);
-        game.BlockPlaced = false;
-    }
-
-    private void CreateNewBlock(Block block)
-    {
-        foreach (Vector3 v in block.TilePositions())
-        {
-            GameObject tile = Instantiate(BlockPrefabs[block.Id - 1], ActualPosition(v), Quaternion.identity);
-            currentBlockTiles.Add(tile);
-        }
-        DrawNextBlock(game.Holder);
-    }
-
-    private void CreateBlockPrediction(Block block)
-    {
-        foreach (Vector3 v in block.TilePositions())
-        {
-            int drop = game.MaxPossibleDrop();
-            Vector3 dropVector = new Vector3(0, drop, 0);
-            Vector3 predictedPosition = ActualPosition(v) - dropVector;
-            GameObject tile = Instantiate(BlockPrefabs[block.Id - 1], predictedPosition, Quaternion.identity);
-
-            /*
-             * Scale the tile to 99.9% of its original size,
-             * meaning that if the original block comes in contact with it,
-             * it will overlay the prediction
-             */
-
-            tile.transform.localScale = tile.transform.localScale * 0.999f;
-            Renderer renderer = tile.GetComponent<Renderer>();
-
-            // Seting the material of the prediciton to be a different color
-            renderer.material.color = new Color(0.5f, 0.5f, 0.5f);
-            predictedBlockTiles.Add(tile);
-        }
-    }
-
-
-    private void UpdateBlock(Block block)
-    {
-        int i = 0;
-        foreach (Vector3 v in block.TilePositions())
-        {
-            currentBlockTiles[i].transform.position = ActualPosition(v);
-            i++;
-        }
-    }
-
-    private void UpdatePrediction(Block block)
-    {
-        int i = 0;
-        foreach (Vector3 v in block.TilePositions())
-        {
-            int drop = game.MaxPossibleDrop();
-            Vector3 dropVector = new Vector3(0, drop, 0);
-            Vector3 predictedPosition = ActualPosition(v) - dropVector;
-            predictedBlockTiles[i].transform.position = predictedPosition;
-            i++;
-        }
-    }
-
-    private void HoldBlock(Block block)
-    {
-        ClearList(predictedBlockTiles);
-        ClearList(currentBlockTiles);
-
-        game.HoldBlock();
-
-        CreateBlockPrediction(game.CurrentBlock);
-        CreateNewBlock(game.CurrentBlock);
-
-        DrawHeldBlock(game.HeldBlock);
-        DrawNextBlock(game.Holder);
-
-    }
-
-    private void PlaceCurrentBlock()
-    {
-        foreach (Vector3 v in game.CurrentBlock.TilePositions())
-        {
-            GameObject tile = Instantiate(BlockPrefabs[game.CurrentBlock.Id - 1], ActualPosition(v), Quaternion.identity);
-            placedBlocks.Add(tile);
-        }
-        ClearList(predictedBlockTiles);
-        ClearList(currentBlockTiles);
-
+        blockManager.PlaceCurrentBlock();
         ClearFullLayers();
-    }
-
-    /*
-     * Since our cubes are always 1x1x1 and the position of the cube referes to the center of the cube,
-     * we have to move the cube by +0.5(-0.5+1 since the positions in unity are shifted) on each axis in order for it to be positioned properly
-    */
-    private Vector3 ActualPosition(Vector3 v)
-    {
-        // Get the size of the prefab object
-        Renderer renderer = BlockPrefabs[game.CurrentBlock.Id - 1].GetComponent<Renderer>();
-        Vector3 cubeSize = renderer.bounds.size;
-
-        // Calculate half the size for each dimension
-        float halfX = cubeSize.x / 2;
-        float halfY = cubeSize.y / 2;
-        float halfZ = cubeSize.z / 2;
-
-        return new Vector3(v.x + halfX, 21 - v.y + halfY, v.z + halfZ);
+        game.NextBlock();
+        blockManager.CreateNewBlock(game.CurrentBlock);
+        blockManager.CreateBlockPrediction(game.CurrentBlock);
+        game.BlockPlaced = false;
     }
 
     private void DrawHeldBlock(Block heldBlock)
@@ -222,7 +140,6 @@ public class GameExecuter : MonoBehaviour
     {
         ScoreText.text = $"Score: {score.CurrentScore}";
     }
-
 
     private void ClearFullLayers()
     {
@@ -258,6 +175,8 @@ public class GameExecuter : MonoBehaviour
         {
             level++;
             linesCleaned = 0;
+            LevelUI.LevelText.text = $"LEVEL: {level}";
+            LevelUI.ShowUI();
         }
     }
 
@@ -299,15 +218,6 @@ public class GameExecuter : MonoBehaviour
         }
     }
 
-    private void ClearList(List<GameObject> list)
-    {
-        foreach (var tile in list)
-        {
-            Destroy(tile);
-        }
-        list.Clear();
-    }
-
     private void HandleKeys()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -332,7 +242,7 @@ public class GameExecuter : MonoBehaviour
             DrawScore();
         }
 
-        UpdateBlock(game.CurrentBlock);
-        UpdatePrediction(game.CurrentBlock);
+        blockManager.UpdateBlock(game.CurrentBlock);
+        blockManager.UpdatePrediction(game.CurrentBlock);
     }
 }
