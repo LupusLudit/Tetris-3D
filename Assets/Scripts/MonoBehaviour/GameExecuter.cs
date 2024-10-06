@@ -1,5 +1,6 @@
 using Assets.Scripts;
 using Assets.Scripts.Blocks;
+using Assets.Scripts.Logic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,14 +14,10 @@ public class GameExecuter : MonoBehaviour
     public Sprite[] BlockImages;
     public Image NextImage;
     public Image HoldImage;
-    public TextMeshProUGUI ScoreText;
+    public UIManager Manager;
     public GameObject CountdownPanel;
     public TextMeshProUGUI CountdownText;
 
-    //temp
-    public LinesCompleted MessageUI;
-    public GameOver GameOverUI;
-    public LevelUp LevelUI;
 
     private Game game = new Game();
     private BlockManager blockManager;
@@ -29,13 +26,9 @@ public class GameExecuter : MonoBehaviour
 
     private int level = 0;
     private int linesCleaned = 0;
-
-    private readonly int maxDelay = 750;
-    private readonly int minDelay = 50;
-    private readonly int delayDecrease = 25;
-    private int currentDelay = 750;
+    
     private float timeSinceLastFall;
-
+    private DelayManager delay = new DelayManager(750, 50, 25);
     private Dictionary<KeyCode, Action> keyActions;
     private void InitializeKeyMappings()
     {
@@ -68,6 +61,7 @@ public class GameExecuter : MonoBehaviour
         StartCoroutine(CountdownCoroutine());
         blockManager.CreateNewBlock(game.CurrentBlock);
         blockManager.CreateBlockPrediction(game.CurrentBlock);
+        DrawNextBlock(game.Holder);
         timeSinceLastFall = 0f;
     }
 
@@ -94,11 +88,12 @@ public class GameExecuter : MonoBehaviour
     {
         if (!game.GameOver && CountdownText.gameObject.activeSelf == false)
         {
-            currentDelay = 750;
+            delay.AdjustDelay(score.CurrentScore);
+
             HandleKeys();
             timeSinceLastFall += Time.deltaTime;
 
-            if (timeSinceLastFall >= currentDelay / 1000f)
+            if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
             {
                 game.MoveBlockDown();
                 if (game.BlockPlaced) Restart();
@@ -109,7 +104,7 @@ public class GameExecuter : MonoBehaviour
                 timeSinceLastFall = 0f;
             }
         }
-        else if (game.GameOver) GameOverUI.ShowEndGameScreen();
+        else if (game.GameOver) Manager.DrawGameOverScreen();
     }
 
     private void Restart()
@@ -119,6 +114,7 @@ public class GameExecuter : MonoBehaviour
         game.NextBlock();
         blockManager.CreateNewBlock(game.CurrentBlock);
         blockManager.CreateBlockPrediction(game.CurrentBlock);
+        DrawNextBlock(game.Holder);
         game.BlockPlaced = false;
     }
 
@@ -134,11 +130,6 @@ public class GameExecuter : MonoBehaviour
     {
         Block next = holder.NextBlock;
         NextImage.sprite = BlockImages[next.Id - 1];
-    }
-
-    private void DrawScore()
-    {
-        ScoreText.text = $"Score: {score.CurrentScore}";
     }
 
     private void ClearFullLayers()
@@ -160,12 +151,8 @@ public class GameExecuter : MonoBehaviour
         if (numOfCleared > 0)
         {
             CheckLevelUp();
-
-            MessageUI.Message.text = score.GetMessage(numOfCleared);
-            MessageUI.PlusScore.text = $"+{score.AddLayerScore(level, numOfCleared)}";
-            MessageUI.ShowUI();
-
-            DrawScore();
+            Manager.DrawLinesCompletedUI(score, level, numOfCleared);
+            Manager.DrawScoreUI(score.CurrentScore);
         }
     }
 
@@ -175,14 +162,13 @@ public class GameExecuter : MonoBehaviour
         {
             level++;
             linesCleaned = 0;
-            LevelUI.LevelText.text = $"LEVEL: {level}";
-            LevelUI.ShowUI();
+            Manager.DrawLevelUpUI(level);
         }
     }
 
     /*
      * Since modifying a collection while iterating over it directly in a foreach loop is not allowed,
-     * we must iteratate over a different collection, so the program won't crash.
+     * we must iterate over a different collection, so the program won't crash.
      * We are going to use a temporary list to store the tiles that should be removed.
      */
     private void ClearBlocksInRow(int y)
@@ -237,9 +223,9 @@ public class GameExecuter : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            currentDelay = 75;
+            delay.CurrentDelay = 75;
             score.IncrementScore();
-            DrawScore();
+            Manager.DrawScoreUI(score.CurrentScore);
         }
 
         blockManager.UpdateBlock(game.CurrentBlock);

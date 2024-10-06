@@ -48,24 +48,6 @@ namespace Assets.Scripts.Blocks
                 currentRotationState--;
             }
         }
-
-       /* public void SwitchAxisCW()
-        {
-            currentState = (currentState + 1) % Tiles.Length;
-        }
-
-        public void SwitchAxisCCW()
-        {
-            if (currentState == 0)
-            {
-                currentState = Tiles.Length - 1;
-            }
-            else
-            {
-                currentState--;
-            }
-        }*/
-        //0=x, 1=y, 2=z
         public void SwitchAxis(int axis)
         {
             currentState = axis;

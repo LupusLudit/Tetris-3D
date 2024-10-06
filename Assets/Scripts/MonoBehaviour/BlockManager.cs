@@ -97,7 +97,7 @@ public class BlockManager : MonoBehaviour
     }
 
     /*
-     * Since our cubes are always 1x1x1 and the position of the cube referes to the center of the cube,
+     * Since our cubes are always 1x1x1 and the position of the cube refers to the center of the cube,
      * we have to move the cube by +0.5(-0.5+1 since the positions in unity are shifted) on each axis in order for it to be positioned properly
     */
     private Vector3 ActualPosition(Vector3 v)
