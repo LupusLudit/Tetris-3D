@@ -43,7 +43,8 @@ public class GameExecuter : MonoBehaviour
             { KeyCode.A, () => game.SwitchToDifAxis(0) },
             { KeyCode.S, () => game.SwitchToDifAxis(1) },
             { KeyCode.D, () => game.SwitchToDifAxis(2) },
-            { KeyCode.C, () => 
+            { KeyCode.Escape, () => Manager.Pause() },
+            { KeyCode.C, () =>
                 {
                 blockManager.HoldCurrentBlock();
                 DrawHeldBlock(game.HeldBlock);
@@ -86,7 +87,7 @@ public class GameExecuter : MonoBehaviour
 
     void Update()
     {
-        if (!game.GameOver && CountdownText.gameObject.activeSelf == false)
+        if (!game.GameOver && CountdownText.gameObject.activeSelf == false && !Manager.GameMenu.IsPaused)
         {
             delay.AdjustDelay(score.CurrentScore);
 

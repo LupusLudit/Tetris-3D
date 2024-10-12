@@ -16,7 +16,7 @@ namespace Assets.Scripts
         public LinesCompleted LinesUI;
         public GameOver GameOverUI;
         public LevelUp LevelUpUI;
-
+        public GameMenu GameMenu;
 
         public void DrawScoreUI(int score)
         {
@@ -39,6 +39,12 @@ namespace Assets.Scripts
         {
             LevelUpUI.LevelText.text = $"LEVEL: {level}";
             LevelUpUI.ShowUI();
+        }
+
+        public void Pause()
+        {
+            GameMenu.IsPaused = true;
+            GameMenu.ShowUI();
         }
 
     }
