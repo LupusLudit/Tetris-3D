@@ -43,14 +43,27 @@ public class GameExecuter : MonoBehaviour
             { KeyCode.A, () => game.SwitchToDifAxis(0) },
             { KeyCode.S, () => game.SwitchToDifAxis(1) },
             { KeyCode.D, () => game.SwitchToDifAxis(2) },
-            { KeyCode.Escape, () => Manager.Pause() },
+            { KeyCode.LeftShift, () =>
+                {
+                    delay.CurrentDelay = 75;
+                    score.IncrementScore();
+                    Manager.DrawScoreUI(score.CurrentScore);
+                }
+            },
+            { KeyCode.Space, () =>
+                {
+                    game.DropBlock();
+                    Restart();
+                }
+            },
             { KeyCode.C, () =>
                 {
-                blockManager.HoldCurrentBlock();
-                DrawHeldBlock(game.HeldBlock);
-                DrawNextBlock(game.Holder);
+                    blockManager.HoldCurrentBlock();
+                    DrawHeldBlock(game.HeldBlock);
+                    DrawNextBlock(game.Holder);
                 }
-            }
+            },
+            { KeyCode.Escape, () => Manager.Pause() }
         };
     }
 
@@ -207,29 +220,43 @@ public class GameExecuter : MonoBehaviour
 
     private void HandleKeys()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+        foreach (var keyAction in keyActions)
         {
-            game.DropBlock();
-            Restart();
-        }
-        else
-        {
-            foreach (var keyAction in keyActions)
+            /*
+             * The first condition checks if the "Soft Drop" button is being HELD and if so the assigned action will be performed
+             * Or it just checks if the key has been PRESSED and if so the assigned action will be performed
+             */
+            if ((Input.GetKey(keyAction.Key) && keyAction.Key == GetKeyFromIndex(9)) || Input.GetKeyDown(keyAction.Key))
             {
-                if (Input.GetKeyDown(keyAction.Key))
-                {
                     keyAction.Value();
-                }
             }
-        }
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            delay.CurrentDelay = 75;
-            score.IncrementScore();
-            Manager.DrawScoreUI(score.CurrentScore);
         }
 
         blockManager.UpdateBlock(game.CurrentBlock);
         blockManager.UpdatePrediction(game.CurrentBlock);
+    }
+
+    public Dictionary<KeyCode, Action> GetKeyActions()
+    {
+        return keyActions;
+    }
+
+    public Action GetActionFromIndex(int index)
+    {
+        if (index >= 0 && index < keyActions.Count)
+        {
+            return new List<Action>(keyActions.Values)[index];
+        }
+        return null;
+    }
+
+    public KeyCode GetKeyFromIndex(int index)
+    {
+        if (index >= 0 && index < keyActions.Count)
+        {
+            return new List<KeyCode>(keyActions.Keys)[index];
+        }
+        return KeyCode.None;
     }
 }
