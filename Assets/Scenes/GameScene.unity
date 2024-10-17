@@ -305,6 +305,7 @@ MonoBehaviour:
   BackgroundMaterial: {fileID: 2100000, guid: 4ec4bb5063db6db4ea5856c2120ba990, type: 2}
   LineMaterial: {fileID: 2100000, guid: 1b3c8ea338689d449aa04b23df5ca83c, type: 2}
   RedLineMaterial: {fileID: 2100000, guid: c06ef27c34e50d941a879c1822a3781e, type: 2}
+  MainCamera: {fileID: 330585545}
 --- !u!23 &27697501
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5507,6 +5508,8 @@ MonoBehaviour:
   Manager: {fileID: 999185324}
   CountdownPanel: {fileID: 1175275475}
   CountdownText: {fileID: 349599242}
+  gameCamera: {fileID: 330585545}
+  backgroundRenderer: {fileID: 27697500}
 --- !u!1 &1282134642
 GameObject:
   m_ObjectHideFlags: 0

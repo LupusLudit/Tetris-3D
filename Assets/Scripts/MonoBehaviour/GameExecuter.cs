@@ -17,8 +17,10 @@ public class GameExecuter : MonoBehaviour
     public UIManager Manager;
     public GameObject CountdownPanel;
     public TextMeshProUGUI CountdownText;
+    public Camera gameCamera;
+    public BackgroundRenderer backgroundRenderer;
 
-
+    private Vector3 boardCenter = new Vector3(5, 6.5876f, 5); //precalculated values
     private Game game = new Game();
     private BlockManager blockManager;
     private Score score = new Score();
@@ -63,6 +65,9 @@ public class GameExecuter : MonoBehaviour
                     DrawNextBlock(game.Holder);
                 }
             },
+            { KeyCode.L, () => RotateCameraAroundBoard(-0.5f) },
+            { KeyCode.K, () => RotateCameraAroundBoard(0.5f) },
+            { KeyCode.R, () => backgroundRenderer.ResetToDefault() },
             { KeyCode.Escape, () => Manager.Pause() }
         };
     }
@@ -182,8 +187,8 @@ public class GameExecuter : MonoBehaviour
 
     /*
      * Since modifying a collection while iterating over it directly in a foreach loop is not allowed,
-     * we must iterate over a different collection, so the program won't crash.
-     * We are going to use a temporary list to store the tiles that should be removed.
+     * it is necessary to iterate over a different collection, so the program won't crash.
+     * A temporary list will be used to store the tiles that should be removed.
      */
     private void ClearBlocksInRow(int y)
     {
@@ -224,10 +229,10 @@ public class GameExecuter : MonoBehaviour
         foreach (var keyAction in keyActions)
         {
             /*
-             * The first condition checks if the "Soft Drop" button is being HELD and if so the assigned action will be performed
+             * The first condition checks if the desired button is being HELD and if so the assigned action will be performed
              * Or it just checks if the key has been PRESSED and if so the assigned action will be performed
              */
-            if ((Input.GetKey(keyAction.Key) && keyAction.Key == GetKeyFromIndex(9)) || Input.GetKeyDown(keyAction.Key))
+            if ((Input.GetKey(keyAction.Key) && IsDesiredHold(keyAction.Key)) || Input.GetKeyDown(keyAction.Key))
             {
                     keyAction.Value();
             }
@@ -235,6 +240,22 @@ public class GameExecuter : MonoBehaviour
 
         blockManager.UpdateBlock(game.CurrentBlock);
         blockManager.UpdatePrediction(game.CurrentBlock);
+    }
+
+    private bool IsDesiredHold(KeyCode k)
+    {
+        return k == GetKeyFromIndex(9) || k == GetKeyFromIndex(12) || k == GetKeyFromIndex(13);
+    }
+
+    private void RotateCameraAroundBoard(float angle)
+    {
+        // Calculate the new position by rotating around the center point of the board (only on the Y axis)
+        Vector3 direction = gameCamera.transform.position - boardCenter;
+        direction = Quaternion.Euler(0, angle, 0) * direction; // Rotate around the Y-axis
+        gameCamera.transform.position = boardCenter + direction;
+
+        // Make the camera always look at the center of the board
+        gameCamera.transform.LookAt(boardCenter);
     }
 
     public Dictionary<KeyCode, Action> GetKeyActions()
