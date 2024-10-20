@@ -9,15 +9,28 @@ public class GameMenu : MonoBehaviour
 {
     public GameObject MenuUI;
     public GameObject SettingsUI;
+    private Animator menuAnimator;
     public bool IsPaused = false;
 
+    void Start()
+    {
+        menuAnimator = MenuUI.GetComponent<Animator>();
+    }
     public void ShowUI()
     {
-        MenuUI.SetActive(true);
+        MenuUI.SetActive(true); // Activate UI before sliding down
+  
     }
 
     public void HideUI()
     {
+        StartCoroutine(SlideUpAndDeactivate());
+    }
+
+    private IEnumerator SlideUpAndDeactivate()
+    {
+        menuAnimator.SetTrigger("SlideUp");
+        yield return new WaitForSeconds(1f);
         MenuUI.SetActive(false);
     }
 
@@ -37,5 +50,4 @@ public class GameMenu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
-
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class Settings : MonoBehaviour
@@ -12,6 +13,12 @@ public class Settings : MonoBehaviour
     public GameMenu MenuScript;
     public InputManager InputManagerScript;
     public TextMeshProUGUI [] ButtonLabels;
+    private Animator settingsAnimator;
+
+    void Start()
+    {
+        settingsAnimator = SettingsUI.GetComponent<Animator>();
+    }
 
     public void ShowUI()
     {
@@ -20,11 +27,18 @@ public class Settings : MonoBehaviour
 
     public void HideUI()
     {
+        StartCoroutine(Deactivate());
+    }
+
+    private IEnumerator Deactivate()
+    {
+        settingsAnimator.SetTrigger("SlideLeft");
+        yield return new WaitForSeconds(1f);
         SettingsUI.SetActive(false);
     }
     public void GoBack()
     {
-        SettingsUI.SetActive(false);
+        HideUI();
         MenuScript.ShowUI();
     }
 
