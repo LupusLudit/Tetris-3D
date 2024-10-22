@@ -39,13 +39,15 @@ public class ButtonColorSync : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     }
 
 
-    private void UpdateTextColor(Color newColor)
+    private void UpdateTextColor(Color color)
     {
         foreach (var text in Texts)
         {
             if (text != null)
             {
-                text.color = newColor;
+                text.color = color;
+                TargetButton.image.color = color;
+                
             }
         }
     }

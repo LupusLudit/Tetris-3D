@@ -5,7 +5,6 @@ public class GameOver : MonoBehaviour
 {
     public GameObject gameOverUI;
     public MusicController musicController;
-    private bool gameOverShown = false;  // Flag to track if the game over UI has been shown
 
     public void ShowEndGameScreen()
     {

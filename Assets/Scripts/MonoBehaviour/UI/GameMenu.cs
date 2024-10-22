@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameMenu : MonoBehaviour
 {
@@ -18,7 +15,7 @@ public class GameMenu : MonoBehaviour
     }
     public void ShowUI()
     {
-        MenuUI.SetActive(true); // Activate UI before sliding down
+        MenuUI.SetActive(true);
   
     }
 

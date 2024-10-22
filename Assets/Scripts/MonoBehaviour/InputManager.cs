@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public Settings SettingsScript;
+    public KeyBinding KeyBindingScript;
     public GameExecuter GameExecuterScript;
     private string currentButtonId;
 
@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
     {
         currentButtonId = buttonId;
         awaitingInput = true;
-        SettingsScript.ShowKeyInputUI();
+        KeyBindingScript.ShowKeyInputUI();
     }
 
     void Update()
@@ -56,12 +56,12 @@ public class InputManager : MonoBehaviour
             }
 
             gameKeyActions[key] = action;
-            SettingsScript.ChangeButtonLabel(index, key.ToString());
-            SettingsScript.HideKeyInputUI(key.ToString());
+            KeyBindingScript.ChangeButtonLabel(index, key.ToString());
+            KeyBindingScript.HideKeyInputUI(key.ToString());
         }
         else
         {
-            SettingsScript.HideKeyInputUI("This key is already being used.");
+            KeyBindingScript.HideKeyInputUI("This key is already being used.");
         }
     }
 

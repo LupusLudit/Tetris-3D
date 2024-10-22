@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine.UIElements;
 using UnityEngine;
 namespace Assets.Scripts.Blocks
 {
@@ -11,13 +8,10 @@ namespace Assets.Scripts.Blocks
     {
         protected abstract Vector3[][][] Tiles { get; }
         protected abstract Vector3 StartingOffset { get; }
-
         public abstract int Id { get; }
         public int currentState; //0-2
         public int currentRotationState; //0-3
         public Vector3 currentOffset;
-
-        private bool tilesDefault = true;
 
         public Block()
         {

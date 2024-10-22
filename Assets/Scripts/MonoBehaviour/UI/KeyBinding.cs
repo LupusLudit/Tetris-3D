@@ -1,28 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 
-public class Settings : MonoBehaviour
+public class KeyBinding : MonoBehaviour
 {
 
-    public GameObject SettingsUI;
+    public GameObject KeyBindingUI;
     public GameObject KeyInputUI;
     public TextMeshProUGUI KeyInputText;
     public GameMenu MenuScript;
+    public Settings SettingsScript;
     public InputManager InputManagerScript;
     public TextMeshProUGUI [] ButtonLabels;
-    private Animator settingsAnimator;
+    private Animator KeyBindingAnimator;
 
     void Start()
     {
-        settingsAnimator = SettingsUI.GetComponent<Animator>();
+        KeyBindingAnimator = KeyBindingUI.GetComponent<Animator>();
     }
 
     public void ShowUI()
     {
-        SettingsUI.SetActive(true);
+        KeyBindingUI.SetActive(true);
     }
 
     public void HideUI()
@@ -32,14 +31,14 @@ public class Settings : MonoBehaviour
 
     private IEnumerator Deactivate()
     {
-        settingsAnimator.SetTrigger("SlideLeft");
+        KeyBindingAnimator.SetTrigger("SlideLeft");
         yield return new WaitForSeconds(1f);
-        SettingsUI.SetActive(false);
+        KeyBindingUI.SetActive(false);
     }
     public void GoBack()
     {
         HideUI();
-        MenuScript.ShowUI();
+        SettingsScript.ShowUI();
     }
 
     public void Exit()
