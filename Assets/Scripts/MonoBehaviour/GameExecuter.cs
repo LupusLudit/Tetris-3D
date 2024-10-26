@@ -20,7 +20,7 @@ public class GameExecuter : MonoBehaviour
     public Camera gameCamera;
     public BackgroundRenderer backgroundRenderer;
 
-    private Vector3 boardCenter = new Vector3(5, 6.5876f, 5); //precalculated values
+    private Vector3 boardCenter = new Vector3(5, 6.5876f, 5); //precalculated values, will be adjusted later
     private Game game = new Game();
     private BlockManager blockManager;
     private Score score = new Score();
@@ -249,7 +249,7 @@ public class GameExecuter : MonoBehaviour
 
     private void RotateCameraAroundBoard(float angle)
     {
-        // Calculate the new position by rotating around the center point of the board (only on the Y axis)
+        // Calculating the new position by rotating around the center point of the board (only on the Y axis)
         Vector3 direction = gameCamera.transform.position - boardCenter;
         direction = Quaternion.Euler(0, angle, 0) * direction; // Rotate around the Y-axis
         gameCamera.transform.position = boardCenter + direction;

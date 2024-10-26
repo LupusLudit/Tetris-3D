@@ -8,10 +8,11 @@ public class KeyBinding : MonoBehaviour
     public GameObject KeyBindingUI;
     public GameObject KeyInputUI;
     public TextMeshProUGUI KeyInputText;
-    public GameMenu MenuScript;
     public Settings SettingsScript;
+
     public InputManager InputManagerScript;
     public TextMeshProUGUI [] ButtonLabels;
+
     private Animator KeyBindingAnimator;
 
     void Start()
@@ -44,7 +45,7 @@ public class KeyBinding : MonoBehaviour
     public void Exit()
     {
         HideUI();
-        MenuScript.IsPaused = false;
+        SettingsScript.MenuScript.IsPaused = false;
     }
 
     public void ButtonPressed(string buttonID)
