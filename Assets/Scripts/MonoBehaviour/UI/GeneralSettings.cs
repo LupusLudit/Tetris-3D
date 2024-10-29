@@ -5,6 +5,9 @@ public class GeneralSettings : MonoBehaviour
 {
     public GameObject GeneralSettingsUI;
     public Settings SettingsScript;
+    public Camera[] Cameras;
+    public GameObject [] UIs;
+    public GameObject Hint;
 
     private Animator GeneralSettingsAnimator;
 
@@ -36,5 +39,28 @@ public class GeneralSettings : MonoBehaviour
         HideUI();
         SettingsScript.MenuScript.IsPaused = false;
     }
+
+    public void ToggleUI()
+    {
+        foreach (var item in UIs)
+        {
+            item.SetActive(!item.activeSelf);
+        }
+    }
+
+
+    public void ToggleHint()
+    {
+        Hint.SetActive(!Hint.activeSelf);
+    }
+
+    public void ToggleCameras()
+    {
+        foreach (var cam in Cameras)
+        {
+            cam.gameObject.SetActive(!cam.gameObject.activeSelf);
+        }
+    }
+
 }
 

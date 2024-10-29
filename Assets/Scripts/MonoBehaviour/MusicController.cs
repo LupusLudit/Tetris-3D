@@ -10,6 +10,15 @@ public class MusicController : MonoBehaviour
     public TMP_Dropdown musicDropdown;
     public AudioClip[] musicTracks;
 
+    /*
+     * links to music tracks used (proper documentation will be added later)
+     * 1.https://pixabay.com/music/classical-string-quartet-tetris-theme-korobeiniki-rearranged-arr-for-strings-185592/
+     * 2.https://www.youtube.com/watch?v=NmCCQxVBfyM
+     * 3.https://www.youtube.com/watch?v=5wsy1S2ezyw
+     * 4.https://www.youtube.com/watch?v=98H2UObS-mY
+     * 5.https://www.youtube.com/watch?v=E8FQBjVlERk
+     */
+
     private void Start()
     {
         musicSource.volume = 0.5f;
@@ -48,7 +57,7 @@ public class MusicController : MonoBehaviour
         if (trackIndex < musicTracks.Length)
         {
             musicSource.clip = musicTracks[trackIndex];
-            if (musicToggle.isOn) // Play only if music is toggled on
+            if (musicToggle.isOn)
             {
                 musicSource.Play();
             }
