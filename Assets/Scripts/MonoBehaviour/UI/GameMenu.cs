@@ -9,6 +9,8 @@ public class GameMenu : MonoBehaviour
     private Animator menuAnimator;
     public bool IsPaused = false;
 
+
+    //TODO: Improve the game menu, so it matches the main menu better
     void Start()
     {
         menuAnimator = MenuUI.GetComponent<Animator>();
