@@ -42,15 +42,9 @@ public class Settings : MonoBehaviour
         HideUI();
         MenuScript.ShowUI();
     }
-    public void GoToGeneral()
+    public void GoToOptions()
     {
         HideUI();
         GeneralSettingsUI.SetActive(true);
     }
-    //logic will be added later
-    /*
-    public void GoToOptions()
-    {
-    }
-    */
 }
