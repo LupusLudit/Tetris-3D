@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    public GameObject gameOverUI;
-    public MusicController musicController;
+    public GameObject GameOverUI;
+    public MusicController MusicController;
 
     public void ShowEndGameScreen()
     {
-        gameOverUI.SetActive(true);
-        musicController.StopMusic();
+        GameOverUI.SetActive(true);
+        MusicController.StopMusic();
     }
 
     public void EndGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        gameOverUI.SetActive(false);
+        GameOverUI.SetActive(false);
     }
 }

@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class Settings : MonoBehaviour
 {
-    public GameMenu MenuScript;
     public GameObject SettingsUI;
+    public GameObject Options;
     public GameObject KeyBindingUI;
-    public GameObject GeneralSettingsUI;
+    public GameObject MenuUI;
+
     private Animator settingsAnimator;
 
     void Start()
@@ -16,12 +17,6 @@ public class Settings : MonoBehaviour
     public void ShowUI()
     {
         SettingsUI.SetActive(true);
-
-    }
-
-    public void HideUI()
-    {
-        StartCoroutine(SlideUpAndDeactivate());
     }
 
     private IEnumerator SlideUpAndDeactivate()
@@ -33,18 +28,18 @@ public class Settings : MonoBehaviour
 
     public void GoToKeyBinds()
     {
-        HideUI();
+        StartCoroutine(SlideUpAndDeactivate());
         KeyBindingUI.SetActive(true);
     }
 
     public void GoBackToMenu()
     {
-        HideUI();
-        MenuScript.ShowUI();
+        StartCoroutine(SlideUpAndDeactivate());
+        MenuUI.SetActive(true);
     }
     public void GoToOptions()
     {
-        HideUI();
-        GeneralSettingsUI.SetActive(true);
+        StartCoroutine(SlideUpAndDeactivate());
+        Options.SetActive(true);
     }
 }

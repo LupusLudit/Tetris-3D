@@ -48,7 +48,7 @@ public class InputManager : MonoBehaviour
         {
             Action action = GameExecuterScript.GetActionFromIndex(index);
 
-            // Remove the old key binding
+            // Removing the old key binding
             KeyCode oldKey = GameExecuterScript.GetKeyFromIndex(index);
             if (gameKeyActions.ContainsKey(oldKey))
             {

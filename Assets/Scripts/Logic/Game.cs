@@ -101,7 +101,7 @@ namespace Assets.Scripts
             }
         }
 
-        public void XFoward()
+        public void XForward()
         {
             CurrentBlock.Move(1,0,0);
             if (!BlockFits()) CurrentBlock.Move(-1, 0, 0);
@@ -113,7 +113,7 @@ namespace Assets.Scripts
             if (!BlockFits()) CurrentBlock.Move(1, 0, 0);
         }
 
-        public void ZFoward()
+        public void ZForward()
         {
             CurrentBlock.Move(0, 0, 1);
             if (!BlockFits()) CurrentBlock.Move(0, 0, -1);
@@ -138,8 +138,6 @@ namespace Assets.Scripts
             {
                 Grid[(int)v.x,(int)v.y,(int)v.z] = CurrentBlock.Id;
             }
-
-            //Score += Grid.clearFullLayers() * 100;
 
             if (CheckGameOver()) GameOver = true;
             else
@@ -170,7 +168,6 @@ namespace Assets.Scripts
             }
             return drop;
         }
-
 
         public int MaxPossibleDrop()
         {

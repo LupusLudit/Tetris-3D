@@ -9,8 +9,6 @@ public class GameMenu : MonoBehaviour
     private Animator menuAnimator;
     public bool IsPaused = false;
 
-
-    //TODO: Improve the game menu, so it matches the main menu better
     void Start()
     {
         menuAnimator = MenuUI.GetComponent<Animator>();
@@ -18,12 +16,6 @@ public class GameMenu : MonoBehaviour
     public void ShowUI()
     {
         MenuUI.SetActive(true);
-  
-    }
-
-    public void HideUI()
-    {
-        StartCoroutine(SlideUpAndDeactivate());
     }
 
     private IEnumerator SlideUpAndDeactivate()
@@ -35,13 +27,13 @@ public class GameMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        HideUI();
+        StartCoroutine(SlideUpAndDeactivate());
         IsPaused = false;
     }
 
     public void GoToSettings()
     {
-        HideUI();
+        StartCoroutine(SlideUpAndDeactivate());
         SettingsUI.SetActive(true);
     }
 

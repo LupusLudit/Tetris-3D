@@ -112,6 +112,11 @@ public class BackgroundRenderer : MonoBehaviour
         return closest;
 
     }
+    
+    /*
+     * The values for the grid are currently fixed.
+     * This will be adjusted later.
+     */
 
     private void CreateCuboid()
     {
@@ -207,6 +212,5 @@ public class BackgroundRenderer : MonoBehaviour
         transform.position = initialPosition;
         transform.rotation = initialRotation;
     }
-
 
 }

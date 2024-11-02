@@ -37,9 +37,9 @@ public class GameExecuter : MonoBehaviour
         keyActions = new Dictionary<KeyCode, Action>
         {
             { KeyCode.UpArrow, () => game.XBack() },
-            { KeyCode.DownArrow, () => game.XFoward() },
+            { KeyCode.DownArrow, () => game.XForward() },
             { KeyCode.LeftArrow, () => game.ZBack() },
-            { KeyCode.RightArrow, () => game.ZFoward() },
+            { KeyCode.RightArrow, () => game.ZForward() },
             { KeyCode.Q, () => game.RotateBlockCCW() },
             { KeyCode.E, () => game.RotateBlockCW() },
             { KeyCode.A, () => game.SwitchToDifAxis(0) },

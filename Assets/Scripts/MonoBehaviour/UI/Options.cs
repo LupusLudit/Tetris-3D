@@ -1,43 +1,34 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneralSettings : MonoBehaviour
+public class Options : MonoBehaviour
 {
-    public GameObject GeneralSettingsUI;
-    public Settings SettingsScript;
+    public GameObject OptionsUI;
+    public GameObject SettingsUI;
+    public GameMenu MenuScript;
     public Camera[] Cameras;
-    public GameObject [] UIs;
+    public GameObject[] UIs;
     public GameObject Hint;
 
     private Animator GeneralSettingsAnimator;
 
     private void Start()
     {
-        GeneralSettingsAnimator = GeneralSettingsUI.GetComponent<Animator>();
-    }
-
-    public void HideUI()
-    {
-        StartCoroutine(Deactivate());
+        GeneralSettingsAnimator = OptionsUI.GetComponent<Animator>();
     }
 
     private IEnumerator Deactivate()
     {
         GeneralSettingsAnimator.SetTrigger("SlideLeft");
         yield return new WaitForSeconds(1f);
-        GeneralSettingsUI.SetActive(false);
+        OptionsUI.SetActive(false);
     }
 
     public void GoBack()
     {
-        HideUI();
-        SettingsScript.ShowUI();
-    }
-
-    public void Exit()
-    {
-        HideUI();
-        SettingsScript.MenuScript.IsPaused = false;
+        StartCoroutine(Deactivate());
+        SettingsUI.SetActive(true);
     }
 
     public void ToggleUI()
@@ -47,7 +38,6 @@ public class GeneralSettings : MonoBehaviour
             item.SetActive(!item.activeSelf);
         }
     }
-
 
     public void ToggleHint()
     {
@@ -62,5 +52,9 @@ public class GeneralSettings : MonoBehaviour
         }
     }
 
+    public void Exit()
+    {
+        StartCoroutine(Deactivate());
+        MenuScript.IsPaused = false;
+    }
 }
-

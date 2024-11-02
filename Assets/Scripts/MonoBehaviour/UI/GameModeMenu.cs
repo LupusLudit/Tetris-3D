@@ -13,17 +13,11 @@ public class GameModeMenu : MonoBehaviour
         animator = GameModeMenuUI.GetComponent<Animator>();
     }
 
+    //TODO: add other game modes
+
     public void StartRegularGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    //TODO: add other game modes
-
-    public void GoBack()
-    {
-        MainMenuUI.SetActive(true);
-        StartCoroutine(SlideRightAndDeactivate());
     }
 
     private IEnumerator SlideRightAndDeactivate()

@@ -7,13 +7,16 @@ public class KeyBinding : MonoBehaviour
 
     public GameObject KeyBindingUI;
     public GameObject KeyInputUI;
-    public TextMeshProUGUI KeyInputText;
-    public Settings SettingsScript;
+    public GameObject SettingsUI;
+    public GameMenu MenuScript;
 
-    public InputManager InputManagerScript;
+    public TextMeshProUGUI KeyInputText;
     public TextMeshProUGUI [] ButtonLabels;
 
+    public InputManager InputManagerScript;
     private Animator KeyBindingAnimator;
+
+    //TODO: Update the hint along with the changed keybinds
 
     void Start()
     {
@@ -25,11 +28,6 @@ public class KeyBinding : MonoBehaviour
         KeyBindingUI.SetActive(true);
     }
 
-    public void HideUI()
-    {
-        StartCoroutine(Deactivate());
-    }
-
     private IEnumerator Deactivate()
     {
         KeyBindingAnimator.SetTrigger("SlideLeft");
@@ -38,14 +36,14 @@ public class KeyBinding : MonoBehaviour
     }
     public void GoBack()
     {
-        HideUI();
-        SettingsScript.ShowUI();
+        StartCoroutine(Deactivate());
+        SettingsUI.SetActive(true);
     }
 
     public void Exit()
     {
-        HideUI();
-        SettingsScript.MenuScript.IsPaused = false;
+        StartCoroutine(Deactivate());
+        MenuScript.IsPaused = false;
     }
 
     public void ButtonPressed(string buttonID)
