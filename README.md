@@ -10,11 +10,12 @@ Other game elements used can be found in the Assets folder like the 3D tile mode
 Since this game is still in development and the project does not contain an executable file (yet),
 so I have linked some software which can be used to inspect the code and run the game while its still beeing developed.
 
--The unity game engine: [https://unity.com/](https://unity.com/download)
--Visual Studio (ofcourse you can use any other text editor for inspecting the code): [https://visualstudio.microsoft.com](https://visualstudio.microsoft.com/)
+- **The Unity Game Engine**: [https://unity.com](https://unity.com/download)
+- **Visual Studio** (you can use any other text editor for inspecting the code): [https://visualstudio.microsoft.com](https://visualstudio.microsoft.com/)
 
 ## Notes
 🦺Beware of the fact that this project is still in development and it is not yet finished.🦺
+
 It also is important to emphasize that this whole game is beeing used as a school project.
 
 The reason, the first commit contains so many elements is because
