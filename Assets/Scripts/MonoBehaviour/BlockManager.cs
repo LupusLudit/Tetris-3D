@@ -11,12 +11,14 @@ public class BlockManager : MonoBehaviour
     private List<GameObject> currentBlockTiles = new List<GameObject>();
     private List<GameObject> predictedBlockTiles = new List<GameObject>();
     private List<GameObject> placedBlocks;
+    private int gridHeight;
 
-    public BlockManager(Game game, GameObject[] blockPrefabs, List<GameObject> placedBlocks)
+    public BlockManager(Game game, GameObject[] blockPrefabs, List<GameObject> placedBlocks, int gridHeight)
     {
         this.game = game;
         this.blockPrefabs = blockPrefabs;
         this.placedBlocks = placedBlocks;
+        this.gridHeight = gridHeight;
     }
 
     public void CreateNewBlock(Block block)
@@ -104,7 +106,7 @@ public class BlockManager : MonoBehaviour
     {
         Renderer renderer = blockPrefabs[game.CurrentBlock.Id - 1].GetComponent<Renderer>();
         Vector3 cubeSize = renderer.bounds.size;
-        return new Vector3(v.x + cubeSize.x / 2, 21 - v.y + cubeSize.y / 2, v.z + cubeSize.z / 2);
+        return new Vector3(v.x + cubeSize.x / 2, gridHeight-1 - v.y + cubeSize.y / 2, v.z + cubeSize.z / 2);
     }
 
 }

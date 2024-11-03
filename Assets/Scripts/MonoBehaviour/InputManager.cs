@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class InputManager : MonoBehaviour
         currentButtonId = buttonId;
         awaitingInput = true;
         KeyBindingScript.ShowKeyInputUI();
+
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     void Update()
@@ -62,6 +65,7 @@ public class InputManager : MonoBehaviour
         else
         {
             KeyBindingScript.HideKeyInputUI("This key is already being used.");
+            awaitingInput = false;
         }
     }
 

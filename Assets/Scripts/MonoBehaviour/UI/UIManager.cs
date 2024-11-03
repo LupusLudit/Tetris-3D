@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TMPro;
-using UnityEditor.VersionControl;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 namespace Assets.Scripts
 {
@@ -43,8 +36,11 @@ namespace Assets.Scripts
 
         public void Pause()
         {
-            GameMenu.IsPaused = true;
-            GameMenu.ShowUI();
+            if (!GameMenu.IsPaused && !GameMenu.IsAnimating)
+            {
+                GameMenu.IsPaused = true;
+                GameMenu.ShowUI();
+            }
         }
 
     }

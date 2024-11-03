@@ -73,6 +73,4 @@ public class KeyBinding : MonoBehaviour
         yield return new WaitForSeconds(0.75f);
         KeyInputUI.SetActive(false);
     }
-
-
 }

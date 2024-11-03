@@ -10,6 +10,10 @@ public class BackgroundRenderer : MonoBehaviour
     public Material RedLineMaterial;
     public Camera MainCamera;
 
+    public int XMax;
+    public int YMax;
+    public int ZMax;
+
     private Vector3 previousPosition;
     private readonly static Vector3[] hitPoints = new Vector3[]
         {
@@ -17,12 +21,18 @@ public class BackgroundRenderer : MonoBehaviour
             new Vector3(5, 27, 40.35534f),
             new Vector3(-30.35534f, 27, 5),
             new Vector3(5, 27, -30.35534f)
-        }; //precalculated values
+        }; // Precalculated values, I will later add function that will calculate these values depending on X,Y,Z
     private CircularLinkedList circularList = new CircularLinkedList(hitPoints);
     private Vector3 center = new(5, 5, 5);
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    private Vector3[] axisVectors = { Vector3.right, Vector3.up, Vector3.forward }; // right = x, up = y, forward = z
 
+
+    /*
+     * When drawing the grid we always subtract 2 from the maximum Y value.
+     * This is because there should be 2 rows high red "area" that warns the player.
+     */
     void Start()
     {
 
@@ -30,12 +40,12 @@ public class BackgroundRenderer : MonoBehaviour
         initialRotation = transform.rotation;
 
         CreateCuboid();
-        DrawGrid(new Vector3(0, 0, 0), 10, 10, 0, 2, LineMaterial);
-        DrawGrid(new Vector3(0, 0, 0), 20, 10, 1, 0, LineMaterial);
-        DrawGrid(new Vector3(0, 0, 0), 20, 10, 1, 2, LineMaterial);
+        DrawGrid(new Vector3(0, 0, 0), XMax, ZMax, 0, 2, LineMaterial); // x & z
+        DrawGrid(new Vector3(0, 0, 0), YMax-2, XMax, 1, 0, LineMaterial); // y & x
+        DrawGrid(new Vector3(0, 0, 0), YMax-2, ZMax, 1, 2, LineMaterial); // y & z
 
-        DrawGrid(new Vector3(0, 20, 0),2, 10, 1, 0, RedLineMaterial);
-        DrawGrid(new Vector3(0, 20, 0),2, 10, 1, 2, RedLineMaterial);
+        DrawGrid(new Vector3(0, YMax-2, 0),2, XMax, 1, 0, RedLineMaterial); // y & x
+        DrawGrid(new Vector3(0, YMax-2, 0),2, ZMax, 1, 2, RedLineMaterial); // y & z
     }
 
     void Update()
@@ -66,7 +76,7 @@ public class BackgroundRenderer : MonoBehaviour
 
     private void RotateCuboid(float angle)
     {
-        Vector3 rotationCenter = new Vector3(5, 11, 5);
+        Vector3 rotationCenter = new Vector3(XMax/2, YMax/2, ZMax/2);
         transform.RotateAround(rotationCenter, Vector3.up, angle);
     }
 
@@ -112,30 +122,25 @@ public class BackgroundRenderer : MonoBehaviour
         return closest;
 
     }
-    
-    /*
-     * The values for the grid are currently fixed.
-     * This will be adjusted later.
-     */
 
     private void CreateCuboid()
     {
         Vector3[] vertices = new Vector3[]
         {
             new Vector3(0, 0, 0),
-            new Vector3(10, 0, 0),
-            new Vector3(10, 22, 0),
-            new Vector3(0, 22, 0),
+            new Vector3(XMax, 0, 0),
+            new Vector3(XMax, YMax, 0),
+            new Vector3(0, YMax, 0),
 
             new Vector3(0, 0, 0),
-            new Vector3(0, 0, 10),
-            new Vector3(0, 22, 10),
-            new Vector3(0, 22, 0),
+            new Vector3(0, 0, ZMax),
+            new Vector3(0, YMax, ZMax),
+            new Vector3(0, YMax, 0),
 
             new Vector3(0, 0, 0),
-            new Vector3(10, 0, 0),
-            new Vector3(10, 0, 10),
-            new Vector3(0, 0, 10)
+            new Vector3(XMax, 0, 0),
+            new Vector3(XMax, 0, ZMax),
+            new Vector3(0, 0, ZMax)
         };
 
         int[] triangles = new int[]
@@ -164,23 +169,22 @@ public class BackgroundRenderer : MonoBehaviour
         meshRenderer.material = BackgroundMaterial;
     }
 
-    private void DrawGrid(Vector3 offset, int width, int height, int axis1, int axis2, Material material)
+    private void DrawGrid(Vector3 offset, int height, int width, int axis1, int axis2, Material material)
     {
         // Determine which axis corresponds to x, y, or z
-        Vector3[] axisVectors = { Vector3.right, Vector3.up, Vector3.forward };
         Vector3 axisVector1 = axisVectors[axis1];
         Vector3 axisVector2 = axisVectors[axis2];
 
-        for (int i = 0; i <= width; i++)
+        for (int i = 0; i <= height; i++)
         {
             Vector3 start = offset + i * axisVector1;
-            Vector3 end = start + height * axisVector2;
+            Vector3 end = start + width * axisVector2;
             DrawLine(start, end, material);
         }
-        for (int j = 0; j <= height; j++)
+        for (int j = 0; j <= width; j++)
         {
             Vector3 start = offset + j * axisVector2;
-            Vector3 end = start + width * axisVector1;
+            Vector3 end = start + height * axisVector1;
             DrawLine(start, end, material);
         }
     }

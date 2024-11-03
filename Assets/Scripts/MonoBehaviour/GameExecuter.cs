@@ -20,8 +20,12 @@ public class GameExecuter : MonoBehaviour
     public Camera gameCamera;
     public BackgroundRenderer backgroundRenderer;
 
+    public int XMax;
+    public int YMax;
+    public int ZMax;
+
     private Vector3 boardCenter = new Vector3(5, 6.5876f, 5); //precalculated values, will be adjusted later
-    private Game game = new Game();
+    private Game game;
     private BlockManager blockManager;
     private Score score = new Score();
     private List<GameObject> placedBlocks = new List<GameObject>();
@@ -74,7 +78,8 @@ public class GameExecuter : MonoBehaviour
 
     void Start()
     {
-        blockManager = new BlockManager(game, BlockPrefabs, placedBlocks);
+        game = new Game(XMax, YMax, ZMax);
+        blockManager = new BlockManager(game, BlockPrefabs, placedBlocks, YMax);
 
         InitializeKeyMappings();
         StartCoroutine(CountdownCoroutine());
@@ -154,7 +159,6 @@ public class GameExecuter : MonoBehaviour
     private void ClearFullLayers()
     {
         int numOfCleared = 0;
-        GameGrid grid = game.Grid;
 
         for (int y = game.Grid.Y - 1; y > 0; y--)
         {
@@ -197,7 +201,7 @@ public class GameExecuter : MonoBehaviour
 
         foreach (var tile in placedBlocks)
         {
-            if (tile.transform.position.y == 21 - y + 0.5)
+            if (tile.transform.position.y == YMax-1 - y + 0.5)
             {
                 tilesToRemove.Add(tile);
             }
@@ -215,7 +219,7 @@ public class GameExecuter : MonoBehaviour
         Vector3 dropVector = new Vector3(0, drop, 0);
         foreach (var tile in placedBlocks)
         {
-            if (tile.transform.position.y == 21 - y + 0.5)
+            if (tile.transform.position.y == YMax-1 - y + 0.5)
             {
                 Vector3 newPosition = tile.transform.position - dropVector;
                 tile.transform.position = newPosition;

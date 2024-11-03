@@ -32,7 +32,6 @@ namespace Assets.Scripts.Blocks
 
         protected override Vector3 StartingOffset => new Vector3(3, 0, 3);
         public override int Id => 1;
-
         protected override Vector3[][][] Tiles => tiles;
     }
 }

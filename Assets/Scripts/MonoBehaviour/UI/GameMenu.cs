@@ -8,21 +8,26 @@ public class GameMenu : MonoBehaviour
     public GameObject SettingsUI;
     private Animator menuAnimator;
     public bool IsPaused = false;
+    public bool IsAnimating = false;
 
     void Start()
     {
         menuAnimator = MenuUI.GetComponent<Animator>();
     }
+
     public void ShowUI()
     {
         MenuUI.SetActive(true);
+        IsAnimating = true;
     }
 
     private IEnumerator SlideUpAndDeactivate()
     {
+        IsAnimating = true; // Setting to true at the start of animation
         menuAnimator.SetTrigger("SlideUp");
         yield return new WaitForSeconds(1f);
         MenuUI.SetActive(false);
+        IsAnimating = false; // Resetting to false after animation completes
     }
 
     public void ResumeGame()
@@ -35,10 +40,12 @@ public class GameMenu : MonoBehaviour
     {
         StartCoroutine(SlideUpAndDeactivate());
         SettingsUI.SetActive(true);
+
     }
 
     public void LeaveToMainMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(0);
     }
 }
+

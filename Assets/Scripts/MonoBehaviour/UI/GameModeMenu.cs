@@ -17,7 +17,7 @@ public class GameModeMenu : MonoBehaviour
 
     public void StartRegularGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(1);
     }
 
     private IEnumerator SlideRightAndDeactivate()

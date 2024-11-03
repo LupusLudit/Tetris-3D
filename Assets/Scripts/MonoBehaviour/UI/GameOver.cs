@@ -14,7 +14,7 @@ public class GameOver : MonoBehaviour
 
     public void EndGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene(0);
         GameOverUI.SetActive(false);
     }
 }

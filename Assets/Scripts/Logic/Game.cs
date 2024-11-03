@@ -35,9 +35,9 @@ namespace Assets.Scripts
         public bool BlockPlaced { get; set; }
 
 
-        public Game()
+        public Game(int x, int y, int z)
         {
-            Grid = new GameGrid(10,22,10);
+            Grid = new GameGrid(x,y,z);
             Holder = new BlockHolder();
             CurrentBlock = Holder.GetNextBlock();
             CanHold = true;
@@ -52,7 +52,6 @@ namespace Assets.Scripts
             }
             return true;
         }
-
 
         public void HoldBlock()
         {
