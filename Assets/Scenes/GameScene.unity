@@ -4559,6 +4559,7 @@ MonoBehaviour:
   MenuUI: {fileID: 548947751}
   SettingsUI: {fileID: 2054097631}
   IsPaused: 0
+  IsAnimating: 0
 --- !u!95 &548947756
 Animator:
   serializedVersion: 5
@@ -9571,7 +9572,7 @@ RectTransform:
   m_GameObject: {fileID: 1117619916}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.9, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 204137274}
@@ -15935,7 +15936,7 @@ RectTransform:
   m_GameObject: {fileID: 2030991025}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.9, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 627173002}
