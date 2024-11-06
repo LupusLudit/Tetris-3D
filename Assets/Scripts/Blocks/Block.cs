@@ -7,61 +7,59 @@ namespace Assets.Scripts.Blocks
     public abstract class Block
     {
         protected abstract Vector3[][][] Tiles { get; }
-        protected abstract Vector3 StartingOffset { get; }
+        protected abstract Vector3 StartingOffset { get; } //Generic offset used for 10x20(22)x10 board (regular mode), for different sizes of the board we use the multiplier
+        protected abstract Vector3 OffsetMultiplier { get; } //Its being used to calculate the Starting offset based on the board size
         public abstract int Id { get; }
-        public int currentState; //0-2
-        public int currentRotationState; //0-3
-        public Vector3 currentOffset;
+        public int CurrentState; //0-2
+        public int CurrentRotationState; //0-3
+        public Vector3 CurrentOffset;
 
         public Block()
         {
-            currentOffset = new Vector3(StartingOffset.x, StartingOffset.y, StartingOffset.z);
+            CurrentOffset = new Vector3(StartingOffset.x, StartingOffset.y, StartingOffset.z);
         }
 
         public IEnumerable<Vector3> TilePositions()
         {
-            foreach (Vector3 v in Tiles[currentState][currentRotationState])
+            foreach (Vector3 v in Tiles[CurrentState][CurrentRotationState])
             {
-                yield return new Vector3(v.x + currentOffset.x, v.y + currentOffset.y, v.z + currentOffset.z);
+                yield return new Vector3(v.x + CurrentOffset.x, v.y + CurrentOffset.y, v.z + CurrentOffset.z);
             }
         }
 
         public void RotateCW()
         {
-            currentRotationState = (currentRotationState + 1) % Tiles[0].Length; ;
+            CurrentRotationState = (CurrentRotationState + 1) % Tiles[0].Length; ;
         }
 
         public void RotateCCW()
         {
-            if (currentRotationState == 0)
+            if (CurrentRotationState == 0)
             {
-                currentRotationState = Tiles[0].Length - 1;
+                CurrentRotationState = Tiles[0].Length - 1;
             }
             else
             {
-                currentRotationState--;
+                CurrentRotationState--;
             }
         }
         public void SwitchAxis(int axis)
         {
-            currentState = axis;
+            CurrentState = axis;
         }
 
         public void Move(int x, int y, int z) 
         {
-            currentOffset.x += x;
-            currentOffset.y += y;
-            currentOffset.z += z;
+            CurrentOffset.x += x;
+            CurrentOffset.y += y;
+            CurrentOffset.z += z;
         }
 
         public void ResetBlock()
         {
-            currentState = 0;
-            currentRotationState = 0;
-
-            currentOffset.x = StartingOffset.x;
-            currentOffset.y = StartingOffset.y;
-            currentOffset.z = StartingOffset.z;
+            CurrentState = 0;
+            CurrentRotationState = 0;
+            CurrentOffset = StartingOffset;
         }
 
     }

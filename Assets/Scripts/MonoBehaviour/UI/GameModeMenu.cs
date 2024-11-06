@@ -20,10 +20,21 @@ public class GameModeMenu : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void StartMiniGame()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     private IEnumerator SlideRightAndDeactivate()
     {
         animator.SetTrigger("SlideRight");
         yield return new WaitForSeconds(1f);
         GameModeMenuUI.SetActive(false);
+    }
+
+    public void GoBack()
+    {
+        StartCoroutine(SlideRightAndDeactivate());
+        MainMenuUI.SetActive(true);
     }
 }

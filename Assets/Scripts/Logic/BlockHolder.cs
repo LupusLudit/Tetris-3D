@@ -1,25 +1,28 @@
 ﻿using Assets.Scripts.Blocks;
-using System;
+using UnityEngine;
+
 namespace Assets.Scripts
 {
     public class BlockHolder
     {
-        private readonly Block[] blocks = new Block[]
-        {
-            new IBlock(),
-            new JBlock(),
-            new LBlock(),
-            new OBlock(),
-            new SBlock(),
-            new TBlock(),
-            new ZBlock()
-        };
+        private readonly Block[] blocks;
         
-        private readonly Random random = new Random();
+        private readonly System.Random random = new System.Random();
         public Block NextBlock { get; private set; }
 
-        public BlockHolder()
+        public BlockHolder(Vector3 multiplier)
         {
+            blocks = new Block[]
+            {
+                new IBlock(multiplier),
+                new JBlock(multiplier),
+                new LBlock(multiplier),
+                new OBlock(multiplier),
+                new SBlock(multiplier),
+                new TBlock(multiplier),
+                new ZBlock(multiplier)
+            };
+
             NextBlock = RandomBlock();
         }
 

@@ -29,10 +29,17 @@ namespace Assets.Scripts.Blocks
             }
         };
 
-        protected override Vector3 StartingOffset => new Vector3(3, 0, 3);
-        public override int Id => 2;
+        private Vector3 multiplier;
 
+        public JBlock(Vector3 multiplier)
+        {
+            this.multiplier = multiplier;
+        }
+
+        protected override Vector3 StartingOffset => new Vector3((int)(3 * OffsetMultiplier.x), 0, (int)(3 * OffsetMultiplier.z));
+        public override int Id => 2;
         protected override Vector3[][][] Tiles => tiles;
+        protected override Vector3 OffsetMultiplier => multiplier;
 
     }
 }
