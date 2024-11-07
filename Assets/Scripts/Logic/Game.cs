@@ -46,7 +46,6 @@ namespace Assets.Scripts
 
         private Vector3 CalculateMultiplier(int x, int y, int z)
         {
-            Debug.Log($"X: {(float)x /10}, Y: {(float)y /22}, Z: {(float)z /10}");
             return new Vector3((float) x / 10, (float) y / 22, (float) z / 10);
         }
 
