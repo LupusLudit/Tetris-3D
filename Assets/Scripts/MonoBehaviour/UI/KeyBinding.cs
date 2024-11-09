@@ -11,13 +11,11 @@ public class KeyBinding : MonoBehaviour
     public GameMenu MenuScript;
 
     public TextMeshProUGUI KeyInputText;
-    public TextMeshProUGUI [] ButtonLabels;
+    public TextMeshProUGUI[] ButtonLabels;
+    public TextMeshProUGUI[] HintLabels;
 
     public InputManager InputManagerScript;
     private Animator KeyBindingAnimator;
-
-    //TODO: Update the hint along with the changed keybinds
-
     void Start()
     {
         KeyBindingAnimator = KeyBindingUI.GetComponent<Animator>();
@@ -62,9 +60,31 @@ public class KeyBinding : MonoBehaviour
         KeyInputUI.SetActive(true);
     }
 
+    public void ChangeHintLabel(int index, string text)
+    {
+        // Handling special cases
+        if (IsWithin(index, 0, 3)) HintLabels[0].text = SequenceHint(0, index, 0, text);
+        else if (IsWithin(index, 4, 5)) HintLabels[1].text = SequenceHint(4, index, 1, text);
+
+        else HintLabels[index - 4].text = text;
+    }
+
     public void HideKeyInputUI(string key)
     {
         StartCoroutine(HideKeyInputUICoroutine(key));
+    }
+
+    private string SequenceHint(int seqStartIndex, int actualIndex, int hintsIndex, string key)
+    {
+        string temp = HintLabels[hintsIndex].text;
+        int dif = actualIndex - seqStartIndex;
+        string[] keyArr = temp.Split(", ");
+        keyArr[dif] = key;
+        return string.Join(", ", keyArr);
+    }
+    private bool IsWithin(int num, int min, int max)
+    {
+        return num >= min && num <= max;
     }
 
     private IEnumerator HideKeyInputUICoroutine(string key)

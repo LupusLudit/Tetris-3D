@@ -61,6 +61,8 @@ public class InputManager : MonoBehaviour
             gameKeyActions[key] = action;
             KeyBindingScript.ChangeButtonLabel(index, key.ToString());
             KeyBindingScript.HideKeyInputUI(key.ToString());
+
+            KeyBindingScript.ChangeHintLabel(index, key.ToString());
         }
         else
         {

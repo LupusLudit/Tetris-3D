@@ -69,8 +69,8 @@ public class GameExecuter : MonoBehaviour
                     DrawNextBlock(game.Holder);
                 }
             },
-            { KeyCode.L, () => RotateCameraAroundBoard(-0.5f) },
-            { KeyCode.K, () => RotateCameraAroundBoard(0.5f) },
+            { KeyCode.K, () => RotateCameraAroundBoard(-0.5f) },
+            { KeyCode.L, () => RotateCameraAroundBoard(0.5f) },
             { KeyCode.R, () => backgroundRenderer.ResetToDefault() },
             { KeyCode.Escape, () => Manager.Pause() }
         };
