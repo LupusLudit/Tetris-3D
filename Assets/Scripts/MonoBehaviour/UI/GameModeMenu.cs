@@ -13,8 +13,6 @@ public class GameModeMenu : MonoBehaviour
         animator = GameModeMenuUI.GetComponent<Animator>();
     }
 
-    //TODO: add other game modes
-
     public void StartRegularGame()
     {
         SceneManager.LoadScene(1);
@@ -23,6 +21,11 @@ public class GameModeMenu : MonoBehaviour
     public void StartMiniGame()
     {
         SceneManager.LoadScene(2);
+    }
+
+    public void StartPowerUpsGame()
+    {
+        SceneManager.LoadScene(3);
     }
 
     private IEnumerator SlideRightAndDeactivate()

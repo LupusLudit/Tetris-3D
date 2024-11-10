@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MiniGame.unity
     guid: 8598fab3aa3ad5e42b6cf81f2ad98a6b
+  - enabled: 1
+    path: Assets/Scenes/PowerUpsGame.unity
+    guid: 49a2e48285dc15f4493ecbc256e5f3b4
   m_configObjects: {}

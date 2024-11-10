@@ -1,0 +1,42 @@
+List of power ups that can be added to the game. Not all of them will be implemented though.
+
+1. Clear Row Power-Up
+Effect: Clears one or more rows instantly.
+How to Implement: Trigger an automatic line clear that removes rows without requiring the player to complete them.
+Balance Tip: Set a cooldown or limited uses for this power-up to maintain challenge.
+2. Slow Down Drop Speed
+Effect: Temporarily reduces the speed at which blocks fall.
+How to Implement: Reduce the block drop rate for a set period.
+Balance Tip: This is a good "rescue" power-up, but it shouldn't last too long to avoid making the game too easy.
+3. Double Points
+Effect: Doubles the points for each completed row within a certain timeframe.
+How to Implement: Activate a multiplier in the scoring system for a limited duration.
+Balance Tip: Keep it short, or trigger it based on clearing a specific number of lines to avoid excessive score inflation.
+4. Freeze Blocks
+Effect: Temporarily stops new blocks from spawning.
+How to Implement: Stop the spawning routine for a few seconds to give players time to clear rows and reposition blocks.
+Balance Tip: This can be especially powerful, so use it sparingly.
+5. Block Switcher
+Effect: Allows the player to swap the current block with the next one.
+How to Implement: Add a UI element that allows switching the blocks, and toggle between them upon activation.
+Balance Tip: Limit this to once per game or once every few rows to prevent overuse.
+6. Remove Column
+Effect: Removes a selected vertical column.
+How to Implement: Give the player a prompt to select a column to remove, or randomize it.
+Balance Tip: This is especially useful when players have uneven stacks, but use it sparingly to avoid it feeling too easy.
+7. Shrink Board
+Effect: Temporarily shrinks the board width, adding challenge.
+How to Implement: Reduce the board’s width for a set period, forcing players to stack more efficiently.
+Balance Tip: Only offer this in specific game modes or for advanced players, as it adds significant difficulty.
+8. Bomb Block
+Effect: Clears a small, targeted area around where it lands.
+How to Implement: This block explodes upon landing, removing a small area of blocks within its blast radius.
+Balance Tip: Ensure it doesn’t create gaps that make it too easy to complete rows.
+9. Ghost Block Drop
+Effect: Displays a "ghost" or preview block showing where the block will land.
+How to Implement: Show a transparent projection of the current block’s landing position.
+Balance Tip: This can be a permanent power-up for a specific mode, helping players visualize landings.
+10. Reverse Gravity
+Effect: Temporarily makes blocks float upward, clearing rows from the top instead of the bottom.
+How to Implement: Invert the in game gravity so blocks rise for a few seconds.
+Balance Tip: This can create a disorienting challenge, best used briefly or with limited frequency.
