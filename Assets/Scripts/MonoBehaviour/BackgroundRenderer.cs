@@ -54,7 +54,6 @@ public class BackgroundRenderer : MonoBehaviour
         previousPosition = MainCamera.transform.position;
     }
 
-
     private void CheckHitAndDirection()
     {
         if (CameraHitPoint())

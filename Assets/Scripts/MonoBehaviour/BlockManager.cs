@@ -10,10 +10,12 @@ public class BlockManager : MonoBehaviour
 
     private List<GameObject> currentBlockTiles = new List<GameObject>();
     private List<GameObject> predictedBlockTiles = new List<GameObject>();
-    private List<GameObject> placedBlocks;
+    private HashSet<GameObject> placedBlocks;
     private int gridHeight;
 
-    public BlockManager(Game game, GameObject[] blockPrefabs, List<GameObject> placedBlocks, int gridHeight)
+    //TODO: instead of creating and destroying blocks, use pooling
+
+    public void Initialize(Game game, GameObject[] blockPrefabs, HashSet<GameObject> placedBlocks, int gridHeight)
     {
         this.game = game;
         this.blockPrefabs = blockPrefabs;
@@ -86,7 +88,6 @@ public class BlockManager : MonoBehaviour
 
         CreateBlockPrediction(game.CurrentBlock);
         CreateNewBlock(game.CurrentBlock);
-
     }
 
     private void ClearList(List<GameObject> list)
@@ -98,15 +99,10 @@ public class BlockManager : MonoBehaviour
         list.Clear();
     }
 
-    /*
-     * Since our cubes are always 1x1x1 and the position of the cube refers to the center of the cube,
-     * we have to move the cube by +0.5(-0.5+1 since the positions in unity are shifted) on each axis in order for it to be positioned properly
-    */
     private Vector3 ActualPosition(Vector3 v)
     {
         Renderer renderer = blockPrefabs[game.CurrentBlock.Id - 1].GetComponent<Renderer>();
         Vector3 cubeSize = renderer.bounds.size;
-        return new Vector3(v.x + cubeSize.x / 2, gridHeight-1 - v.y + cubeSize.y / 2, v.z + cubeSize.z / 2);
+        return new Vector3(v.x + cubeSize.x / 2, gridHeight - 1 - v.y + cubeSize.y / 2, v.z + cubeSize.z / 2);
     }
-
 }

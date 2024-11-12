@@ -28,15 +28,11 @@ namespace Assets.Scripts.Blocks
                     new Vector3[]{new(0,1,1),new(1,0,1),new(1,1,1),new(2,0,1)}
             }
         };
-        private Vector3 multiplier;
+        private readonly Vector3 multiplier;
 
-        public ZBlock(Vector3 multiplier)
-        {
-            this.multiplier = multiplier;
-        }
+        public ZBlock(Vector3 offsetMultiplier) : base(offsetMultiplier) { }
         protected override Vector3 StartingOffset => new Vector3((int)(3 * OffsetMultiplier.x), 0, (int)(3 * OffsetMultiplier.z));
         public override int Id => 7;
         protected override Vector3[][][] Tiles => tiles;
-        protected override Vector3 OffsetMultiplier => multiplier;
     }
 }

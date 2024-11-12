@@ -19,116 +19,60 @@ public class GameExecuter : MonoBehaviour
     public TextMeshProUGUI CountdownText;
     public Camera gameCamera;
     public BackgroundRenderer backgroundRenderer;
-
-    public int XMax;
-    public int YMax;
-    public int ZMax;
+    public int XMax, YMax, ZMax;
 
     private Vector3 boardCenter = new Vector3(5, 6.5876f, 5); //precalculated values, will be adjusted later
     private Game game;
-    private BlockManager blockManager;
+    private BlockManager blockManager = new BlockManager();
     private Score score = new Score();
-    private List<GameObject> placedBlocks = new List<GameObject>();
-
-    private int level = 0;
-    private int linesCleaned = 0;
-    
-    private float timeSinceLastFall;
+    private HashSet<GameObject> placedBlocks = new HashSet<GameObject>();
     private DelayManager delay = new DelayManager(750, 50, 25);
     private Dictionary<KeyCode, Action> keyActions;
-    private void InitializeKeyMappings()
-    {
-        keyActions = new Dictionary<KeyCode, Action>
-        {
-            { KeyCode.UpArrow, () => game.XBack() },
-            { KeyCode.DownArrow, () => game.XForward() },
-            { KeyCode.LeftArrow, () => game.ZBack() },
-            { KeyCode.RightArrow, () => game.ZForward() },
-            { KeyCode.Q, () => game.RotateBlockCCW() },
-            { KeyCode.E, () => game.RotateBlockCW() },
-            { KeyCode.A, () => game.SwitchToDifAxis(0) },
-            { KeyCode.S, () => game.SwitchToDifAxis(1) },
-            { KeyCode.D, () => game.SwitchToDifAxis(2) },
-            { KeyCode.LeftShift, () =>
-                {
-                    delay.CurrentDelay = 75;
-                    score.IncrementScore();
-                    Manager.DrawScoreUI(score.CurrentScore);
-                }
-            },
-            { KeyCode.Space, () =>
-                {
-                    game.DropBlock();
-                    Restart();
-                }
-            },
-            { KeyCode.C, () =>
-                {
-                    blockManager.HoldCurrentBlock();
-                    DrawHeldBlock(game.HeldBlock);
-                    DrawNextBlock(game.Holder);
-                }
-            },
-            { KeyCode.K, () => RotateCameraAroundBoard(-0.5f) },
-            { KeyCode.L, () => RotateCameraAroundBoard(0.5f) },
-            { KeyCode.R, () => backgroundRenderer.ResetToDefault() },
-            { KeyCode.Escape, () => Manager.Pause() }
-        };
-    }
+
+    private float timeSinceLastFall;
+    private int level = 0;
+    private int linesCleaned = 0;
+
+    //TODO: Use pooling
 
     void Start()
     {
         game = new Game(XMax, YMax, ZMax);
-        blockManager = new BlockManager(game, BlockPrefabs, placedBlocks, YMax);
+        blockManager.Initialize(game, BlockPrefabs, placedBlocks, YMax);
 
         InitializeKeyMappings();
         StartCoroutine(CountdownCoroutine());
+
         blockManager.CreateNewBlock(game.CurrentBlock);
         blockManager.CreateBlockPrediction(game.CurrentBlock);
         DrawNextBlock(game.Holder);
+
         timeSinceLastFall = 0f;
     }
-
-    // Countdown coroutine
-    IEnumerator CountdownCoroutine()
-    {
-        CountdownText.gameObject.SetActive(true);
-
-        CountdownText.text = "GET READY!";
-        yield return new WaitForSeconds(1f);
-        for (int i = 3; i > 0; i--)
-        {
-            CountdownText.text = i.ToString();
-            yield return new WaitForSeconds(1f);
-        }
-        CountdownText.text = "START!";
-        yield return new WaitForSeconds(1f);
-
-        CountdownText.gameObject.SetActive(false);
-        CountdownPanel.gameObject.SetActive(false);
-    }
-
     void Update()
     {
-        if (!game.GameOver && CountdownText.gameObject.activeSelf == false && !Manager.GameMenu.IsPaused)
+        if (!IsGameActive())
         {
-            delay.AdjustDelay(score.CurrentScore);
-
-            HandleKeys();
-            timeSinceLastFall += Time.deltaTime;
-
-            if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
-            {
-                game.MoveBlockDown();
-                if (game.BlockPlaced) Restart();
-
-                blockManager.UpdateBlock(game.CurrentBlock);
-                blockManager.UpdatePrediction(game.CurrentBlock);
-
-                timeSinceLastFall = 0f;
-            }
+            if (game.GameOver) Manager.DrawGameOverScreen();
+            return;
         }
-        else if (game.GameOver) Manager.DrawGameOverScreen();
+
+        UpdateFallDelay();
+        HandleKeys();
+        if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
+        {
+            ExecuteGameStep();
+            timeSinceLastFall = 0f;
+        }
+    }
+
+    private void ExecuteGameStep()
+    {
+        game.MoveBlockDown();
+        if (game.BlockPlaced) Restart();
+
+        blockManager.UpdateBlock(game.CurrentBlock);
+        blockManager.UpdatePrediction(game.CurrentBlock);
     }
 
     private void Restart()
@@ -197,15 +141,16 @@ public class GameExecuter : MonoBehaviour
     private void ClearBlocksInRow(int y)
     {
         game.Grid.ClearLayer(y);
-        List<GameObject> tilesToRemove = new List<GameObject>();
+        var tilesToRemove = new HashSet<GameObject>();
 
         foreach (var tile in placedBlocks)
         {
-            if (tile.transform.position.y == YMax-1 - y + 0.5)
+            if (tile.transform.position.y == YMax - 1 - y + 0.5)
             {
                 tilesToRemove.Add(tile);
             }
         }
+
         foreach (var tile in tilesToRemove)
         {
             placedBlocks.Remove(tile);
@@ -219,11 +164,7 @@ public class GameExecuter : MonoBehaviour
         Vector3 dropVector = new Vector3(0, drop, 0);
         foreach (var tile in placedBlocks)
         {
-            if (tile.transform.position.y == YMax-1 - y + 0.5)
-            {
-                Vector3 newPosition = tile.transform.position - dropVector;
-                tile.transform.position = newPosition;
-            }
+            if (tile.transform.position.y == YMax-1 - y + 0.5) tile.transform.position -= dropVector;
         }
     }
 
@@ -236,7 +177,7 @@ public class GameExecuter : MonoBehaviour
              * The first condition checks if the desired button is being HELD and if so the assigned action will be performed
              * Or it just checks if the key has been PRESSED and if so the assigned action will be performed
              */
-            if ((Input.GetKey(keyAction.Key) && IsDesiredHold(keyAction.Key)) || Input.GetKeyDown(keyAction.Key))
+            if ((Input.GetKey(keyAction.Key) && IsDesiredHeld(keyAction.Key)) || Input.GetKeyDown(keyAction.Key))
             {
                     keyAction.Value();
             }
@@ -246,7 +187,7 @@ public class GameExecuter : MonoBehaviour
         blockManager.UpdatePrediction(game.CurrentBlock);
     }
 
-    private bool IsDesiredHold(KeyCode k)
+    private bool IsDesiredHeld(KeyCode k)
     {
         return k == GetKeyFromIndex(9) || k == GetKeyFromIndex(12) || k == GetKeyFromIndex(13);
     }
@@ -283,5 +224,85 @@ public class GameExecuter : MonoBehaviour
             return new List<KeyCode>(keyActions.Keys)[index];
         }
         return KeyCode.None;
+    }
+
+    public HashSet<GameObject> GetPlacedBlocks()
+    {
+        return placedBlocks;
+    }
+
+    public void RemoveTile(GameObject tile)
+    {
+        Destroy(tile);
+    }
+
+    private bool IsGameActive()
+    {
+        return !game.GameOver && !CountdownText.gameObject.activeSelf && !Manager.GameMenu.IsPaused;
+    }
+
+    private void UpdateFallDelay()
+    {
+        delay.AdjustDelay(score.CurrentScore);
+        timeSinceLastFall += Time.deltaTime;
+    }
+
+    // Countdown coroutine at the beginning of the game
+    IEnumerator CountdownCoroutine()
+    {
+        CountdownText.gameObject.SetActive(true);
+
+        CountdownText.text = "GET READY!";
+        yield return new WaitForSeconds(1f);
+        for (int i = 3; i > 0; i--)
+        {
+            CountdownText.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+        CountdownText.text = "START!";
+        yield return new WaitForSeconds(1f);
+
+        CountdownText.gameObject.SetActive(false);
+        CountdownPanel.gameObject.SetActive(false);
+    }
+
+    private void InitializeKeyMappings()
+    {
+        keyActions = new Dictionary<KeyCode, Action>
+        {
+            { KeyCode.UpArrow, () => game.XBack() },
+            { KeyCode.DownArrow, () => game.XForward() },
+            { KeyCode.LeftArrow, () => game.ZBack() },
+            { KeyCode.RightArrow, () => game.ZForward() },
+            { KeyCode.Q, () => game.RotateBlockCCW() },
+            { KeyCode.E, () => game.RotateBlockCW() },
+            { KeyCode.A, () => game.SwitchToDifAxis(0) },
+            { KeyCode.S, () => game.SwitchToDifAxis(1) },
+            { KeyCode.D, () => game.SwitchToDifAxis(2) },
+            { KeyCode.LeftShift, () =>
+                {
+                    delay.CurrentDelay = 75;
+                    score.IncrementScore();
+                    Manager.DrawScoreUI(score.CurrentScore);
+                }
+            },
+            { KeyCode.Space, () =>
+                {
+                    game.DropBlock();
+                    Restart();
+                }
+            },
+            { KeyCode.C, () =>
+                {
+                    blockManager.HoldCurrentBlock();
+                    DrawHeldBlock(game.HeldBlock);
+                    DrawNextBlock(game.Holder);
+                }
+            },
+            { KeyCode.K, () => RotateCameraAroundBoard(0.5f) },
+            { KeyCode.L, () => RotateCameraAroundBoard(-0.5f) },
+            { KeyCode.R, () => backgroundRenderer.ResetToDefault() },
+            { KeyCode.Escape, () => Manager.Pause() }
+        };
     }
 }

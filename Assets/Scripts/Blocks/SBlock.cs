@@ -30,16 +30,11 @@ namespace Assets.Scripts.Blocks
             }
         };
 
-        private Vector3 multiplier;
+        private readonly Vector3 multiplier;
 
-        public SBlock(Vector3 multiplier)
-        {
-            this.multiplier = multiplier;
-        }
+        public SBlock(Vector3 offsetMultiplier) : base(offsetMultiplier) { }
         protected override Vector3 StartingOffset => new Vector3((int)(3 * OffsetMultiplier.x), 0, (int)(3 * OffsetMultiplier.z));
         public override int Id => 5;
         protected override Vector3[][][] Tiles => tiles;
-
-        protected override Vector3 OffsetMultiplier => multiplier;
     }
 }
