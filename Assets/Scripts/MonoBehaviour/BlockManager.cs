@@ -15,32 +15,30 @@ public class BlockManager : MonoBehaviour
 
     //TODO: instead of creating and destroying blocks, use pooling
 
-    public void Initialize(Game game, GameObject[] blockPrefabs, HashSet<GameObject> placedBlocks, int gridHeight)
+    public void Initialize(GameExecuter gameExecuter)
     {
-        this.game = game;
-        this.blockPrefabs = blockPrefabs;
-        this.placedBlocks = placedBlocks;
-        this.gridHeight = gridHeight;
+        game = gameExecuter.CurrentGame;
+        blockPrefabs = gameExecuter.BlockPrefabs;
+        placedBlocks = gameExecuter.PlacedBlocks;
+        gridHeight = gameExecuter.YMax;
     }
 
     public void CreateNewBlock(Block block)
     {
-        foreach (Vector3 v in block.TilePositions())
+        foreach (Vector3 tilePosition in block.TilePositions())
         {
-            GameObject tile = Instantiate(blockPrefabs[block.Id - 1], ActualPosition(v), Quaternion.identity);
+            GameObject tile = InstantiateTile(block, ActualPosition(tilePosition));
             currentBlockTiles.Add(tile);
         }
     }
 
     public void CreateBlockPrediction(Block block)
     {
-        foreach (Vector3 v in block.TilePositions())
+        int maxDrop = game.MaxPossibleDrop();
+        foreach (Vector3 tilePosition in block.TilePositions())
         {
-            int drop = game.MaxPossibleDrop();
-            Vector3 predictedPosition = ActualPosition(v) - new Vector3(0, drop, 0);
-            GameObject tile = Instantiate(blockPrefabs[block.Id - 1], predictedPosition, Quaternion.identity);
-            tile.transform.localScale *= 0.999f;
-            tile.GetComponent<Renderer>().material.color = new Color(0.5f, 0.5f, 0.5f);
+            Vector3 predictedPosition = ActualPosition(tilePosition) - Vector3.up * maxDrop;
+            GameObject tile = InstantiateTile(block, predictedPosition, isPrediction: true);
             predictedBlockTiles.Add(tile);
         }
     }
@@ -88,6 +86,18 @@ public class BlockManager : MonoBehaviour
 
         CreateBlockPrediction(game.CurrentBlock);
         CreateNewBlock(game.CurrentBlock);
+    }
+    private GameObject InstantiateTile(Block block, Vector3 position, bool isPrediction = false)
+    {
+        GameObject tile = Instantiate(blockPrefabs[block.Id - 1], position, Quaternion.identity);
+
+        if (isPrediction)
+        {
+            tile.transform.localScale *= 0.999f;
+            Renderer renderer = tile.GetComponent<Renderer>();
+            renderer.material.color = new Color(0.5f, 0.5f, 0.5f);
+        }
+        return tile;
     }
 
     private void ClearList(List<GameObject> list)

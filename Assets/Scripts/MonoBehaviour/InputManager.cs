@@ -46,7 +46,7 @@ public class InputManager : MonoBehaviour
     private void UpdateKeyBinding(string buttonId, KeyCode key)
     {
         int index = int.Parse(buttonId);
-        var gameKeyActions = GameExecuterScript.GetKeyActions();
+        var gameKeyActions = GameExecuterScript.keyActions;
         if (!IsKeyOccupied(key, gameKeyActions))
         {
             Action action = GameExecuterScript.GetActionFromIndex(index);

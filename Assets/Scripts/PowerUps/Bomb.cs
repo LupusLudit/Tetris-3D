@@ -24,7 +24,7 @@ namespace Assets.Scripts.PowerUps
 
         public Bomb(Vector3 position, GameExecuter executer) : base(position, executer)
         {
-            tiles = executer.GetPlacedBlocks();
+            tiles = executer.PlacedBlocks;
         }
 
         public override void Use()
