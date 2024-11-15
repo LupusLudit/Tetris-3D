@@ -58,7 +58,6 @@
             return true;
         }
 
-
         public void ClearLayer(int y)
         {
             for (int x = 0; x < X; x++)
@@ -67,6 +66,14 @@
                 {
                     grid[x, y, z] = 0;
                 }
+            }
+        }
+
+        public void ClearColumn(int x, int z)
+        {
+            for (int y = 0; y < Y; y++)
+            {
+                grid[x, y, z] = 0;
             }
         }
 

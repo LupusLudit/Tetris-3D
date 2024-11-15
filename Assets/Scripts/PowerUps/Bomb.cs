@@ -7,6 +7,8 @@ namespace Assets.Scripts.PowerUps
     {
 
         private HashSet<GameObject> tiles;
+        public override int Id => 8;
+
         private Vector3[] blastRadiusPositions =
         {
             new Vector3(-1, -1, -1), new Vector3(-1, -1, 0), new Vector3(-1, -1, 1),
@@ -22,7 +24,7 @@ namespace Assets.Scripts.PowerUps
             new Vector3(1, 1, -1), new Vector3(1, 1, 0), new Vector3(1, 1, 1)
         };
 
-        public Bomb(Vector3 position, GameExecuter executer) : base(position, executer)
+        public Bomb(GameExecuter executer) : base(executer)
         {
             tiles = executer.PlacedBlocks;
         }

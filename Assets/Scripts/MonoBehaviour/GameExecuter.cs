@@ -15,7 +15,7 @@ public class GameExecuter : MonoBehaviour
     public Sprite[] BlockImages;
 
     [Header("UI Elements")]
-    public Image NextImage; 
+    public Image NextImage;
     public Image HoldImage;
     public UIManager Manager;
     public GameObject CountdownPanel;
@@ -29,7 +29,8 @@ public class GameExecuter : MonoBehaviour
     public Game CurrentGame { get; private set; }
     public HashSet<GameObject> PlacedBlocks { get; private set; } = new HashSet<GameObject>();
     public Dictionary<KeyCode, Action> keyActions { get; private set; }
-    private Vector3 boardCenter = new Vector3(5, 6.5876f, 5); // Placeholder, adjust as needed
+    public bool SlowDown { get; set; } = false;
+    private Vector3 boardCenter = new Vector3(5, 6.5876f, 5);
     private BlockManager blockManager;
     private Score score;
     private DelayManager delay;
@@ -141,6 +142,7 @@ public class GameExecuter : MonoBehaviour
         }
     }
 
+    //We cant remove elements from a collection while iterating over it, so we first load tiles into the tilesToRemove List.
     public void ClearBlocksInRow(int y)
     {
         CurrentGame.Grid.ClearLayer(y);
@@ -149,6 +151,26 @@ public class GameExecuter : MonoBehaviour
         foreach (var tile in PlacedBlocks)
         {
             if (tile.transform.position.y == YMax - 1 - y + 0.5f)
+            {
+                tilesToRemove.Add(tile);
+            }
+        }
+
+        foreach (var tile in tilesToRemove)
+        {
+            PlacedBlocks.Remove(tile);
+            Destroy(tile);
+        }
+    }
+
+    public void ClearBlocksInColumn(int x, int z)
+    {
+        CurrentGame.Grid.ClearColumn(x, z);
+        var tilesToRemove = new List<GameObject>();
+
+        foreach (var tile in PlacedBlocks)
+        {
+            if (tile.transform.position.x == x + 0.5f && tile.transform.position.z == z + 0.5f)
             {
                 tilesToRemove.Add(tile);
             }
@@ -228,7 +250,7 @@ public class GameExecuter : MonoBehaviour
 
     private void UpdateFallDelay()
     {
-        delay.AdjustDelay(score.CurrentScore);
+        delay.AdjustDelay(score.CurrentScore, SlowDown);
         timeSinceLastFall += Time.deltaTime;
     }
 

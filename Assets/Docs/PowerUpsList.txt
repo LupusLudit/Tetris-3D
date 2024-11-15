@@ -1,32 +1,29 @@
 List of power ups that can be added to the game. Not all of them will be implemented though.
 
-1. Clear Row Power-Up
+1. Clear Row Power-Up*
 Effect: Clears one or more rows instantly.
 Implemention: Trigger an automatic line clear that removes rows without requiring the player to complete them.
-2. Slow Down Drop Speed
-Effect: Temporarily reduces the speed at which blocks fall.
-Implemention: Reduce the block drop rate for a set period.
-3. Double Points
-Effect: Doubles the points for each completed row within a certain timeframe.
-Implemention: Activate a multiplier in the scoring system for a limited duration.
-4. Freeze Blocks
-Effect: Temporarily stops new blocks from spawning.
-Implemention: Stop the spawning routine for a few seconds to give players time to clear rows and reposition blocks.
-5. Block Switcher
-Effect: Allows the player to swap the current block with the next one.
-Implemention: Add a UI element that allows switching the blocks, and toggle between them upon activation.
-6. Remove Column
+2. Remove Column*
 Effect: Removes a selected vertical column.
 Implemention: Give the player a prompt to select a column to remove, or randomize it.
-7. Shrink Board
-Effect: Temporarily shrinks the board width, adding challenge.
-Implemention: Reduce the board’s width for a set period, forcing players to stack more efficiently.
-8. Bomb Block
+3. Slow Down Drop Speed*
+Effect: Temporarily reduces the speed at which blocks fall.
+Implemention: Reduce the block drop rate for a set period.
+4. Bomb Block*
 Effect: Clears a small, targeted area around where it lands.
 Implemention: This block explodes upon landing, removing a small area of blocks within its blast radius.
-9. Ghost Block Drop
-Effect: Displays a "ghost" or preview block showing where the block will land.
-Implemention: Show a transparent projection of the current block’s landing position.
-10. Reverse Gravity
+5. Double Points
+Effect: Doubles the points for each completed row within a certain timeframe.
+Implemention: Activate a multiplier in the scoring system for a limited duration.
+6. Freeze Blocks
+Effect: Temporarily stops new blocks from spawning.
+Implemention: Stop the spawning routine for a few seconds to give players time to clear rows and reposition blocks.
+7. Block Switcher
+Effect: Allows the player to swap the current block with the next one.
+Implemention: Add a UI element that allows switching the blocks, and toggle between them upon activation.
+8. Shrink Board
+Effect: Temporarily shrinks the board width, adding challenge.
+Implemention: Reduce the board’s width for a set period, forcing players to stack more efficiently.
+9 Reverse Gravity
 Effect: Temporarily makes blocks float upward, clearing rows from the top instead of the bottom.
 Implemention: Invert the in game gravity so blocks rise for a few seconds.

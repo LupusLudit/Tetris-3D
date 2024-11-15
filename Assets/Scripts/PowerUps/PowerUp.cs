@@ -4,15 +4,16 @@ namespace Assets.Scripts.PowerUps
 {
     public abstract class PowerUp
     {
-        protected Vector3 Position { get; }
+        public Vector3 Position { get; set; }
+        public abstract int Id { get; }
         protected GameExecuter Executer { get; }
 
-        public PowerUp(Vector3 position, GameExecuter executer)
+        public PowerUp(GameExecuter executer)
         {
-            Position = position;
             Executer = executer;
         }
 
         public abstract void Use();
     }
 }
+

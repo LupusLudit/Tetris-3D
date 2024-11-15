@@ -19,9 +19,11 @@ namespace Assets.Scripts.Logic
             CurrentDelay = maxDelay;
         }
 
-        public void AdjustDelay(int score)
+        public void AdjustDelay(int score, bool slowDown)
         {
-            CurrentDelay = Math.Max(minDelay, maxDelay - (score / 10000 * delayDecrease));
+            int temp = Math.Max(minDelay, maxDelay - (score / 10000 * delayDecrease));
+            if(!slowDown) CurrentDelay = temp;
+            else CurrentDelay = temp * 2;
         }
     }
 }

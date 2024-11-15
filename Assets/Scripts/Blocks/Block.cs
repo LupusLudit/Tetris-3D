@@ -8,7 +8,6 @@ namespace Assets.Scripts.Blocks
         protected abstract Vector3[][][] Tiles { get; }
         protected abstract Vector3 StartingOffset { get; }
         public abstract int Id { get; }
-
         public int CurrentState { get; private set; } = 0;
         public int CurrentRotationState { get; private set; } = 0;
         public Vector3 CurrentOffset { get; private set; }

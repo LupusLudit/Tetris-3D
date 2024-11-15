@@ -6,7 +6,8 @@ namespace Assets.Scripts.PowerUps
     {
 
         private GameGrid grid;
-        public ClearLine(Vector3 position, GameExecuter executer) : base(position, executer)
+        public override int Id => 1;
+        public ClearLine(GameExecuter executer) : base(executer)
         {
             grid = executer.CurrentGame.Grid;
         }
