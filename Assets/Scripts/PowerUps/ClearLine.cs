@@ -1,6 +1,4 @@
-﻿ using UnityEngine;
-
-namespace Assets.Scripts.PowerUps
+﻿namespace Assets.Scripts.PowerUps
 {
     public class ClearLine : PowerUp
     {

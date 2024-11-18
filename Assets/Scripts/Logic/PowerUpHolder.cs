@@ -29,8 +29,25 @@ namespace Assets.Scripts.Logic
         private PowerUp RandomPowerUp()
         {
             PowerUp powerUp = powerUps[random.Next(powerUps.Length)];
-            powerUp.Position = new Vector3(random.Next(executer.XMax), random.Next(executer.YMax - 2), random.Next(executer.ZMax));
+            Vector3 position = Vector3.zero;
+            do
+            {
+                position = new Vector3(random.Next(executer.XMax), random.Next(executer.YMax - 2), random.Next(executer.ZMax));
+            }
+            while (PositionInPlacedBlocks(position));
+
+            powerUp.Position = position;
             return powerUp;
+        }
+
+        private bool PositionInPlacedBlocks(Vector3 position)
+        {
+            foreach (var block in executer.PlacedBlocks)
+            {
+                if (block.transform.position == position) return true;
+            }
+
+            return false;
         }
 
         public PowerUp GetNextPowerUp()

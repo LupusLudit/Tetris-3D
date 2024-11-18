@@ -7,7 +7,7 @@ namespace Assets.Scripts.PowerUps
     {
 
         private HashSet<GameObject> tiles;
-        public override int Id => 8;
+        public override int Id => 4;
 
         private Vector3[] blastRadiusPositions =
         {
