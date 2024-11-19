@@ -12,8 +12,8 @@
 
         public override void Use()
         {
-            int y = Executer.YMax;
-            for (int i = y; i > 0; i--)
+            int maxY = Executer.YMax;
+            for (int i = 0; i < maxY; i++)
             {
                 if (!grid.IsLayerEmpty(i))
                 {

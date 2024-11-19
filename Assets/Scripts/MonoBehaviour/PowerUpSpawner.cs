@@ -21,7 +21,6 @@ public class PowerUpSpawner : MonoBehaviour
             if (powerUpHolder == null && executer.CurrentGame.Grid != null)
             {
                 powerUpHolder = new PowerUpHolder(executer);
-                Debug.Log("PowerUpHolder initialized.");
             }
 
             // Update PowerUps if PowerUpHolder is initialized
@@ -56,6 +55,7 @@ public class PowerUpSpawner : MonoBehaviour
                     powerUp.Use();
                     Debug.Log($"Used a power up with id {powerUp.Id}");
                     toRemove.Add(powerUpObject);
+                    break;
                 }
             }
         }
@@ -78,18 +78,11 @@ public class PowerUpSpawner : MonoBehaviour
     {
         GameObject prefab = PowerUpPrefabs[powerUp.Id - 1];
 
-        if (prefab != null)
-        {
-            GameObject powerUpObject = Instantiate(prefab, PowerUpPosition(powerUp), Quaternion.identity);
-            activePowerUps.Add(powerUpObject);
+        GameObject powerUpObject = Instantiate(prefab, PowerUpPosition(powerUp), Quaternion.identity);
+        activePowerUps.Add(powerUpObject);
 
-            PowerUpComponent component = powerUpObject.AddComponent<PowerUpComponent>();
-            component.Initialize(powerUp);
-        }
-        else
-        {
-            Debug.LogError($"No prefab assigned for PowerUp ID {powerUp.Id}");
-        }
+        PowerUpComponent component = powerUpObject.AddComponent<PowerUpComponent>();
+        component.Initialize(powerUp);
     }
 
     private Vector3 PowerUpPosition(PowerUp powerUp)
@@ -97,7 +90,7 @@ public class PowerUpSpawner : MonoBehaviour
         Vector3 v = powerUp.Position;
         Renderer renderer = PowerUpPrefabs[powerUp.Id - 1].GetComponent<Renderer>();
         Vector3 cubeSize = renderer.bounds.size;
-        return new Vector3(v.x + cubeSize.x / 2, executer.YMax - 2 - v.y + cubeSize.y / 2, v.z + cubeSize.z / 2);
+        return new Vector3(v.x + cubeSize.x / 2, executer.YMax - 3 - v.y + cubeSize.y / 2, v.z + cubeSize.z / 2);
     }
 
     private Vector3 ActualTilePosition(Vector3 v)

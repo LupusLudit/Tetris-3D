@@ -213,7 +213,7 @@ public class GameExecuter : MonoBehaviour
 
         foreach (var tile in PlacedBlocks)
         {
-            if (Mathf.Approximately(tile.transform.position.y, YMax - 1 - y + 0.5f))
+            if (tile.transform.position.y == YMax - 1 - y + 0.5f)
             {
                 tile.transform.position -= dropVector;
             }
