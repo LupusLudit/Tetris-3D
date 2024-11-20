@@ -19,13 +19,14 @@ namespace Assets.Scripts.Logic
                 new Bomb(executer),
                 new ClearColumn(executer),
                 new ClearLine(executer),
-                new SlowDown(executer)
+                new SlowDown(executer),
+                new DoubleScore(executer)
             };
             nextPowerUp = RandomPowerUp();
         }
 
 
-        //TODO: check if the power up wasn't spawned inside another block
+        //TODO: check if the power up wasn't spawned inside another block and improve current block checking (we are not looking at the actual position)
         private PowerUp RandomPowerUp()
         {
             PowerUp powerUp = powerUps[random.Next(powerUps.Length)];

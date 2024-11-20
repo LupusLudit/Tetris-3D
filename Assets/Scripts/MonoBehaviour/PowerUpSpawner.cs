@@ -3,7 +3,6 @@ using Assets.Scripts.Logic;
 using Assets.Scripts.PowerUps;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PowerUpSpawner : MonoBehaviour
 {
     public GameExecuter executer;
@@ -23,13 +22,12 @@ public class PowerUpSpawner : MonoBehaviour
                 powerUpHolder = new PowerUpHolder(executer);
             }
 
-            // Update PowerUps if PowerUpHolder is initialized
             if (powerUpHolder != null)
             {
                 UpdatePowerUps();
 
                 spawnTimer += Time.deltaTime;
-                if (spawnTimer >= 10f)
+                if (spawnTimer >= 10f) // Temporarily set to 10
                 {
                     spawnTimer = 0f;
                     SpawnPowerUp();
@@ -42,31 +40,24 @@ public class PowerUpSpawner : MonoBehaviour
     {
         if (activePowerUps.Count == 0) return;
 
-        // Temporary list to store power-ups to remove
-        List<GameObject> toRemove = new List<GameObject>();
-
         foreach (Vector3 tilePosition in executer.CurrentGame.CurrentBlock.TilePositions())
         {
-            foreach (GameObject powerUpObject in activePowerUps)
+            // Stores all colliders that overlap the sphere inside the tile position
+            Collider[] hitColliders = Physics.OverlapSphere(ActualTilePosition(tilePosition), 0.1f);
+
+            foreach (Collider collider in hitColliders)
             {
-                PowerUp powerUp = powerUpObject.GetComponent<PowerUpComponent>()?.PowerUpInstance;
-                if (ActualTilePosition(tilePosition) == PowerUpPosition(powerUp))
+                //Checks if the colliders gameObject has a powerUpComponent and returns reference to it
+                if (collider.gameObject.TryGetComponent(out PowerUpComponent powerUpComponent))
                 {
+                    PowerUp powerUp = powerUpComponent.PowerUpInstance;
                     powerUp.Use();
-                    Debug.Log($"Used a power up with id {powerUp.Id}");
-                    toRemove.Add(powerUpObject);
-                    break;
+                    Debug.Log($"Used a power-up with id {powerUp.Id}");
+                    RemovePowerUp(collider.gameObject);
                 }
             }
         }
-
-        // Remove marked power-ups after iteration
-        foreach (GameObject powerUp in toRemove)
-        {
-            RemovePowerUp(powerUp);
-        }
     }
-
 
     private void SpawnPowerUp()
     {
@@ -76,13 +67,14 @@ public class PowerUpSpawner : MonoBehaviour
 
     private void InstantiatePowerUp(PowerUp powerUp)
     {
-        GameObject prefab = PowerUpPrefabs[powerUp.Id - 1];
-
-        GameObject powerUpObject = Instantiate(prefab, PowerUpPosition(powerUp), Quaternion.identity);
+        GameObject powerUpObject = Instantiate(PowerUpPrefabs[powerUp.Id - 1], PowerUpPosition(powerUp), Quaternion.identity);
         activePowerUps.Add(powerUpObject);
 
         PowerUpComponent component = powerUpObject.AddComponent<PowerUpComponent>();
         component.Initialize(powerUp);
+
+        Collider collider = powerUpObject.AddComponent<BoxCollider>();
+        collider.isTrigger = true;
     }
 
     private Vector3 PowerUpPosition(PowerUp powerUp)
@@ -106,6 +98,7 @@ public class PowerUpSpawner : MonoBehaviour
         Destroy(powerUp);
     }
 }
+
 
 
 public class PowerUpComponent : MonoBehaviour

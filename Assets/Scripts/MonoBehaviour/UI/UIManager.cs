@@ -16,10 +16,10 @@ namespace Assets.Scripts
             ScoreText.text = $"Score: {score}";
         }
 
-        public void DrawLinesCompletedUI(Score score, int level, int numOfCleared)
+        public void DrawLinesCompletedUI(Score score, int level, int numOfCleared, bool doubleScore)
         {
             LinesUI.Message.text = score.GetMessage(numOfCleared);
-            LinesUI.PlusScore.text = $"+{score.AddLayerScore(level, numOfCleared)}";
+            LinesUI.PlusScore.text = $"+{score.AddLayerScore(level, numOfCleared, doubleScore)}";
             LinesUI.ShowUI();
         }
 

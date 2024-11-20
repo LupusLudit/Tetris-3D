@@ -30,6 +30,7 @@ public class GameExecuter : MonoBehaviour
     public HashSet<GameObject> PlacedBlocks { get; private set; } = new HashSet<GameObject>();
     public Dictionary<KeyCode, Action> keyActions { get; private set; }
     public bool SlowDown { get; set; } = false;
+    public bool DoubleScore { get; set; } = false;
     private Vector3 boardCenter = new Vector3(5, 6.5876f, 5);
     private BlockManager blockManager;
     private Score score;
@@ -127,7 +128,7 @@ public class GameExecuter : MonoBehaviour
         if (clearedLayers > 0)
         {
             CheckLevelUp();
-            Manager.DrawLinesCompletedUI(score, level, clearedLayers);
+            Manager.DrawLinesCompletedUI(score, level, clearedLayers, DoubleScore);
             Manager.DrawScoreUI(score.CurrentScore);
         }
     }
@@ -281,7 +282,7 @@ public class GameExecuter : MonoBehaviour
     private void AdjustScoreAndDelay()
     {
         delay.CurrentDelay = 75;
-        score.IncrementScore();
+        score.IncrementScore(DoubleScore);
         Manager.DrawScoreUI(score.CurrentScore);
     }
 

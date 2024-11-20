@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -16,16 +18,20 @@ namespace Assets.Scripts
             CurrentScore = 0;
         }
 
-        public int AddLayerScore(int level, int cleared)
+        public int AddLayerScore(int level, int cleared, bool doubleScore)
         {
             int multiplier = GetMultiplier(cleared);
-            CurrentScore += multiplier * (1 + level);
-            return multiplier * (1 + level);
+            int plusScore = multiplier * (1 + level);
+            if (doubleScore) plusScore *= 2;
+
+            CurrentScore += plusScore;
+            return plusScore;
         }
 
-        public void IncrementScore()
+        public void IncrementScore(bool doubleScore)
         {
-            CurrentScore += 1;
+            if (doubleScore) CurrentScore += 2;
+            else CurrentScore += 1;
         }
 
         public string GetMessage(int cleared)
