@@ -14,7 +14,7 @@ Effect: Clears a small, targeted area around where it lands.
 Implemention: This block explodes upon landing, removing a small area of blocks within its blast radius.
 5. Double Points*
 Effect: Doubles the points for each completed row within a certain timeframe.
-6. Freeze Blocks
+6. Freeze Blocks*
 Effect: Temporarily stops new blocks from spawning.
 Implemention: Stop the spawning routine for a few seconds to give players time to clear rows and reposition blocks.
 7. Block Switcher

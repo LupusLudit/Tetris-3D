@@ -31,6 +31,7 @@ public class GameExecuter : MonoBehaviour
     public Dictionary<KeyCode, Action> keyActions { get; private set; }
     public bool SlowDown { get; set; } = false;
     public bool DoubleScore { get; set; } = false;
+    public bool Freezed { get; set; } = false;
     private Vector3 boardCenter = new Vector3(5, 6.5876f, 5);
     private BlockManager blockManager;
     private Score score;
@@ -80,7 +81,7 @@ public class GameExecuter : MonoBehaviour
 
     private void ExecuteGameStep()
     {
-        CurrentGame.MoveBlockDown();
+        if(!Freezed) CurrentGame.MoveBlockDown();
         if (CurrentGame.BlockPlaced) RestartGameCycle();
 
         blockManager.UpdateBlock(CurrentGame.CurrentBlock);
