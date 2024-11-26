@@ -17,7 +17,7 @@ Effect: Doubles the points for each completed row within a certain timeframe.
 6. Freeze Blocks*
 Effect: Temporarily stops new blocks from spawning.
 Implemention: Stop the spawning routine for a few seconds to give players time to clear rows and reposition blocks.
-7. Block Switcher
+7. Block Switcher*
 Effect: Allows the player to swap the current block with the next one.
 Implemention: Add a UI element that allows switching the blocks, and toggle between them upon activation.
 8. Shrink Board

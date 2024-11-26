@@ -39,7 +39,7 @@ namespace Assets.Scripts
         {
             Grid = new GameGrid(x,y,z);
             Holder = new BlockHolder(CalculateMultiplier(x,y,z));
-            CurrentBlock = Holder.GetNextBlock();
+            CurrentBlock = Holder.GetNewCurrent();
             CanHold = true;
             BlockPlaced = false;
         }
@@ -65,7 +65,7 @@ namespace Assets.Scripts
             else if (HeldBlock == null)
             {
                 HeldBlock = CurrentBlock;
-                CurrentBlock = Holder.GetNextBlock();
+                CurrentBlock = Holder.GetNewCurrent();
             }
             else
             {
@@ -192,9 +192,17 @@ namespace Assets.Scripts
             PlaceCurrentBlock();
         }
 
-        public void NextBlock()
+        public void NextBlock(bool changeNext = false)
         {
-            CurrentBlock = Holder.GetNextBlock();
+            if (!changeNext) CurrentBlock = Holder.GetNewCurrent();
+            else
+            {
+                CurrentBlock = Holder.NextBlock;
+                do
+                {
+                    Holder.NextBlock = Holder.RandomBlock();
+                } while (CurrentBlock.Id == Holder.NextBlock.Id);
+            }
         }
 
     }

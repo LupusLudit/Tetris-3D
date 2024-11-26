@@ -144,6 +144,17 @@ public class GameExecuter : MonoBehaviour
         }
     }
 
+    //TODO: Fix this
+
+    public void NextWithoutPlacing()
+    {
+        blockManager.ClearCurrentBlocks();
+        CurrentGame.NextBlock(true);
+        blockManager.CreateNewBlock(CurrentGame.CurrentBlock);
+        blockManager.CreateBlockPrediction(CurrentGame.CurrentBlock);
+        DrawNextBlock(CurrentGame.Holder);
+    }
+
     //We cant remove elements from a collection while iterating over it, so we first load tiles into the tilesToRemove List.
     public void ClearBlocksInRow(int y)
     {

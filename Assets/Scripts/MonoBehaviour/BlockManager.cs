@@ -73,14 +73,12 @@ public class BlockManager : MonoBehaviour
             GameObject tile = Instantiate(blockPrefabs[game.CurrentBlock.Id - 1], ActualPosition(v), Quaternion.identity);
             placedBlocks.Add(tile);
         }
-        ClearList(predictedBlockTiles);
-        ClearList(currentBlockTiles);
+        ClearCurrentBlocks();
     }
 
     public void HoldCurrentBlock()
     {
-        ClearList(predictedBlockTiles);
-        ClearList(currentBlockTiles);
+        ClearCurrentBlocks();
 
         game.HoldBlock();
 
@@ -107,6 +105,12 @@ public class BlockManager : MonoBehaviour
             Destroy(tile);
         }
         list.Clear();
+    }
+
+    public void ClearCurrentBlocks()
+    {
+        ClearList(predictedBlockTiles);
+        ClearList(currentBlockTiles);
     }
 
     private Vector3 ActualPosition(Vector3 v)
