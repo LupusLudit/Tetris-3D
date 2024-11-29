@@ -1,5 +1,6 @@
 using Assets.Scripts;
 using Assets.Scripts.Logic;
+using Assets.Scripts.MonoBehaviour;
 using Assets.Scripts.PowerUps;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class PowerUpSpawner : MonoBehaviour
     private PowerUpHolder powerUpHolder;
     private HashSet<GameObject> activePowerUps = new HashSet<GameObject>();
     private float spawnTimer = 0f;
-
+    private Renderer renderer;
     void Update()
     {
         if (!executer.CurrentGame.GameOver)
@@ -19,7 +20,8 @@ public class PowerUpSpawner : MonoBehaviour
             // Lazy initialization of PowerUpHolder => we need to initialize the powerUpHolder after the Grid
             if (powerUpHolder == null && executer.CurrentGame.Grid != null)
             {
-                powerUpHolder = new PowerUpHolder(executer);
+                renderer = executer.BlockPrefabs[executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>();
+                powerUpHolder = new PowerUpHolder(executer, renderer);
             }
 
             if (powerUpHolder != null)
@@ -42,8 +44,12 @@ public class PowerUpSpawner : MonoBehaviour
 
         foreach (Vector3 tilePosition in executer.CurrentGame.CurrentBlock.TilePositions())
         {
+            Vector3 pos = PositionConvertor.ActualTilePosition(tilePosition,
+                executer.BlockPrefabs[executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>(),
+                executer.YMax);
+
             // Stores all colliders that overlap the sphere inside the tile position
-            Collider[] hitColliders = Physics.OverlapSphere(ActualTilePosition(tilePosition), 0.1f);
+            Collider[] hitColliders = Physics.OverlapSphere(pos, 0.1f);
 
             foreach (Collider collider in hitColliders)
             {
@@ -67,7 +73,10 @@ public class PowerUpSpawner : MonoBehaviour
 
     private void InstantiatePowerUp(PowerUp powerUp)
     {
-        GameObject powerUpObject = Instantiate(PowerUpPrefabs[powerUp.Id - 1], PowerUpPosition(powerUp), Quaternion.identity);
+        GameObject powerUpObject = Instantiate(PowerUpPrefabs[powerUp.Id - 1],
+            PositionConvertor.PowerUpPosition(powerUp, PowerUpPrefabs[powerUp.Id - 1].GetComponent<Renderer>(), executer.YMax),
+            Quaternion.identity);
+
         activePowerUps.Add(powerUpObject);
 
         PowerUpComponent component = powerUpObject.AddComponent<PowerUpComponent>();
@@ -77,30 +86,12 @@ public class PowerUpSpawner : MonoBehaviour
         collider.isTrigger = true;
     }
 
-    private Vector3 PowerUpPosition(PowerUp powerUp)
-    {
-        Vector3 v = powerUp.Position;
-        Renderer renderer = PowerUpPrefabs[powerUp.Id - 1].GetComponent<Renderer>();
-        Vector3 cubeSize = renderer.bounds.size;
-        return new Vector3(v.x + cubeSize.x / 2, executer.YMax - 3 - v.y + cubeSize.y / 2, v.z + cubeSize.z / 2);
-    }
-
-    private Vector3 ActualTilePosition(Vector3 v)
-    {
-        Renderer renderer = executer.BlockPrefabs[executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>();
-        Vector3 cubeSize = renderer.bounds.size;
-        return new Vector3(v.x + cubeSize.x / 2, executer.YMax - 1 - v.y + cubeSize.y / 2, v.z + cubeSize.z / 2);
-    }
-
     private void RemovePowerUp(GameObject powerUp)
     {
         activePowerUps.Remove(powerUp);
         Destroy(powerUp);
     }
 }
-
-
-
 public class PowerUpComponent : MonoBehaviour
 {
     public PowerUp PowerUpInstance { get; private set; }
@@ -110,4 +101,3 @@ public class PowerUpComponent : MonoBehaviour
         PowerUpInstance = powerUp;
     }
 }
-

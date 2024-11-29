@@ -32,6 +32,7 @@ public class GameExecuter : MonoBehaviour
     public bool SlowDown { get; set; } = false;
     public bool DoubleScore { get; set; } = false;
     public bool Freezed { get; set; } = false;
+    public bool AutoNext { get; set; } = false;
     private Vector3 boardCenter = new Vector3(5, 6.5876f, 5);
     private BlockManager blockManager;
     private Score score;
@@ -82,7 +83,8 @@ public class GameExecuter : MonoBehaviour
     private void ExecuteGameStep()
     {
         if(!Freezed) CurrentGame.MoveBlockDown();
-        if (CurrentGame.BlockPlaced) RestartGameCycle();
+        if (CurrentGame.BlockPlaced && !AutoNext) RestartGameCycle();
+        if(AutoNext) NextWithoutPlacing();
 
         blockManager.UpdateBlock(CurrentGame.CurrentBlock);
         blockManager.UpdatePrediction(CurrentGame.CurrentBlock);
@@ -149,10 +151,11 @@ public class GameExecuter : MonoBehaviour
     public void NextWithoutPlacing()
     {
         blockManager.ClearCurrentBlocks();
-        CurrentGame.NextBlock(true);
+        CurrentGame.NextBlock();
         blockManager.CreateNewBlock(CurrentGame.CurrentBlock);
         blockManager.CreateBlockPrediction(CurrentGame.CurrentBlock);
         DrawNextBlock(CurrentGame.Holder);
+        AutoNext = false;
     }
 
     //We cant remove elements from a collection while iterating over it, so we first load tiles into the tilesToRemove List.

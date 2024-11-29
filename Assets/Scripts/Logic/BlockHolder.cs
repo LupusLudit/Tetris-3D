@@ -8,7 +8,7 @@ namespace Assets.Scripts
         private readonly Block[] blocks;
         
         private readonly System.Random random = new System.Random();
-        public Block NextBlock { get; set; }
+        public Block NextBlock { get; private set; }
 
         public BlockHolder(Vector3 multiplier)
         {
@@ -26,7 +26,7 @@ namespace Assets.Scripts
             NextBlock = RandomBlock();
         }
 
-        public Block RandomBlock()
+        private Block RandomBlock()
         {
             return blocks[random.Next(blocks.Length)];
         }

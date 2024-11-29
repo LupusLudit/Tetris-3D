@@ -14,7 +14,7 @@ namespace Assets.Scripts.PowerUps
 
         public override void Use()
         {
-            Executer.NextWithoutPlacing();
+            Executer.AutoNext = true;
         }
     }
 }

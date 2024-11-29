@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.PowerUps;
+﻿using Assets.Scripts.MonoBehaviour;
+using Assets.Scripts.PowerUps;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic
@@ -10,10 +11,11 @@ namespace Assets.Scripts.Logic
         private GameExecuter executer;
         private readonly System.Random random = new System.Random();
         private PowerUp nextPowerUp;
-
-        public PowerUpHolder(GameExecuter executer)
+        private Renderer renderer;
+        public PowerUpHolder(GameExecuter executer, Renderer renderer)
         {
             this.executer = executer;
+            this.renderer = renderer;
             powerUps = new PowerUp[]
             { 
                 new Bomb(executer),
@@ -37,17 +39,17 @@ namespace Assets.Scripts.Logic
             {
                 position = new Vector3(random.Next(executer.XMax), random.Next(executer.YMax - 2), random.Next(executer.ZMax));
             }
-            while (PositionInPlacedBlocks(position));
+            while (PositionInPlacedBlocks(powerUp));
 
             powerUp.Position = position;
             return powerUp;
         }
 
-        private bool PositionInPlacedBlocks(Vector3 position)
+        private bool PositionInPlacedBlocks(PowerUp powerUp)
         {
             foreach (var block in executer.PlacedBlocks)
             {
-                if (block.transform.position == position) return true;
+                if (block.transform.position == PositionConvertor.PowerUpPosition(powerUp, renderer, executer.YMax)) return true;
             }
 
             return false;

@@ -192,17 +192,9 @@ namespace Assets.Scripts
             PlaceCurrentBlock();
         }
 
-        public void NextBlock(bool changeNext = false)
+        public void NextBlock()
         {
-            if (!changeNext) CurrentBlock = Holder.GetNewCurrent();
-            else
-            {
-                CurrentBlock = Holder.NextBlock;
-                do
-                {
-                    Holder.NextBlock = Holder.RandomBlock();
-                } while (CurrentBlock.Id == Holder.NextBlock.Id);
-            }
+            CurrentBlock = Holder.GetNewCurrent();
         }
 
     }

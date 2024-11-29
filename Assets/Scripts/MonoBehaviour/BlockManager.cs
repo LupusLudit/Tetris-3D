@@ -2,6 +2,7 @@ using Assets.Scripts.Blocks;
 using Assets.Scripts;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.MonoBehaviour;
 
 public class BlockManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class BlockManager : MonoBehaviour
     private List<GameObject> predictedBlockTiles = new List<GameObject>();
     private HashSet<GameObject> placedBlocks;
     private int gridHeight;
+    private Renderer renderer;
 
     //TODO: instead of creating and destroying blocks, use pooling
 
@@ -21,13 +23,14 @@ public class BlockManager : MonoBehaviour
         blockPrefabs = gameExecuter.BlockPrefabs;
         placedBlocks = gameExecuter.PlacedBlocks;
         gridHeight = gameExecuter.YMax;
+        renderer = blockPrefabs[game.CurrentBlock.Id - 1].GetComponent<Renderer>();
     }
 
     public void CreateNewBlock(Block block)
     {
         foreach (Vector3 tilePosition in block.TilePositions())
         {
-            GameObject tile = InstantiateTile(block, ActualPosition(tilePosition));
+            GameObject tile = InstantiateTile(block, PositionConvertor.ActualTilePosition(tilePosition, renderer, gridHeight));
             currentBlockTiles.Add(tile);
         }
     }
@@ -37,7 +40,7 @@ public class BlockManager : MonoBehaviour
         int maxDrop = game.MaxPossibleDrop();
         foreach (Vector3 tilePosition in block.TilePositions())
         {
-            Vector3 predictedPosition = ActualPosition(tilePosition) - Vector3.up * maxDrop;
+            Vector3 predictedPosition = PositionConvertor.ActualTilePosition(tilePosition, renderer, gridHeight) - Vector3.up * maxDrop;
             GameObject tile = InstantiateTile(block, predictedPosition, isPrediction: true);
             predictedBlockTiles.Add(tile);
         }
@@ -48,7 +51,7 @@ public class BlockManager : MonoBehaviour
         int i = 0;
         foreach (Vector3 v in block.TilePositions())
         {
-            currentBlockTiles[i].transform.position = ActualPosition(v);
+            currentBlockTiles[i].transform.position = PositionConvertor.ActualTilePosition(v, renderer, gridHeight);
             i++;
         }
     }
@@ -60,7 +63,7 @@ public class BlockManager : MonoBehaviour
         {
             int drop = game.MaxPossibleDrop();
             Vector3 dropVector = new Vector3(0, drop, 0);
-            Vector3 predictedPosition = ActualPosition(v) - dropVector;
+            Vector3 predictedPosition = PositionConvertor.ActualTilePosition(v, renderer, gridHeight) - dropVector;
             predictedBlockTiles[i].transform.position = predictedPosition;
             i++;
         }
@@ -70,7 +73,9 @@ public class BlockManager : MonoBehaviour
     {
         foreach (Vector3 v in game.CurrentBlock.TilePositions())
         {
-            GameObject tile = Instantiate(blockPrefabs[game.CurrentBlock.Id - 1], ActualPosition(v), Quaternion.identity);
+            GameObject tile = Instantiate(blockPrefabs[game.CurrentBlock.Id - 1],
+                PositionConvertor.ActualTilePosition(v, renderer, gridHeight),
+                Quaternion.identity);
             placedBlocks.Add(tile);
         }
         ClearCurrentBlocks();
@@ -111,12 +116,5 @@ public class BlockManager : MonoBehaviour
     {
         ClearList(predictedBlockTiles);
         ClearList(currentBlockTiles);
-    }
-
-    private Vector3 ActualPosition(Vector3 v)
-    {
-        Renderer renderer = blockPrefabs[game.CurrentBlock.Id - 1].GetComponent<Renderer>();
-        Vector3 cubeSize = renderer.bounds.size;
-        return new Vector3(v.x + cubeSize.x / 2, gridHeight - 1 - v.y + cubeSize.y / 2, v.z + cubeSize.z / 2);
     }
 }
