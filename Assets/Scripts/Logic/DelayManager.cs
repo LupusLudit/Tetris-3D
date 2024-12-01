@@ -9,7 +9,7 @@ namespace Assets.Scripts.Logic
         private int minDelay;
         private int delayDecrease;
 
-        public int CurrentDelay { get; set; }
+        public double CurrentDelay { get; set; }
 
         public DelayManager(int maxDelay, int minDelay, int delayDecrease)
         {
@@ -19,11 +19,10 @@ namespace Assets.Scripts.Logic
             CurrentDelay = maxDelay;
         }
 
-        public void AdjustDelay(int score, bool slowDown)
+        public void AdjustDelay(int score, double multiplier)
         {
             int temp = Math.Max(minDelay, maxDelay - (score / 10000 * delayDecrease));
-            if(!slowDown) CurrentDelay = temp;
-            else CurrentDelay = temp * 2;
+            CurrentDelay = temp * multiplier;
         }
     }
 }

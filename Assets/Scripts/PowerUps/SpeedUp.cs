@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.PowerUps
 {
-    public class SlowDown : PowerUp
+    public class SpeedUp : PowerUp
     {
-        public override int Id => 3;
-        public SlowDown(GameExecuter executer) : base(executer) { }
+        public override int Id => 8;
+        public SpeedUp(GameExecuter executer) : base(executer) { }
 
         public override void Use()
         {
@@ -15,7 +15,7 @@ namespace Assets.Scripts.PowerUps
 
         private IEnumerator ActivateDelay()
         {
-            Executer.DelayMultiplier = 2;
+            Executer.DelayMultiplier = 0.5;
             yield return new WaitForSeconds(10f);
             Executer.DelayMultiplier = 1;
         }

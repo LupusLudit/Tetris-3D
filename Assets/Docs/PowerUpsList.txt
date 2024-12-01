@@ -1,25 +1,23 @@
 List of power ups that can be added to the game. Not all of them will be implemented though.
 
+Positive poweups:
+
 1. Clear Row Power-Up*
 Effect: Clears one or more rows instantly.
-Implemention: Trigger an automatic line clear that removes rows without requiring the player to complete them.
 2. Remove Column*
 Effect: Removes a selected vertical column.
-Implemention: Give the player a prompt to select a column to remove, or randomize it.
 3. Slow Down Drop Speed*
 Effect: Temporarily reduces the speed at which blocks fall.
-Implemention: Reduce the block drop rate for a set period.
 4. Bomb Block*
 Effect: Clears a small, targeted area around where it lands.
-Implemention: This block explodes upon landing, removing a small area of blocks within its blast radius.
 5. Double Points*
 Effect: Doubles the points for each completed row within a certain timeframe.
 6. Freeze Blocks*
 Effect: Temporarily stops new blocks from spawning.
-Implemention: Stop the spawning routine for a few seconds to give players time to clear rows and reposition blocks.
 7. Block Switcher*
 Effect: Allows the player to swap the current block with the next one.
-Implemention: Add a UI element that allows switching the blocks, and toggle between them upon activation.
-8. Shrink Board
-Effect: Temporarily shrinks the board width, adding challenge.
-Implemention: Reduce the board’s width for a set period, forcing players to stack more efficiently.
+
+Negative powerUps:
+
+8. Speed up*
+Effect: Temporarily speeds up the falling of the block

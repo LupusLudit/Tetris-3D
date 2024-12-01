@@ -1,4 +1,5 @@
 using Assets.Scripts.Logic;
+using Assets.Scripts.MonoBehaviour;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -15,14 +16,8 @@ public class BackgroundRenderer : MonoBehaviour
     public int ZMax;
 
     private Vector3 previousPosition;
-    private readonly static Vector3[] hitPoints = new Vector3[]
-        {
-            new Vector3(40.35534f, 27, 5),
-            new Vector3(5, 27, 40.35534f),
-            new Vector3(-30.35534f, 27, 5),
-            new Vector3(5, 27, -30.35534f)
-        }; // Precalculated values, I will later add function that will calculate these values depending on X,Y,Z
-    private CircularLinkedList circularList = new CircularLinkedList(hitPoints);
+    private Vector3[] hitPoints;
+    private CircularLinkedList circularList;
     private Vector3 center = new(5, 5, 5);
     private Vector3 initialPosition;
     private Quaternion initialRotation;
@@ -38,6 +33,8 @@ public class BackgroundRenderer : MonoBehaviour
 
         initialPosition = transform.position;
         initialRotation = transform.rotation;
+        hitPoints = BoardDimensions.calcHitPoints(new Vector3(XMax, YMax, ZMax), MainCamera);
+        circularList = new CircularLinkedList(hitPoints);
 
         CreateCuboid();
         DrawGrid(new Vector3(0, 0, 0), XMax, ZMax, 0, 2, LineMaterial); // x & z

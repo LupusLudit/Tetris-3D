@@ -24,7 +24,8 @@ namespace Assets.Scripts.Logic
                 new SlowDown(executer),
                 new DoubleScore(executer),
                 new BlockFreezer(executer),
-                new AutoNextBlock(executer)
+                new AutoNextBlock(executer),
+                new SpeedUp(executer)
             };
             nextPowerUp = RandomPowerUp();
         }

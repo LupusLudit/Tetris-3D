@@ -1,6 +1,7 @@
 using Assets.Scripts;
 using Assets.Scripts.Blocks;
 using Assets.Scripts.Logic;
+using Assets.Scripts.MonoBehaviour;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,11 +30,11 @@ public class GameExecuter : MonoBehaviour
     public Game CurrentGame { get; private set; }
     public HashSet<GameObject> PlacedBlocks { get; private set; } = new HashSet<GameObject>();
     public Dictionary<KeyCode, Action> keyActions { get; private set; }
-    public bool SlowDown { get; set; } = false;
+    public double DelayMultiplier { get; set; } = 1;
     public bool DoubleScore { get; set; } = false;
     public bool Freezed { get; set; } = false;
     public bool AutoNext { get; set; } = false;
-    private Vector3 boardCenter = new Vector3(5, 6.5876f, 5);
+    private Vector3 lookPoint;
     private BlockManager blockManager;
     private Score score;
     private DelayManager delay;
@@ -41,13 +42,14 @@ public class GameExecuter : MonoBehaviour
     private int level = 0;
     private int linesCleaned = 0;
 
-    private const float RotationAngle = 0.5f;
+    private const float RotationAngle = 0.6f;
 
     void Start()
     {
         CurrentGame = new Game(XMax, YMax, ZMax);
         blockManager = new BlockManager();
         blockManager.Initialize(this);
+        lookPoint = BoardDimensions.calcLookPoint(new Vector3(XMax, YMax, ZMax), GameCamera); 
 
         score = new Score();
         delay = new DelayManager(750, 50, 25);
@@ -255,10 +257,10 @@ public class GameExecuter : MonoBehaviour
 
     private void RotateCamera(float angle)
     {
-        Vector3 direction = GameCamera.transform.position - boardCenter;
+        Vector3 direction = GameCamera.transform.position - lookPoint;
         direction = Quaternion.Euler(0, angle, 0) * direction;
-        GameCamera.transform.position = boardCenter + direction;
-        GameCamera.transform.LookAt(boardCenter);
+        GameCamera.transform.position = lookPoint + direction;
+        GameCamera.transform.LookAt(lookPoint);
     }
 
     private bool IsGameActive() =>
@@ -266,7 +268,7 @@ public class GameExecuter : MonoBehaviour
 
     private void UpdateFallDelay()
     {
-        delay.AdjustDelay(score.CurrentScore, SlowDown);
+        delay.AdjustDelay(score.CurrentScore, DelayMultiplier);
         timeSinceLastFall += Time.deltaTime;
     }
 
