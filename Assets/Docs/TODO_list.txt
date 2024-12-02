@@ -21,3 +21,12 @@ Negative powerUps:
 
 8. Speed up*
 Effect: Temporarily speeds up the falling of the block
+9. Blind player
+Effect: Temporarily blinds the player
+
+TODO:
+1. Add sound effects
+2. Improve the looks of the blinding screen
+3. Add actual powerUp tiles
+4. Add functioning settings and quit button in the main menu
+5. Imporve the lighting
