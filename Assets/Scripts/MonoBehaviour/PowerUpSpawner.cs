@@ -12,7 +12,7 @@ public class PowerUpSpawner : MonoBehaviour
     private PowerUpHolder powerUpHolder;
     private HashSet<GameObject> activePowerUps = new HashSet<GameObject>();
     private float spawnTimer = 0f;
-    private Renderer renderer;
+    private Renderer powerUpRenderer;
     void Update()
     {
         if (!executer.CurrentGame.GameOver)
@@ -20,8 +20,8 @@ public class PowerUpSpawner : MonoBehaviour
             // Lazy initialization of PowerUpHolder => we need to initialize the powerUpHolder after the Grid
             if (powerUpHolder == null && executer.CurrentGame.Grid != null)
             {
-                renderer = executer.BlockPrefabs[executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>();
-                powerUpHolder = new PowerUpHolder(executer, renderer);
+                powerUpRenderer = executer.BlockPrefabs[executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>();
+                powerUpHolder = new PowerUpHolder(executer, powerUpRenderer);
             }
 
             if (powerUpHolder != null)
@@ -29,7 +29,7 @@ public class PowerUpSpawner : MonoBehaviour
                 UpdatePowerUps();
 
                 spawnTimer += Time.deltaTime;
-                if (spawnTimer >= 10f) // Temporarily set to 10
+                if (spawnTimer >= 5f) // Temporarily set to 10
                 {
                     spawnTimer = 0f;
                     SpawnPowerUp();

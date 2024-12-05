@@ -26,7 +26,9 @@ namespace Assets.Scripts.Logic
                 new BlockFreezer(executer),
                 new AutoNextBlock(executer),
                 new SpeedUp(executer),
-                new BlindPlayer(executer)
+                new BlindPlayer(executer),
+                new InstaDrop(executer),
+                new LimitMovement(executer)
             };
             nextPowerUp = RandomPowerUp();
         }

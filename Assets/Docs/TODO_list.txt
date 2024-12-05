@@ -19,14 +19,25 @@ Effect: Allows the player to swap the current block with the next one.
 
 Negative powerUps:
 
-8. Speed up*
+8. Speed Up*
 Effect: Temporarily speeds up the falling of the block
-9. Blind player
+9. Blind Player*
 Effect: Temporarily blinds the player
+10. Instant Drop *
+Effect: Forces the current block to drop immediately
+11. Only Down Movement *
+Effect: Prevents horizontal movement of the current block, leaving only rotation and drop options.
+12. Random Obstacles
+Effect: Spawns random blocks on the board in empty spaces 
 
 TODO:
 1. Add sound effects
-2. Improve the looks of the blinding screen
-3. Add actual powerUp tiles
-4. Add functioning settings and quit button in the main menu
-5. Imporve the lighting
+2. Add visual effects (when the block was collected, etc.)
+3. Improve the looks of the blinding screen
+5. Add actual powerUp tiles
+6. Add functioning settings and quit button in the main menu
+7. Imporve lighting
+8. Add text that will be shown when the powerup is touched so the player knows which power up was collected
+9. Fix the issue with block spawning in the air after next block powerup
+10. Add actionQueue in the GameExecuter and rewrite some powerUps so they fit the new format (*0.5)
+11. Fix the current issue with the InstaDrop powerup

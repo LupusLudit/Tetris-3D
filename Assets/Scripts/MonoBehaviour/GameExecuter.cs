@@ -30,18 +30,22 @@ public class GameExecuter : MonoBehaviour
     public Game CurrentGame { get; private set; }
     public HashSet<GameObject> PlacedBlocks { get; private set; } = new HashSet<GameObject>();
     public Dictionary<KeyCode, Action> keyActions { get; private set; }
+
+    //TODO: Think of a different system, so there is no need to use so many bools
     public double DelayMultiplier { get; set; } = 1;
     public bool DoubleScore { get; set; } = false;
     public bool Freezed { get; set; } = false;
     public bool AutoNext { get; set; } = false;
-    private Vector3 lookPoint;
+    public bool LimitedMovement { get; set; } = false;
+
     private BlockManager blockManager;
+    private Queue<Action> actionQueue = new Queue<Action>();
+    private Vector3 lookPoint;
     private Score score;
     private DelayManager delay;
     private float timeSinceLastFall;
     private int level = 0;
     private int linesCleaned = 0;
-
     private const float RotationAngle = 0.6f;
 
     void Start()
@@ -78,6 +82,7 @@ public class GameExecuter : MonoBehaviour
         if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
         {
             ExecuteGameStep();
+            ExecuteQueuedActions();
             timeSinceLastFall = 0f;
         }
     }
@@ -86,7 +91,7 @@ public class GameExecuter : MonoBehaviour
     {
         if(!Freezed) CurrentGame.MoveBlockDown();
         if (CurrentGame.BlockPlaced && !AutoNext) RestartGameCycle();
-        if(AutoNext) NextWithoutPlacing();
+        else if (AutoNext && !CurrentGame.BlockPlaced) NextWithoutPlacing();
 
         blockManager.UpdateBlock(CurrentGame.CurrentBlock);
         blockManager.UpdatePrediction(CurrentGame.CurrentBlock);
@@ -223,6 +228,11 @@ public class GameExecuter : MonoBehaviour
         }
         return KeyCode.None;
     }
+    public void DropAndRestart()
+    {
+        CurrentGame.DropBlock();
+        RestartGameCycle();
+    }
 
     private void MoveBlocksDown(int y, int drop)
     {
@@ -276,16 +286,16 @@ public class GameExecuter : MonoBehaviour
     {
         keyActions = new Dictionary<KeyCode, Action>
         {
-            { KeyCode.UpArrow, () => CurrentGame.XBack() },
-            { KeyCode.DownArrow, () => CurrentGame.XForward() },
-            { KeyCode.LeftArrow, () => CurrentGame.ZBack() },
-            { KeyCode.RightArrow, () => CurrentGame.ZForward() },
+            { KeyCode.UpArrow, () => { if(!LimitedMovement) {CurrentGame.XBack(); } } },
+            { KeyCode.DownArrow, () => { if(!LimitedMovement) {CurrentGame.XForward(); } } },
+            { KeyCode.LeftArrow, () => { if(!LimitedMovement) {CurrentGame.ZBack(); } } },
+            { KeyCode.RightArrow, () => { if(!LimitedMovement) {CurrentGame.ZForward(); } } },
             { KeyCode.Q, () => CurrentGame.RotateBlockCCW() },
             { KeyCode.E, () => CurrentGame.RotateBlockCW() },
             { KeyCode.A, () => CurrentGame.SwitchToDifAxis(0) },
             { KeyCode.S, () => CurrentGame.SwitchToDifAxis(1) },
             { KeyCode.D, () => CurrentGame.SwitchToDifAxis(2) },
-            { KeyCode.LeftShift, () => AdjustScoreAndDelay() },
+            { KeyCode.LeftShift, () => {if(!Freezed) {AdjustScoreAndDelay(); } } },
             { KeyCode.Space, () => DropAndRestart() },
             { KeyCode.C, () => HoldAndDrawBlocks() },
             { KeyCode.K, () => RotateCamera(RotationAngle) },
@@ -294,19 +304,28 @@ public class GameExecuter : MonoBehaviour
             { KeyCode.Escape, () => Manager.Pause() }
         };
     }
+    public void EnqueueAction(Action action)
+    {
+        if (action != null)
+        {
+            actionQueue.Enqueue(action);
+        }
+    }
 
+    private void ExecuteQueuedActions()
+    {
+        while (actionQueue.Count > 0)
+        {
+            Action action = actionQueue.Dequeue();
+            action?.Invoke();
+        }
+    }
 
     private void AdjustScoreAndDelay()
     {
         delay.CurrentDelay = 75;
         score.IncrementScore(DoubleScore);
         Manager.DrawScoreUI(score.CurrentScore);
-    }
-
-    private void DropAndRestart()
-    {
-        CurrentGame.DropBlock();
-        RestartGameCycle();
     }
 
     private void HoldAndDrawBlocks()
