@@ -35,7 +35,6 @@ public class GameExecuter : MonoBehaviour
     public double DelayMultiplier { get; set; } = 1;
     public bool DoubleScore { get; set; } = false;
     public bool Freezed { get; set; } = false;
-    public bool AutoNext { get; set; } = false;
     public bool LimitedMovement { get; set; } = false;
 
     private BlockManager blockManager;
@@ -81,8 +80,8 @@ public class GameExecuter : MonoBehaviour
 
         if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
         {
-            ExecuteGameStep();
             ExecuteQueuedActions();
+            ExecuteGameStep();
             timeSinceLastFall = 0f;
         }
     }
@@ -90,8 +89,7 @@ public class GameExecuter : MonoBehaviour
     private void ExecuteGameStep()
     {
         if(!Freezed) CurrentGame.MoveBlockDown();
-        if (CurrentGame.BlockPlaced && !AutoNext) RestartGameCycle();
-        else if (AutoNext && !CurrentGame.BlockPlaced) NextWithoutPlacing();
+        if (CurrentGame.BlockPlaced) RestartGameCycle();
 
         blockManager.UpdateBlock(CurrentGame.CurrentBlock);
         blockManager.UpdatePrediction(CurrentGame.CurrentBlock);
@@ -162,7 +160,6 @@ public class GameExecuter : MonoBehaviour
         blockManager.CreateNewBlock(CurrentGame.CurrentBlock);
         blockManager.CreateBlockPrediction(CurrentGame.CurrentBlock);
         DrawNextBlock(CurrentGame.Holder);
-        AutoNext = false;
     }
 
     //We cant remove elements from a collection while iterating over it, so we first load tiles into the tilesToRemove List.
@@ -316,8 +313,8 @@ public class GameExecuter : MonoBehaviour
     {
         while (actionQueue.Count > 0)
         {
-            Action action = actionQueue.Dequeue();
-            action?.Invoke();
+            actionQueue.Dequeue().Invoke();
+            Debug.Log("action invoked");
         }
     }
 

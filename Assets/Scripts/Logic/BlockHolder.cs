@@ -34,13 +34,11 @@ namespace Assets.Scripts
         public Block GetNewCurrent()
         {
             Block block = NextBlock;
-
             do
             {
                 NextBlock = RandomBlock();
             }
             while (block.Id == NextBlock.Id);
-
             return block;
         }
     }

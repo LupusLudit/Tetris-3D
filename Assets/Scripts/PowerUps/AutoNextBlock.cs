@@ -14,7 +14,10 @@ namespace Assets.Scripts.PowerUps
 
         public override void Use()
         {
-            Executer.AutoNext = true;
+            Executer.EnqueueAction(() =>
+            {
+                Executer.NextWithoutPlacing();
+            });
         }
     }
 }

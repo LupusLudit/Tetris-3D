@@ -117,10 +117,4 @@ public class BlockManager : MonoBehaviour
         ClearList(predictedBlockTiles);
         ClearList(currentBlockTiles);
     }
-
-    //Temp
-    public void RemovePrediction()
-    {
-        ClearList(predictedBlockTiles);
-    }
 }

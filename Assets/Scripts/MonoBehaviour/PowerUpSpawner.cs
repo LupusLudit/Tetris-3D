@@ -4,6 +4,7 @@ using Assets.Scripts.MonoBehaviour;
 using Assets.Scripts.PowerUps;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class PowerUpSpawner : MonoBehaviour
 {
     public GameExecuter executer;
@@ -11,8 +12,10 @@ public class PowerUpSpawner : MonoBehaviour
 
     private PowerUpHolder powerUpHolder;
     private HashSet<GameObject> activePowerUps = new HashSet<GameObject>();
+    private HashSet<GameObject> processedPowerUps = new HashSet<GameObject>();
     private float spawnTimer = 0f;
     private Renderer powerUpRenderer;
+
     void Update()
     {
         if (!executer.CurrentGame.GameOver)
@@ -29,7 +32,7 @@ public class PowerUpSpawner : MonoBehaviour
                 UpdatePowerUps();
 
                 spawnTimer += Time.deltaTime;
-                if (spawnTimer >= 5f) // Temporarily set to 10
+                if (spawnTimer >= 10f) // Temporarily set to 10
                 {
                     spawnTimer = 0f;
                     SpawnPowerUp();
@@ -42,24 +45,33 @@ public class PowerUpSpawner : MonoBehaviour
     {
         if (activePowerUps.Count == 0) return;
 
+        processedPowerUps.Clear(); // Clear the processed set for the current frame
+
         foreach (Vector3 tilePosition in executer.CurrentGame.CurrentBlock.TilePositions())
         {
             Vector3 pos = PositionConvertor.ActualTilePosition(tilePosition,
                 executer.BlockPrefabs[executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>(),
                 executer.YMax);
 
-            // Stores all colliders that overlap the sphere inside the tile position
             Collider[] hitColliders = Physics.OverlapSphere(pos, 0.1f);
 
             foreach (Collider collider in hitColliders)
             {
-                //Checks if the colliders gameObject has a powerUpComponent and returns reference to it
                 if (collider.gameObject.TryGetComponent(out PowerUpComponent powerUpComponent))
                 {
+                    GameObject powerUpObject = collider.gameObject;
+
+                    // Skip if this power-up has already been processed
+                    if (processedPowerUps.Contains(powerUpObject)) continue;
+
+                    // Process the power-up
                     PowerUp powerUp = powerUpComponent.PowerUpInstance;
                     powerUp.Use();
                     Debug.Log($"Used a power-up with id {powerUp.Id}");
-                    RemovePowerUp(collider.gameObject);
+                    RemovePowerUp(powerUpObject);
+
+                    // Mark as processed
+                    processedPowerUps.Add(powerUpObject);
                 }
             }
         }
@@ -92,6 +104,7 @@ public class PowerUpSpawner : MonoBehaviour
         Destroy(powerUp);
     }
 }
+
 public class PowerUpComponent : MonoBehaviour
 {
     public PowerUp PowerUpInstance { get; private set; }

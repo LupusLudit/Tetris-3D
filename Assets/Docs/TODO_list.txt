@@ -15,7 +15,7 @@ Effect: Doubles the points for each completed row within a certain timeframe.
 6. Freeze Blocks*
 Effect: Temporarily stops new blocks from spawning.
 7. Block Switcher*
-Effect: Allows the player to swap the current block with the next one.
+Effect: Forces the player to swap the current block with the next one.
 
 Negative powerUps:
 
