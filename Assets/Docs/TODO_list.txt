@@ -27,8 +27,6 @@ Effect: Temporarily blinds the player
 Effect: Forces the current block to drop immediately
 11. Only Down Movement *
 Effect: Prevents horizontal movement of the current block, leaving only rotation and drop options.
-12. Random Obstacles
-Effect: Spawns random blocks on the board in empty spaces 
 
 TODO:
 1. Add sound effects
@@ -38,6 +36,4 @@ TODO:
 6. Add functioning settings and quit button in the main menu
 7. Imporve lighting
 8. Add text that will be shown when the powerup is touched so the player knows which power up was collected
-9. Fix the issue with block spawning in the air after next block powerup
-10. Add actionQueue in the GameExecuter and rewrite some powerUps so they fit the new format (*0.5)
-11. Fix the current issue with the InstaDrop powerup
+9. Add actionQueue in the GameExecuter and rewrite some powerUps so they fit the new format (*0.5)

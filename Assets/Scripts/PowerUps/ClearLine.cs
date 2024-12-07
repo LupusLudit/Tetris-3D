@@ -5,6 +5,11 @@
 
         private GameGrid grid;
         public override int Id => 1;
+
+        public override string Title => "Clear line";
+
+        public override string Description => "The top line has been destroyed";
+
         public ClearLine(GameExecuter executer) : base(executer)
         {
             grid = executer.CurrentGame.Grid;

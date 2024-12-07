@@ -6,6 +6,8 @@ namespace Assets.Scripts.PowerUps
     {
         public Vector3 Position { get; set; }
         public abstract int Id { get; }
+        public abstract string Title { get; }
+        public abstract string Description { get; }
         protected GameExecuter Executer { get; }
 
         public PowerUp(GameExecuter executer)

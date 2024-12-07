@@ -9,6 +9,10 @@ namespace Assets.Scripts.PowerUps
         private HashSet<GameObject> tiles;
         public override int Id => 4;
 
+        public override string Title => "Bomb";
+
+        public override string Description => "Boom! Blocks around you have been destroyed";
+
         private Vector3[] blastRadiusPositions =
         {
             new Vector3(-1, -1, -1), new Vector3(-1, -1, 0), new Vector3(-1, -1, 1),

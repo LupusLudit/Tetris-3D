@@ -136,7 +136,7 @@ public class GameExecuter : MonoBehaviour
         if (clearedLayers > 0)
         {
             CheckLevelUp();
-            Manager.DrawLinesCompletedUI(score, level, clearedLayers, DoubleScore);
+            Manager.DrawLinesCompletedUI(score, level, clearedLayers,  DoubleScore);
             Manager.DrawScoreUI(score.CurrentScore);
         }
     }
@@ -150,8 +150,6 @@ public class GameExecuter : MonoBehaviour
             Manager.DrawLevelUpUI(level);
         }
     }
-
-    //TODO: Fix this
 
     public void NextWithoutPlacing()
     {

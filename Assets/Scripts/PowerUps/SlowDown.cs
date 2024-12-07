@@ -6,6 +6,11 @@ namespace Assets.Scripts.PowerUps
     public class SlowDown : PowerUp
     {
         public override int Id => 3;
+
+        public override string Title => "Slow down";
+
+        public override string Description => "The fall of the current block has been slowed down";
+
         public SlowDown(GameExecuter executer) : base(executer) { }
 
         public override void Use()

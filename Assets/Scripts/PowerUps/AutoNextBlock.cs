@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Scripts.PowerUps
+﻿namespace Assets.Scripts.PowerUps
 {
     public class AutoNextBlock : PowerUp
     {
 
         public override int Id => 7;
+
+        public override string Title => "Next block";
+
+        public override string Description => "Your current block has been switched for the next one.";
+
         public AutoNextBlock(GameExecuter executer) : base(executer) { }
 
         public override void Use()

@@ -11,6 +11,10 @@ namespace Assets.Scripts.PowerUps
 
         public override int Id => 9;
 
+        public override string Title => "Blinded by the lights";
+
+        public override string Description => "You have been temporarily blinded";
+
         public override void Use()
         {
             if (blindMaskPanel == null)
