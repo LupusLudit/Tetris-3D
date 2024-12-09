@@ -18,7 +18,7 @@ public class PowerUpSpawner : MonoBehaviour
 
     void Update()
     {
-        if (!executer.CurrentGame.GameOver)
+        if (executer.IsGameActive())
         {
             // Lazy initialization of PowerUpHolder => we need to initialize the powerUpHolder after the Grid
             if (powerUpHolder == null && executer.CurrentGame.Grid != null)

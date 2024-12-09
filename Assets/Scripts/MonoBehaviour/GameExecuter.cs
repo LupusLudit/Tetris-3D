@@ -268,7 +268,7 @@ public class GameExecuter : MonoBehaviour
         GameCamera.transform.LookAt(lookPoint);
     }
 
-    private bool IsGameActive() =>
+    public bool IsGameActive() =>
         !CurrentGame.GameOver && !CountdownText.gameObject.activeSelf && !Manager.GameMenu.IsPaused;
 
     private void UpdateFallDelay()

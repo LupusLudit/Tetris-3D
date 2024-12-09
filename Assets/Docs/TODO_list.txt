@@ -31,9 +31,7 @@ Effect: Prevents horizontal movement of the current block, leaving only rotation
 TODO:
 1. Add sound effects
 2. Add visual effects (when the block was collected, etc.)
-3. Improve the looks of the blinding screen
-5. Add actual powerUp tiles
-6. Add functioning settings and quit button in the main menu
-7. Imporve lighting
-8. Add text that will be shown when the powerup is touched so the player knows which power up was collected
-9. Add actionQueue in the GameExecuter and rewrite some powerUps so they fit the new format (*0.5)
+3. Add actual powerUp tiles
+4. Add functioning settings and quit button in the main menu
+5. Imporve lighting
+6. Add actionQueue in the GameExecuter and rewrite some powerUps so they fit the new format (*0.5)
