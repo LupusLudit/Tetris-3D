@@ -6,10 +6,11 @@ using UnityEngine.EventSystems;
 public class InputManager : MonoBehaviour
 {
     public KeyBinding KeyBindingScript;
-    public GameExecuter GameExecuterScript;
+    public GameExecuter Executer;
     private string currentButtonId;
 
     private bool awaitingInput = false;
+
     public void ButtonPressed(string buttonId)
     {
         currentButtonId = buttonId;
@@ -46,22 +47,23 @@ public class InputManager : MonoBehaviour
     private void UpdateKeyBinding(string buttonId, KeyCode key)
     {
         int index = int.Parse(buttonId);
-        var gameKeyActions = GameExecuterScript.keyActions;
+        var gameKeyActions = Executer.keyActions;
         if (!IsKeyOccupied(key, gameKeyActions))
         {
-            Action action = GameExecuterScript.GetActionFromIndex(index);
+            Action action = Executer.GetActionFromIndex(index);
 
             // Removing the old key binding
-            KeyCode oldKey = GameExecuterScript.GetKeyFromIndex(index);
+            KeyCode oldKey = Executer.GetKeyFromIndex(index);
             if (gameKeyActions.ContainsKey(oldKey))
             {
                 gameKeyActions.Remove(oldKey);
             }
 
             gameKeyActions[key] = action;
+            Executer.SaveCurrentSettings();
+
             KeyBindingScript.ChangeButtonLabel(index, key.ToString());
             KeyBindingScript.HideKeyInputUI(key.ToString());
-
             KeyBindingScript.ChangeHintLabel(index, key.ToString());
         }
         else

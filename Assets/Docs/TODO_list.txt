@@ -33,5 +33,7 @@ TODO:
 2. Add visual effects (when the block was collected, etc.)
 3. Add actual powerUp tiles
 4. Add functioning settings and quit button in the main menu
-5. Imporve lighting
+5. Improve lighting
 6. Add actionQueue in the GameExecuter and rewrite some powerUps so they fit the new format (*0.5)
+7. Actualy saving the saved settings into some file
+8. Improve the file saving, make 2 arrays (keys and actions) and delete dictionary + update UI (settings, hint, etc.)

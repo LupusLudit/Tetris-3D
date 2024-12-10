@@ -47,6 +47,31 @@ public class GameExecuter : MonoBehaviour
     private int linesCleaned = 0;
     private const float RotationAngle = 0.6f;
 
+    KeyCode[] keys;
+    private Action[] actions;
+    private void InitializeActions()
+    {
+        actions = new Action[]
+        {
+        () => { if (!LimitedMovement) { CurrentGame.XBack(); } },
+        () => { if (!LimitedMovement) { CurrentGame.XForward(); } },
+        () => { if (!LimitedMovement) { CurrentGame.ZBack(); } },
+        () => { if (!LimitedMovement) { CurrentGame.ZForward(); } },
+        () => CurrentGame.RotateBlockCCW(),
+        () => CurrentGame.RotateBlockCW(),
+        () => CurrentGame.SwitchToDifAxis(0),
+        () => CurrentGame.SwitchToDifAxis(1),
+        () => CurrentGame.SwitchToDifAxis(2),
+        () => { if (!Freezed) { AdjustScoreAndDelay(); } },
+        () => DropAndRestart(),
+        () => HoldAndDrawBlocks(),
+        () => RotateCamera(RotationAngle),
+        () => RotateCamera(-RotationAngle),
+        () => BackgroundRenderer.ResetToDefault(),
+        () => Manager.Pause()
+        };
+    }
+
     void Start()
     {
         CurrentGame = new Game(XMax, YMax, ZMax);
@@ -56,8 +81,9 @@ public class GameExecuter : MonoBehaviour
 
         score = new Score();
         delay = new DelayManager(750, 50, 25);
-
-        InitializeKeyMappings();
+        SetKeyMappingDefault();
+        InitializeActions();
+        LoadSettings();
         StartCoroutine(CountdownCoroutine());
 
         blockManager.CreateNewBlock(CurrentGame.CurrentBlock);
@@ -276,8 +302,40 @@ public class GameExecuter : MonoBehaviour
         delay.AdjustDelay(score.CurrentScore, DelayMultiplier);
         timeSinceLastFall += Time.deltaTime;
     }
+    public void SaveCurrentSettings()
+    {
+        GameSettings settings = new GameSettings
+        {
+            KeyBindings = new KeyCode[keyActions.Keys.Count]
+        };
 
-    private void InitializeKeyMappings()
+        keyActions.Keys.CopyTo(settings.KeyBindings, 0);
+
+        SettingsManager.SaveSettings(settings);
+    }
+
+    public void LoadSettings()
+    {
+        GameSettings settings = SettingsManager.LoadSettings();
+        KeyCode[] loadedKeys = settings.KeyBindings;
+        InitializeKeyMappings(loadedKeys);
+    }
+
+    private void InitializeKeyMappings(KeyCode[] loadedBindings)
+    {
+        if (loadedBindings != null && loadedBindings.Length == keyActions.Count)
+        {
+            var actions = new List<Action>(keyActions.Values);
+            keyActions.Clear();
+            for (int i = 0; i < loadedBindings.Length; i++)
+            {
+                keyActions.Add(loadedBindings[i], actions[i]);
+            }
+        }
+        else SetKeyMappingDefault();
+    }
+
+    private void SetKeyMappingDefault()
     {
         keyActions = new Dictionary<KeyCode, Action>
         {
@@ -299,6 +357,7 @@ public class GameExecuter : MonoBehaviour
             { KeyCode.Escape, () => Manager.Pause() }
         };
     }
+
     public void EnqueueAction(Action action)
     {
         if (action != null)

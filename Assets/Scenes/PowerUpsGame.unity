@@ -1523,7 +1523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KeyBindingScript: {fileID: 2030991030}
-  GameExecuterScript: {fileID: 1207663577}
+  Executer: {fileID: 1207663577}
 --- !u!1 &148135164
 GameObject:
   m_ObjectHideFlags: 0
