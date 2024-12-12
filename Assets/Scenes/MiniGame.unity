@@ -10728,11 +10728,13 @@ MonoBehaviour:
   Manager: {fileID: 999185324}
   CountdownPanel: {fileID: 1175275475}
   CountdownText: {fileID: 349599242}
+  KeyBinding: {fileID: 2030991030}
   GameCamera: {fileID: 330585545}
   BackgroundRenderer: {fileID: 27697500}
   XMax: 6
   YMax: 14
   ZMax: 6
+  Keys: 
 --- !u!1 &1215235924
 GameObject:
   m_ObjectHideFlags: 0
@@ -13387,7 +13389,7 @@ Camera:
   far clip plane: 100
   field of view: 100
   orthographic: 1
-  orthographic size: 12.03
+  orthographic size: 8
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
@@ -13412,7 +13414,7 @@ Transform:
   m_GameObject: {fileID: 1479503451}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20, y: 11, z: 5}
+  m_LocalPosition: {x: 20, y: 7, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18944,7 +18946,7 @@ Transform:
   m_GameObject: {fileID: 1989807163}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 5, y: 40, z: 5}
+  m_LocalPosition: {x: 3, y: 40, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

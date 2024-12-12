@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -47,19 +47,10 @@ public class InputManager : MonoBehaviour
     private void UpdateKeyBinding(string buttonId, KeyCode key)
     {
         int index = int.Parse(buttonId);
-        var gameKeyActions = Executer.keyActions;
-        if (!IsKeyOccupied(key, gameKeyActions))
+        KeyCode[] keys = Executer.Keys;
+        if (!keys.Contains(key))
         {
-            Action action = Executer.GetActionFromIndex(index);
-
-            // Removing the old key binding
-            KeyCode oldKey = Executer.GetKeyFromIndex(index);
-            if (gameKeyActions.ContainsKey(oldKey))
-            {
-                gameKeyActions.Remove(oldKey);
-            }
-
-            gameKeyActions[key] = action;
+            keys[index] = key;
             Executer.SaveCurrentSettings();
 
             KeyBindingScript.ChangeButtonLabel(index, key.ToString());
@@ -71,14 +62,5 @@ public class InputManager : MonoBehaviour
             KeyBindingScript.HideKeyInputUI("This key is already being used.");
             awaitingInput = false;
         }
-    }
-
-    private bool IsKeyOccupied(KeyCode key ,Dictionary<KeyCode, Action> actions) 
-    {
-        foreach (var action in actions)
-        {
-            if (key == action.Key) return true;
-        }
-        return false;
     }
 }

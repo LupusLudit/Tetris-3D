@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class KeyBinding : MonoBehaviour
 {
-
     public GameObject KeyBindingUI;
     public GameObject KeyInputUI;
     public GameObject SettingsUI;
@@ -16,6 +15,7 @@ public class KeyBinding : MonoBehaviour
 
     public InputManager InputManagerScript;
     private Animator KeyBindingAnimator;
+
     void Start()
     {
         KeyBindingAnimator = KeyBindingUI.GetComponent<Animator>();
@@ -72,6 +72,22 @@ public class KeyBinding : MonoBehaviour
     public void HideKeyInputUI(string key)
     {
         StartCoroutine(HideKeyInputUICoroutine(key));
+    }
+
+    public void InitializeButtonLabels(KeyCode[] keys)
+    {
+        for (int i = 0; i < keys.Length-1; i++)
+        {
+            ChangeButtonLabel(i, keys[i].ToString());
+        }
+    }
+
+    public void InitializeHintLabels(KeyCode[] keys)
+    {
+        for (int i = 0; i < keys.Length-1; i++)
+        {
+            ChangeHintLabel(i, keys[i].ToString());
+        }
     }
 
     private string SequenceHint(int seqStartIndex, int actualIndex, int hintsIndex, string key)

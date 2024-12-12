@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 
 namespace Assets.Scripts.MonoBehaviour
@@ -27,6 +25,8 @@ namespace Assets.Scripts.MonoBehaviour
         }
     }
 
+
+    //This class can be adjusted to save more than just keys
     public class GameSettings
     {
         public KeyCode[] KeyBindings;

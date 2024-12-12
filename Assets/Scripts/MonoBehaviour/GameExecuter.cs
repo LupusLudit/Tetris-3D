@@ -21,6 +21,7 @@ public class GameExecuter : MonoBehaviour
     public UIManager Manager;
     public GameObject CountdownPanel;
     public TextMeshProUGUI CountdownText;
+    public KeyBinding KeyBinding;
 
     [Header("Game Settings")]
     public Camera GameCamera;
@@ -29,8 +30,6 @@ public class GameExecuter : MonoBehaviour
 
     public Game CurrentGame { get; private set; }
     public HashSet<GameObject> PlacedBlocks { get; private set; } = new HashSet<GameObject>();
-    public Dictionary<KeyCode, Action> keyActions { get; private set; }
-
     //TODO: Think of a different system, so there is no need to use so many bools
     public double DelayMultiplier { get; set; } = 1;
     public bool DoubleScore { get; set; } = false;
@@ -47,30 +46,8 @@ public class GameExecuter : MonoBehaviour
     private int linesCleaned = 0;
     private const float RotationAngle = 0.6f;
 
-    KeyCode[] keys;
+    public KeyCode[] Keys;
     private Action[] actions;
-    private void InitializeActions()
-    {
-        actions = new Action[]
-        {
-        () => { if (!LimitedMovement) { CurrentGame.XBack(); } },
-        () => { if (!LimitedMovement) { CurrentGame.XForward(); } },
-        () => { if (!LimitedMovement) { CurrentGame.ZBack(); } },
-        () => { if (!LimitedMovement) { CurrentGame.ZForward(); } },
-        () => CurrentGame.RotateBlockCCW(),
-        () => CurrentGame.RotateBlockCW(),
-        () => CurrentGame.SwitchToDifAxis(0),
-        () => CurrentGame.SwitchToDifAxis(1),
-        () => CurrentGame.SwitchToDifAxis(2),
-        () => { if (!Freezed) { AdjustScoreAndDelay(); } },
-        () => DropAndRestart(),
-        () => HoldAndDrawBlocks(),
-        () => RotateCamera(RotationAngle),
-        () => RotateCamera(-RotationAngle),
-        () => BackgroundRenderer.ResetToDefault(),
-        () => Manager.Pause()
-        };
-    }
 
     void Start()
     {
@@ -81,6 +58,7 @@ public class GameExecuter : MonoBehaviour
 
         score = new Score();
         delay = new DelayManager(750, 50, 25);
+
         SetKeyMappingDefault();
         InitializeActions();
         LoadSettings();
@@ -90,6 +68,8 @@ public class GameExecuter : MonoBehaviour
         blockManager.CreateBlockPrediction(CurrentGame.CurrentBlock);
         DrawNextBlock(CurrentGame.Holder);
 
+        KeyBinding.InitializeButtonLabels(Keys);
+        KeyBinding.InitializeHintLabels(Keys);
         timeSinceLastFall = 0f;
     }
 
@@ -232,23 +212,6 @@ public class GameExecuter : MonoBehaviour
         Destroy(tile);
     }
 
-    public Action GetActionFromIndex(int index)
-    {
-        if (index >= 0 && index < keyActions.Count)
-        {
-            return new List<Action>(keyActions.Values)[index];
-        }
-        return null;
-    }
-
-    public KeyCode GetKeyFromIndex(int index)
-    {
-        if (index >= 0 && index < keyActions.Count)
-        {
-            return new List<KeyCode>(keyActions.Keys)[index];
-        }
-        return KeyCode.None;
-    }
     public void DropAndRestart()
     {
         CurrentGame.DropBlock();
@@ -271,11 +234,11 @@ public class GameExecuter : MonoBehaviour
 
     private void HandleKeyInputs()
     {
-        foreach (var keyAction in keyActions)
+        for (int i = 0; i < Keys.Length; i++)
         {
-            if ((Input.GetKey(keyAction.Key) && IsDesiredHeld(keyAction.Key)) || Input.GetKeyDown(keyAction.Key))
+            if ((Input.GetKey(Keys[i]) && IsDesiredHeld(Keys[i])) || Input.GetKeyDown(Keys[i]))
             {
-                keyAction.Value();
+                actions[i].Invoke();
             }
         }
 
@@ -284,7 +247,7 @@ public class GameExecuter : MonoBehaviour
     }
 
     private bool IsDesiredHeld(KeyCode key) =>
-        key == GetKeyFromIndex(9) || key == GetKeyFromIndex(12) || key == GetKeyFromIndex(13);
+        key == Keys[9] || key == Keys[12] || key == Keys[13];
 
     private void RotateCamera(float angle)
     {
@@ -306,10 +269,13 @@ public class GameExecuter : MonoBehaviour
     {
         GameSettings settings = new GameSettings
         {
-            KeyBindings = new KeyCode[keyActions.Keys.Count]
+            KeyBindings = new KeyCode[Keys.Length]
         };
 
-        keyActions.Keys.CopyTo(settings.KeyBindings, 0);
+        for (int i = 0; i < Keys.Length; i++)
+        {
+            settings.KeyBindings[i] = Keys[i];
+        }
 
         SettingsManager.SaveSettings(settings);
     }
@@ -323,13 +289,11 @@ public class GameExecuter : MonoBehaviour
 
     private void InitializeKeyMappings(KeyCode[] loadedBindings)
     {
-        if (loadedBindings != null && loadedBindings.Length == keyActions.Count)
+        if (loadedBindings != null && loadedBindings.Length == Keys.Length)
         {
-            var actions = new List<Action>(keyActions.Values);
-            keyActions.Clear();
             for (int i = 0; i < loadedBindings.Length; i++)
             {
-                keyActions.Add(loadedBindings[i], actions[i]);
+                Keys[i] = loadedBindings[i];
             }
         }
         else SetKeyMappingDefault();
@@ -337,24 +301,46 @@ public class GameExecuter : MonoBehaviour
 
     private void SetKeyMappingDefault()
     {
-        keyActions = new Dictionary<KeyCode, Action>
+        Keys = new KeyCode[]{
+            KeyCode.UpArrow,
+            KeyCode.DownArrow,
+            KeyCode.LeftArrow,
+            KeyCode.RightArrow,
+            KeyCode.Q,
+            KeyCode.E,
+            KeyCode.A,
+            KeyCode.S,
+            KeyCode.D,
+            KeyCode.LeftShift,
+            KeyCode.Space,
+            KeyCode.C,
+            KeyCode.K,
+            KeyCode.L,
+            KeyCode.R,
+            KeyCode.Escape
+        };
+    }
+
+    private void InitializeActions()
+    {
+        actions = new Action[]
         {
-            { KeyCode.UpArrow, () => { if(!LimitedMovement) {CurrentGame.XBack(); } } },
-            { KeyCode.DownArrow, () => { if(!LimitedMovement) {CurrentGame.XForward(); } } },
-            { KeyCode.LeftArrow, () => { if(!LimitedMovement) {CurrentGame.ZBack(); } } },
-            { KeyCode.RightArrow, () => { if(!LimitedMovement) {CurrentGame.ZForward(); } } },
-            { KeyCode.Q, () => CurrentGame.RotateBlockCCW() },
-            { KeyCode.E, () => CurrentGame.RotateBlockCW() },
-            { KeyCode.A, () => CurrentGame.SwitchToDifAxis(0) },
-            { KeyCode.S, () => CurrentGame.SwitchToDifAxis(1) },
-            { KeyCode.D, () => CurrentGame.SwitchToDifAxis(2) },
-            { KeyCode.LeftShift, () => {if(!Freezed) {AdjustScoreAndDelay(); } } },
-            { KeyCode.Space, () => DropAndRestart() },
-            { KeyCode.C, () => HoldAndDrawBlocks() },
-            { KeyCode.K, () => RotateCamera(RotationAngle) },
-            { KeyCode.L, () => RotateCamera(-RotationAngle) },
-            { KeyCode.R, () => BackgroundRenderer.ResetToDefault() },
-            { KeyCode.Escape, () => Manager.Pause() }
+            () => { if (!LimitedMovement) { CurrentGame.XBack(); } },
+            () => { if (!LimitedMovement) { CurrentGame.XForward(); } },
+            () => { if (!LimitedMovement) { CurrentGame.ZBack(); } },
+            () => { if (!LimitedMovement) { CurrentGame.ZForward(); } },
+            () => CurrentGame.RotateBlockCCW(),
+            () => CurrentGame.RotateBlockCW(),
+            () => CurrentGame.SwitchToDifAxis(0),
+            () => CurrentGame.SwitchToDifAxis(1),
+            () => CurrentGame.SwitchToDifAxis(2),
+            () => { if (!Freezed) { AdjustScoreAndDelay(); } },
+            () => DropAndRestart(),
+            () => HoldAndDrawBlocks(),
+            () => RotateCamera(RotationAngle),
+            () => RotateCamera(-RotationAngle),
+            () => BackgroundRenderer.ResetToDefault(),
+            () => Manager.Pause()
         };
     }
 
