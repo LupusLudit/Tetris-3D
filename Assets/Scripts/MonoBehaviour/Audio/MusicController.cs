@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class MusicController : MonoBehaviour
 {
-    public AudioSource musicSource;
-    public Slider volumeSlider;
-    public Toggle musicToggle;
-    public TMP_Dropdown musicDropdown;
-    public AudioClip[] musicTracks;
+    private AudioSource musicSource;
+    public Slider VolumeSlider;
+    public Toggle MusicToggle;
+    public TMP_Dropdown MusicDropdown;
+    public AudioClip[] MusicTracks;
 
     /*
      * links to music tracks used (proper documentation will be added later)
@@ -21,18 +21,19 @@ public class MusicController : MonoBehaviour
 
     private void Start()
     {
+        musicSource = GetComponent<AudioSource>();
         musicSource.volume = 0.5f;
-        volumeSlider.value = 0.5f;
+        VolumeSlider.value = 0.5f;
 
-        if (musicTracks.Length > 0)
+        if (MusicTracks.Length > 0)
         {
-            musicSource.clip = musicTracks[0];
+            musicSource.clip = MusicTracks[0];
             musicSource.Play();
         }
 
-        volumeSlider.onValueChanged.AddListener(SetVolume);
-        musicToggle.onValueChanged.AddListener(ToggleMusic);
-        musicDropdown.onValueChanged.AddListener(SwitchTrack);
+        VolumeSlider.onValueChanged.AddListener(SetVolume);
+        MusicToggle.onValueChanged.AddListener(ToggleMusic);
+        MusicDropdown.onValueChanged.AddListener(SwitchTrack);
     }
 
     public void SetVolume(float volume)
@@ -54,10 +55,10 @@ public class MusicController : MonoBehaviour
 
     public void SwitchTrack(int trackIndex)
     {
-        if (trackIndex < musicTracks.Length)
+        if (trackIndex < MusicTracks.Length)
         {
-            musicSource.clip = musicTracks[trackIndex];
-            if (musicToggle.isOn)
+            musicSource.clip = MusicTracks[trackIndex];
+            if (MusicToggle.isOn)
             {
                 musicSource.Play();
             }

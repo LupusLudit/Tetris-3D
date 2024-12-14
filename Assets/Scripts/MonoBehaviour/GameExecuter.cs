@@ -28,6 +28,9 @@ public class GameExecuter : MonoBehaviour
     public BackgroundRenderer BackgroundRenderer;
     public int XMax, YMax, ZMax;
 
+    [Header("Other")]
+    public SoundEffects SoundEffects;
+
     public Game CurrentGame { get; private set; }
     public HashSet<GameObject> PlacedBlocks { get; private set; } = new HashSet<GameObject>();
     //TODO: Think of a different system, so there is no need to use so many bools
@@ -104,6 +107,7 @@ public class GameExecuter : MonoBehaviour
     private void RestartGameCycle()
     {
         blockManager.PlaceCurrentBlock();
+        //SoundEffects.PlayEffect(2);
         ClearFullLayers();
         CurrentGame.NextBlock();
         blockManager.CreateNewBlock(CurrentGame.CurrentBlock);
@@ -329,11 +333,29 @@ public class GameExecuter : MonoBehaviour
             () => { if (!LimitedMovement) { CurrentGame.XForward(); } },
             () => { if (!LimitedMovement) { CurrentGame.ZBack(); } },
             () => { if (!LimitedMovement) { CurrentGame.ZForward(); } },
-            () => CurrentGame.RotateBlockCCW(),
-            () => CurrentGame.RotateBlockCW(),
-            () => CurrentGame.SwitchToDifAxis(0),
-            () => CurrentGame.SwitchToDifAxis(1),
-            () => CurrentGame.SwitchToDifAxis(2),
+            () => { CurrentGame.RotateBlockCCW(); SoundEffects.PlayEffect(1); },
+            () => { CurrentGame.RotateBlockCW(); SoundEffects.PlayEffect(1); },
+            () => {
+                if(CurrentGame.CurrentBlock.CurrentState != 0)
+                {
+                    CurrentGame.SwitchToDifAxis(0);
+                    SoundEffects.PlayEffect(1);
+                }
+            },
+            () => {
+                if(CurrentGame.CurrentBlock.CurrentState != 1)
+                {
+                    CurrentGame.SwitchToDifAxis(1);
+                    SoundEffects.PlayEffect(1);
+                }
+            },
+            () => {
+                if(CurrentGame.CurrentBlock.CurrentState != 2)
+                {
+                    CurrentGame.SwitchToDifAxis(2);
+                    SoundEffects.PlayEffect(1);
+                }
+            },
             () => { if (!Freezed) { AdjustScoreAndDelay(); } },
             () => DropAndRestart(),
             () => HoldAndDrawBlocks(),

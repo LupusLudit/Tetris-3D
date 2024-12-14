@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PowerUpSpawner : MonoBehaviour
 {
-    public GameExecuter executer;
+    public GameExecuter Executer;
     public PowerUpMessage powerUpMessage;
     public GameObject[] PowerUpPrefabs;
 
@@ -15,16 +15,17 @@ public class PowerUpSpawner : MonoBehaviour
     private HashSet<GameObject> processedPowerUps = new HashSet<GameObject>();
     private float spawnTimer = 0f;
     private Renderer powerUpRenderer;
+   
 
     void Update()
     {
-        if (executer.IsGameActive())
+        if (Executer.IsGameActive())
         {
             // Lazy initialization of PowerUpHolder => we need to initialize the powerUpHolder after the Grid
-            if (powerUpHolder == null && executer.CurrentGame.Grid != null)
+            if (powerUpHolder == null && Executer.CurrentGame.Grid != null)
             {
-                powerUpRenderer = executer.BlockPrefabs[executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>();
-                powerUpHolder = new PowerUpHolder(executer, powerUpRenderer);
+                powerUpRenderer = Executer.BlockPrefabs[Executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>();
+                powerUpHolder = new PowerUpHolder(Executer, powerUpRenderer);
             }
 
             if (powerUpHolder != null)
@@ -47,11 +48,11 @@ public class PowerUpSpawner : MonoBehaviour
 
         processedPowerUps.Clear(); // Clear the processed set for the current frame
 
-        foreach (Vector3 tilePosition in executer.CurrentGame.CurrentBlock.TilePositions())
+        foreach (Vector3 tilePosition in Executer.CurrentGame.CurrentBlock.TilePositions())
         {
             Vector3 pos = PositionConvertor.ActualTilePosition(tilePosition,
-                executer.BlockPrefabs[executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>(),
-                executer.YMax);
+                Executer.BlockPrefabs[Executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>(),
+                Executer.YMax);
 
             Collider[] hitColliders = Physics.OverlapSphere(pos, 0.1f);
 
@@ -74,6 +75,8 @@ public class PowerUpSpawner : MonoBehaviour
 
                     // Mark as processed
                     processedPowerUps.Add(powerUpObject);
+                    //Play effect
+                    Executer.SoundEffects.PlayEffect(0);
                 }
             }
         }
@@ -88,7 +91,7 @@ public class PowerUpSpawner : MonoBehaviour
     private void InstantiatePowerUp(PowerUp powerUp)
     {
         GameObject powerUpObject = Instantiate(PowerUpPrefabs[powerUp.Id - 1],
-            PositionConvertor.PowerUpPosition(powerUp, PowerUpPrefabs[powerUp.Id - 1].GetComponent<Renderer>(), executer.YMax),
+            PositionConvertor.PowerUpPosition(powerUp, PowerUpPrefabs[powerUp.Id - 1].GetComponent<Renderer>(), Executer.YMax),
             Quaternion.identity);
 
         activePowerUps.Add(powerUpObject);

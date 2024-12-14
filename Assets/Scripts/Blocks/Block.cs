@@ -39,7 +39,7 @@ namespace Assets.Scripts.Blocks
 
         public void SwitchAxis(int axis)
         {
-            CurrentState = axis % Tiles.Length;
+            CurrentState = axis;
         }
 
         public void Move(int x, int y, int z)
