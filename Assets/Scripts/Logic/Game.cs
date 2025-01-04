@@ -61,8 +61,7 @@ namespace Assets.Scripts
 
         public void HoldBlock()
         {
-            if (!CanHold) return;
-            else if (HeldBlock == null)
+            if (HeldBlock == null)
             {
                 HeldBlock = CurrentBlock;
                 CurrentBlock = Holder.GetNewCurrent();

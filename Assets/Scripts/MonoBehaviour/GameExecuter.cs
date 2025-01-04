@@ -107,7 +107,7 @@ public class GameExecuter : MonoBehaviour
     private void RestartGameCycle()
     {
         blockManager.PlaceCurrentBlock();
-        //SoundEffects.PlayEffect(2);
+        SoundEffects.PlayEffect(2); //placing sound effect
         ClearFullLayers();
         CurrentGame.NextBlock();
         blockManager.CreateNewBlock(CurrentGame.CurrentBlock);
@@ -329,10 +329,10 @@ public class GameExecuter : MonoBehaviour
     {
         actions = new Action[]
         {
-            () => { if (!LimitedMovement) { CurrentGame.XBack(); } },
-            () => { if (!LimitedMovement) { CurrentGame.XForward(); } },
-            () => { if (!LimitedMovement) { CurrentGame.ZBack(); } },
-            () => { if (!LimitedMovement) { CurrentGame.ZForward(); } },
+            () => { if (!LimitedMovement) { CurrentGame.XBack(); SoundEffects.PlayEffect(1); } },
+            () => { if (!LimitedMovement) { CurrentGame.XForward(); SoundEffects.PlayEffect(1); } },
+            () => { if (!LimitedMovement) { CurrentGame.ZBack(); SoundEffects.PlayEffect(1);  } },
+            () => { if (!LimitedMovement) { CurrentGame.ZForward(); SoundEffects.PlayEffect(1);  } },
             () => { CurrentGame.RotateBlockCCW(); SoundEffects.PlayEffect(1); },
             () => { CurrentGame.RotateBlockCW(); SoundEffects.PlayEffect(1); },
             () => {
@@ -379,7 +379,6 @@ public class GameExecuter : MonoBehaviour
         while (actionQueue.Count > 0)
         {
             actionQueue.Dequeue().Invoke();
-            Debug.Log("action invoked");
         }
     }
 
@@ -392,9 +391,18 @@ public class GameExecuter : MonoBehaviour
 
     private void HoldAndDrawBlocks()
     {
-        blockManager.HoldCurrentBlock();
-        DrawHeldBlock(CurrentGame.HeldBlock);
-        DrawNextBlock(CurrentGame.Holder);
+        if (!CurrentGame.CanHold)
+        {
+            SoundEffects.PlayEffect(3);
+            return;
+        }
+        else
+        {
+            blockManager.HoldCurrentBlock();
+            DrawHeldBlock(CurrentGame.HeldBlock);
+            DrawNextBlock(CurrentGame.Holder);
+            SoundEffects.PlayEffect(4);
+        }
     }
 
     IEnumerator CountdownCoroutine()

@@ -3021,9 +3021,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Effects:
-  - {fileID: 8300000, guid: 7c035c52240ab0a4e8ac14692343a172, type: 3}
+  - {fileID: 8300000, guid: 89f51cc01c0ec494f989b19d36fcf698, type: 3}
   - {fileID: 8300000, guid: c9b5e523a9192f34db932babb0d34251, type: 3}
-  - {fileID: 8300000, guid: 1d2ec35344c41954e85e2a2b99a62526, type: 3}
+  - {fileID: 8300000, guid: 0a2d89a1e701cd248aeefebec88a72fa, type: 3}
+  - {fileID: 8300000, guid: b0039c1385e06d6408f5ecda10a746b0, type: 3}
+  - {fileID: 8300000, guid: 3155c7347e22eb74a80ee06f4922c945, type: 3}
+  Volume: 0.75
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
