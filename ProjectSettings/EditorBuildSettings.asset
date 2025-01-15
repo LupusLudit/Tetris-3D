@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PowerUpsGame.unity
     guid: 49a2e48285dc15f4493ecbc256e5f3b4
+  - enabled: 1
+    path: Assets/Scenes/BlitzGame.unity
+    guid: 7d9f629ef63dbb64792b234375c713e4
+  - enabled: 1
+    path: Assets/Scenes/MaterialGame.unity
+    guid: def2233ce78633743a958f930ed1abbb
   m_configObjects: {}

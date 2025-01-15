@@ -13,19 +13,9 @@ public class GameModeMenu : MonoBehaviour
         animator = GameModeMenuUI.GetComponent<Animator>();
     }
 
-    public void StartRegularGame()
+    public void StartGame(int index)
     {
-        SceneManager.LoadScene(1);
-    }
-
-    public void StartMiniGame()
-    {
-        SceneManager.LoadScene(2);
-    }
-
-    public void StartPowerUpsGame()
-    {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(index);
     }
 
     private IEnumerator SlideRightAndDeactivate()
