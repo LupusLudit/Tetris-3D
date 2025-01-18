@@ -970,7 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Executer: {fileID: 1207663577}
-  powerUpMessage: {fileID: 1204292947}
+  PowerUpMessage: {fileID: 1204292947}
   PowerUpPrefabs:
   - {fileID: 8064247670438520883, guid: e00a52cceacbde94181529f1bd27b515, type: 3}
   - {fileID: 8064247670438520883, guid: e00a52cceacbde94181529f1bd27b515, type: 3}

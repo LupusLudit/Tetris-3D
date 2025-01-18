@@ -38,6 +38,7 @@ public class GameExecuter : MonoBehaviour
     public bool DoubleScore { get; set; } = false;
     public bool Freezed { get; set; } = false;
     public bool LimitedMovement { get; set; } = false;
+    public int ClearedLayers { get; private set; } = 0;
 
     private BlockManager blockManager;
     private Queue<Action> actionQueue = new Queue<Action>();
@@ -80,7 +81,7 @@ public class GameExecuter : MonoBehaviour
     {
         if (!IsGameActive())
         {
-            if (CurrentGame.GameOver) Manager.DrawGameOverScreen();
+            if(CurrentGame.GameOver) Manager.DrawGameOverScreen();
             return;
         }
 
@@ -128,25 +129,25 @@ public class GameExecuter : MonoBehaviour
 
     private void ClearFullLayers()
     {
-        int clearedLayers = 0;
+        ClearedLayers = 0;
         for (int y = CurrentGame.Grid.Y - 1; y > 0; y--)
         {
             if (CurrentGame.Grid.IsLayerFull(y))
             {
                 ClearBlocksInRow(y);
-                clearedLayers++;
+                ClearedLayers++;
                 linesCleaned++;
             }
-            else if (clearedLayers > 0)
+            else if (ClearedLayers > 0)
             {
-                MoveBlocksDown(y, clearedLayers);
+                MoveBlocksDown(y, ClearedLayers);
             }
         }
 
-        if (clearedLayers > 0)
+        if (ClearedLayers > 0)
         {
             CheckLevelUp();
-            Manager.DrawLinesCompletedUI(score, level, clearedLayers,  DoubleScore);
+            Manager.DrawLinesCompletedUI(score, level, ClearedLayers,  DoubleScore);
             Manager.DrawScoreUI(score.CurrentScore);
         }
     }

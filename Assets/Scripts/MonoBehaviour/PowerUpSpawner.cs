@@ -7,7 +7,7 @@ using UnityEngine;
 public class PowerUpSpawner : MonoBehaviour
 {
     public GameExecuter Executer;
-    public PowerUpMessage powerUpMessage;
+    public PowerUpMessage PowerUpMessage;
     public GameObject[] PowerUpPrefabs;
 
     private PowerUpHolder powerUpHolder;
@@ -68,8 +68,8 @@ public class PowerUpSpawner : MonoBehaviour
                     // Process the power-up
                     PowerUp powerUp = powerUpComponent.PowerUpInstance;
                     powerUp.Use();
-                    powerUpMessage.SetMessage(powerUp.Title, powerUp.Description);
-                    powerUpMessage.ShowUI();
+                    PowerUpMessage.SetMessage(powerUp.Title, powerUp.Description);
+                    PowerUpMessage.ShowUI();
                     Debug.Log($"Used a power-up with id {powerUp.Id}");
                     RemovePowerUp(powerUpObject);
 
