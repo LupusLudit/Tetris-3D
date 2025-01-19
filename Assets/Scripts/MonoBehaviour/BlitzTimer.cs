@@ -8,16 +8,23 @@ public class BlitzTimer : MonoBehaviour
     public int countdownTime = 120;
 
     private bool countingDown = false;
+    private bool addTime = false;
 
-    void Start()
-    {
-    }
     void Update()
     {
         if (Executer.IsGameActive() && !countingDown)
         {
             StartCoroutine(StartCountdown());
             countingDown = true;
+        }
+
+        //Adding time if the player cleared some layers
+        if (Executer.ClearedLayers == 0) addTime = true;
+        else if (Executer.ClearedLayers > 0 && addTime)
+        {
+            countdownTime += Executer.ClearedLayers * 5;
+            Debug.Log(Executer.ClearedLayers * 5);
+            addTime = false;
         }
     }
 

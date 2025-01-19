@@ -73,7 +73,7 @@ public class GameExecuter : MonoBehaviour
         DrawNextBlock(CurrentGame.Holder);
 
         KeyBinding.InitializeButtonLabels(Keys);
-        KeyBinding.InitializeHintLabels(Keys);
+        KeyBinding.InitializeHintLabels(Keys); 
         timeSinceLastFall = 0f;
     }
 
@@ -225,7 +225,7 @@ public class GameExecuter : MonoBehaviour
 
     private void MoveBlocksDown(int y, int drop)
     {
-        CurrentGame.Grid.MoveLayerDown(y, drop);
+        CurrentGame.Grid.MoveLayerDown(y, drop); 
         Vector3 dropVector = new Vector3(0, drop, 0);
 
         foreach (var tile in PlacedBlocks)
@@ -236,7 +236,6 @@ public class GameExecuter : MonoBehaviour
             }
         }
     }
-
     private void HandleKeyInputs()
     {
         for (int i = 0; i < Keys.Length; i++)
