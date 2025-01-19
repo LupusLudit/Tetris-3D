@@ -21,9 +21,9 @@ namespace Assets.Scripts.PowerUps
 
         private IEnumerator ActivateDoubleScore()
         {
-            Executer.Freezed = true;
+            Executer.Manager.Freezed = true;
             yield return new WaitForSeconds(10f); //Temporarily set to 10
-            Executer.Freezed = false;
+            Executer.Manager.Freezed = false;
         }
     }
 }

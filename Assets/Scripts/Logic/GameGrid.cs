@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts
+﻿namespace Assets.Scripts.Logic
 {
     public class GameGrid
     {

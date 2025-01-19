@@ -12,7 +12,7 @@
 
         public override void Use()
         {
-            Executer.ClearBlocksInColumn((int)Position.x, (int)Position.z);
+            Executer.Manager.ClearBlocksInColumn((int)Position.x, (int)Position.z);
         }
     }
 }

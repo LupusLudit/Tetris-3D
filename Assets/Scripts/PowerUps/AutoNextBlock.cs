@@ -15,7 +15,7 @@
         {
             Executer.EnqueueAction(() =>
             {
-                Executer.NextWithoutPlacing();
+                Executer.Manager.NextWithoutPlacing();
             });
         }
     }

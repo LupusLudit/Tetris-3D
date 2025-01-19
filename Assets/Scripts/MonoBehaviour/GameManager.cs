@@ -3,17 +3,33 @@ using Assets.Scripts;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.MonoBehaviour;
+using Assets.Scripts.Logic;
+using System;
 
-public class BlockManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     private Game game;
     private GameObject[] blockPrefabs;
 
+    public HashSet<GameObject> PlacedBlocks { get; private set; } = new HashSet<GameObject>();
     private List<GameObject> currentBlockTiles = new List<GameObject>();
     private List<GameObject> predictedBlockTiles = new List<GameObject>();
-    private HashSet<GameObject> placedBlocks;
     private int gridHeight;
     private Renderer blockRenderer;
+    private UIManager ui;
+    private ImageDrawer imageDrawer;
+
+    public bool DoubleScore { get; set; } = false;
+    public bool Freezed { get; set; } = false;
+    public bool LimitedMovement { get; set; } = false;
+    public int ClearedLayers { get; private set; } = 0;
+
+    private Vector3 lookPoint;
+    private Score score;
+    private DelayManager delay;
+    private int level = 0;
+    private int linesCleaned = 0;
+    private const float RotationAngle = 0.6f;
 
     //TODO: instead of creating and destroying blocks, use pooling
 
@@ -21,9 +37,12 @@ public class BlockManager : MonoBehaviour
     {
         game = gameExecuter.CurrentGame;
         blockPrefabs = gameExecuter.BlockPrefabs;
-        placedBlocks = gameExecuter.PlacedBlocks;
         gridHeight = gameExecuter.YMax;
-        blockRenderer = blockPrefabs[game.CurrentBlock.Id - 1].GetComponent<Renderer>();
+        blockRenderer = gameExecuter.BlockPrefabs[game.CurrentBlock.Id - 1].GetComponent<Renderer>();
+        ui = gameExecuter.UI;
+        imageDrawer = gameExecuter.ImageDrawer;
+        score = gameExecuter.Score;
+ 
     }
 
     public void CreateNewBlock(Block block)
@@ -76,7 +95,7 @@ public class BlockManager : MonoBehaviour
             GameObject tile = Instantiate(blockPrefabs[game.CurrentBlock.Id - 1],
                 PositionConvertor.ActualTilePosition(v, blockRenderer, gridHeight),
                 Quaternion.identity);
-            placedBlocks.Add(tile);
+            PlacedBlocks.Add(tile);
         }
         ClearCurrentBlocks();
     }
@@ -116,5 +135,109 @@ public class BlockManager : MonoBehaviour
     {
         ClearList(predictedBlockTiles);
         ClearList(currentBlockTiles);
+    }
+
+    public void ClearFullLayers()
+    {
+        ClearedLayers = 0;
+        for (int y = game.Grid.Y - 1; y > 0; y--)
+        {
+            if (game.Grid.IsLayerFull(y))
+            {
+                ClearBlocksInRow(y);
+                ClearedLayers++;
+                linesCleaned++;
+            }
+            else if (ClearedLayers > 0)
+            {
+                MoveBlocksDown(y, ClearedLayers);
+            }
+        }
+
+        if (ClearedLayers > 0)
+        {
+            CheckLevelUp();
+            ui.DrawLinesCompletedUI(score, level, ClearedLayers, DoubleScore);
+            ui.DrawScoreUI(score.CurrentScore);
+        }
+    }
+
+    private void CheckLevelUp()
+    {
+        if (linesCleaned >= 10)
+        {
+            level++;
+            linesCleaned = 0;
+            ui.DrawLevelUpUI(level);
+        }
+    }
+
+    //We cant remove elements from a collection while iterating over it, so we first load tiles into the tilesToRemove List.
+    public void ClearBlocksInRow(int y)
+    {
+        game.Grid.ClearLayer(y);
+        var tilesToRemove = new List<GameObject>();
+
+        foreach (var tile in PlacedBlocks)
+        {
+            if (tile.transform.position.y == gridHeight - 1 - y + 0.5f)
+            {
+                tilesToRemove.Add(tile);
+            }
+        }
+
+        foreach (var tile in tilesToRemove)
+        {
+            PlacedBlocks.Remove(tile);
+            Destroy(tile);
+        }
+    }
+
+    public void ClearBlocksInColumn(int x, int z)
+    {
+        game.Grid.ClearColumn(x, z);
+        var tilesToRemove = new List<GameObject>();
+
+        foreach (var tile in PlacedBlocks)
+        {
+            if (tile.transform.position.x == x + 0.5f && tile.transform.position.z == z + 0.5f)
+            {
+                tilesToRemove.Add(tile);
+            }
+        }
+
+        foreach (var tile in tilesToRemove)
+        {
+            PlacedBlocks.Remove(tile);
+            Destroy(tile);
+        }
+    }
+
+    public void RemoveTile(GameObject tile)
+    {
+        Destroy(tile);
+    }
+
+    public void MoveBlocksDown(int y, int drop)
+    {
+        game.Grid.MoveLayerDown(y, drop);
+        Vector3 dropVector = new Vector3(0, drop, 0);
+
+        foreach (var tile in PlacedBlocks)
+        {
+            if (tile.transform.position.y == gridHeight - 1 - y + 0.5f)
+            {
+                tile.transform.position -= dropVector;
+            }
+        }
+    }
+
+    public void NextWithoutPlacing()
+    {
+        ClearCurrentBlocks();
+        game.NextBlock();
+        CreateNewBlock(game.CurrentBlock);
+        CreateBlockPrediction(game.CurrentBlock);
+        imageDrawer.DrawNextBlock(game.Holder);
     }
 }

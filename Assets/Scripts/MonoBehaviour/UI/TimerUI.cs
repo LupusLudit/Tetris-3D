@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class TimeUI : MonoBehaviour
+public class TimerUI : MonoBehaviour
 {
-    // Start is called before the first frame update
     public TextMeshProUGUI timer;
 
     public void UpdateTime(string message)

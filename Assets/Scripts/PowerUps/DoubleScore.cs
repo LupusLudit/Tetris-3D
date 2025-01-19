@@ -25,9 +25,9 @@ namespace Assets.Scripts.PowerUps
 
         private IEnumerator ActivateDoubleScore()
         {
-            Executer.DoubleScore = true;
+            Executer.Manager.DoubleScore = true;
             yield return new WaitForSeconds(10f); //Temporarily set to 10
-            Executer.DoubleScore = false;
+            Executer.Manager.DoubleScore = false;
         }
     }
 }

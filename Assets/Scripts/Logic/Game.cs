@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Logic
 {
     public class Game
     {

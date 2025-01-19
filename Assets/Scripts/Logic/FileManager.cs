@@ -1,13 +1,16 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 
 namespace Assets.Scripts.MonoBehaviour
 {
-    public class SettingsManager
+    public class FileManager
     {
+        public KeyCode[] Keys;
+        private Action[] actions;
         private static string filePath = Path.Combine(Path.GetDirectoryName(Application.dataPath), "settings.json");
 
-        public static void SaveSettings(GameSettings settings)
+        public static void SaveToFile(GameSettings settings)
         {
             string json = JsonUtility.ToJson(settings);
             File.WriteAllText(filePath, json);

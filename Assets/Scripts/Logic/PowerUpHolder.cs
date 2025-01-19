@@ -51,7 +51,7 @@ namespace Assets.Scripts.Logic
 
         private bool PositionInPlacedBlocks(PowerUp powerUp)
         {
-            foreach (var block in executer.PlacedBlocks)
+            foreach (var block in executer.Manager.PlacedBlocks)
             {
                 if (block.transform.position == PositionConvertor.PowerUpPosition(powerUp, renderer, executer.YMax)) return true;
             }

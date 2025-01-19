@@ -1,49 +1,35 @@
 using Assets.Scripts;
-using Assets.Scripts.Blocks;
 using Assets.Scripts.Logic;
 using Assets.Scripts.MonoBehaviour;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameExecuter : MonoBehaviour
 {
-    [Header("Block Settings")]
-    public GameObject[] BlockPrefabs;
-    public Sprite[] BlockImages;
 
     [Header("UI Elements")]
-    public Image NextImage;
-    public Image HoldImage;
-    public UIManager Manager;
-    public GameObject CountdownPanel;
-    public TextMeshProUGUI CountdownText;
+    public UIManager UI;
     public KeyBinding KeyBinding;
+    public StartingCountdown Countdown;
+    public ImageDrawer ImageDrawer;
 
     [Header("Game Settings")]
     public Camera GameCamera;
     public BackgroundRenderer BackgroundRenderer;
     public int XMax, YMax, ZMax;
+    public GameObject[] BlockPrefabs;
 
     [Header("Other")]
     public SoundEffects SoundEffects;
 
     public Game CurrentGame { get; private set; }
-    public HashSet<GameObject> PlacedBlocks { get; private set; } = new HashSet<GameObject>();
-    //TODO: Think of a different system, so there is no need to use so many bools
     public double DelayMultiplier { get; set; } = 1;
-    public bool DoubleScore { get; set; } = false;
-    public bool Freezed { get; set; } = false;
-    public bool LimitedMovement { get; set; } = false;
-    public int ClearedLayers { get; private set; } = 0;
+    public Score Score;
 
-    private BlockManager blockManager;
+    public GameManager Manager;
     private Queue<Action> actionQueue = new Queue<Action>();
     private Vector3 lookPoint;
-    private Score score;
     private DelayManager delay;
     private float timeSinceLastFall;
     private int level = 0;
@@ -56,21 +42,21 @@ public class GameExecuter : MonoBehaviour
     void Start()
     {
         CurrentGame = new Game(XMax, YMax, ZMax);
-        blockManager = new BlockManager();
-        blockManager.Initialize(this);
+        Score = new Score();
+        Manager = new GameManager();
+        Manager.Initialize(this);
         lookPoint = BoardDimensions.calcLookPoint(new Vector3(XMax, YMax, ZMax), GameCamera); 
 
-        score = new Score();
         delay = new DelayManager(750, 50, 25);
 
         SetKeyMappingDefault();
         InitializeActions();
         LoadSettings();
-        StartCoroutine(CountdownCoroutine());
+        StartCoroutine(Countdown.StartCounting());
 
-        blockManager.CreateNewBlock(CurrentGame.CurrentBlock);
-        blockManager.CreateBlockPrediction(CurrentGame.CurrentBlock);
-        DrawNextBlock(CurrentGame.Holder);
+        Manager.CreateNewBlock(CurrentGame.CurrentBlock);
+        Manager.CreateBlockPrediction(CurrentGame.CurrentBlock);
+        ImageDrawer.DrawNextBlock(CurrentGame.Holder);
 
         KeyBinding.InitializeButtonLabels(Keys);
         KeyBinding.InitializeHintLabels(Keys); 
@@ -81,7 +67,7 @@ public class GameExecuter : MonoBehaviour
     {
         if (!IsGameActive())
         {
-            if(CurrentGame.GameOver) Manager.DrawGameOverScreen();
+            if(CurrentGame.GameOver) UI.DrawGameOverScreen();
             return;
         }
 
@@ -98,123 +84,23 @@ public class GameExecuter : MonoBehaviour
 
     private void ExecuteGameStep()
     {
-        if(!Freezed) CurrentGame.MoveBlockDown();
+        if(!Manager.Freezed) CurrentGame.MoveBlockDown();
         if (CurrentGame.BlockPlaced) RestartGameCycle();
 
-        blockManager.UpdateBlock(CurrentGame.CurrentBlock);
-        blockManager.UpdatePrediction(CurrentGame.CurrentBlock);
+        Manager.UpdateBlock(CurrentGame.CurrentBlock);
+        Manager.UpdatePrediction(CurrentGame.CurrentBlock);
     }
 
     private void RestartGameCycle()
     {
-        blockManager.PlaceCurrentBlock();
+        Manager.PlaceCurrentBlock();
         SoundEffects.PlayEffect(2); //placing sound effect
-        ClearFullLayers();
+        Manager.ClearFullLayers();
         CurrentGame.NextBlock();
-        blockManager.CreateNewBlock(CurrentGame.CurrentBlock);
-        blockManager.CreateBlockPrediction(CurrentGame.CurrentBlock);
-        DrawNextBlock(CurrentGame.Holder);
+        Manager.CreateNewBlock(CurrentGame.CurrentBlock);
+        Manager.CreateBlockPrediction(CurrentGame.CurrentBlock);
+        ImageDrawer.DrawNextBlock(CurrentGame.Holder);
         CurrentGame.BlockPlaced = false;
-    }
-
-    private void DrawHeldBlock(Block heldBlock)
-    {
-        HoldImage.sprite = heldBlock != null ? BlockImages[heldBlock.Id - 1] : null;
-    }
-
-    private void DrawNextBlock(BlockHolder holder)
-    {
-        NextImage.sprite = BlockImages[holder.NextBlock.Id - 1];
-    }
-
-    private void ClearFullLayers()
-    {
-        ClearedLayers = 0;
-        for (int y = CurrentGame.Grid.Y - 1; y > 0; y--)
-        {
-            if (CurrentGame.Grid.IsLayerFull(y))
-            {
-                ClearBlocksInRow(y);
-                ClearedLayers++;
-                linesCleaned++;
-            }
-            else if (ClearedLayers > 0)
-            {
-                MoveBlocksDown(y, ClearedLayers);
-            }
-        }
-
-        if (ClearedLayers > 0)
-        {
-            CheckLevelUp();
-            Manager.DrawLinesCompletedUI(score, level, ClearedLayers,  DoubleScore);
-            Manager.DrawScoreUI(score.CurrentScore);
-        }
-    }
-
-    private void CheckLevelUp()
-    {
-        if (linesCleaned >= 10)
-        {
-            level++;
-            linesCleaned = 0;
-            Manager.DrawLevelUpUI(level);
-        }
-    }
-
-    public void NextWithoutPlacing()
-    {
-        blockManager.ClearCurrentBlocks();
-        CurrentGame.NextBlock();
-        blockManager.CreateNewBlock(CurrentGame.CurrentBlock);
-        blockManager.CreateBlockPrediction(CurrentGame.CurrentBlock);
-        DrawNextBlock(CurrentGame.Holder);
-    }
-
-    //We cant remove elements from a collection while iterating over it, so we first load tiles into the tilesToRemove List.
-    public void ClearBlocksInRow(int y)
-    {
-        CurrentGame.Grid.ClearLayer(y);
-        var tilesToRemove = new List<GameObject>();
-
-        foreach (var tile in PlacedBlocks)
-        {
-            if (tile.transform.position.y == YMax - 1 - y + 0.5f)
-            {
-                tilesToRemove.Add(tile);
-            }
-        }
-
-        foreach (var tile in tilesToRemove)
-        {
-            PlacedBlocks.Remove(tile);
-            Destroy(tile);
-        }
-    }
-
-    public void ClearBlocksInColumn(int x, int z)
-    {
-        CurrentGame.Grid.ClearColumn(x, z);
-        var tilesToRemove = new List<GameObject>();
-
-        foreach (var tile in PlacedBlocks)
-        {
-            if (tile.transform.position.x == x + 0.5f && tile.transform.position.z == z + 0.5f)
-            {
-                tilesToRemove.Add(tile);
-            }
-        }
-
-        foreach (var tile in tilesToRemove)
-        {
-            PlacedBlocks.Remove(tile);
-            Destroy(tile);
-        }
-    }
-
-    public void RemoveTile(GameObject tile)
-    {
-        Destroy(tile);
     }
 
     public void DropAndRestart()
@@ -223,19 +109,7 @@ public class GameExecuter : MonoBehaviour
         RestartGameCycle();
     }
 
-    private void MoveBlocksDown(int y, int drop)
-    {
-        CurrentGame.Grid.MoveLayerDown(y, drop); 
-        Vector3 dropVector = new Vector3(0, drop, 0);
 
-        foreach (var tile in PlacedBlocks)
-        {
-            if (tile.transform.position.y == YMax - 1 - y + 0.5f)
-            {
-                tile.transform.position -= dropVector;
-            }
-        }
-    }
     private void HandleKeyInputs()
     {
         for (int i = 0; i < Keys.Length; i++)
@@ -246,8 +120,8 @@ public class GameExecuter : MonoBehaviour
             }
         }
 
-        blockManager.UpdateBlock(CurrentGame.CurrentBlock);
-        blockManager.UpdatePrediction(CurrentGame.CurrentBlock);
+        Manager.UpdateBlock(CurrentGame.CurrentBlock);
+        Manager.UpdatePrediction(CurrentGame.CurrentBlock);
     }
 
     private bool IsDesiredHeld(KeyCode key) =>
@@ -262,11 +136,11 @@ public class GameExecuter : MonoBehaviour
     }
 
     public bool IsGameActive() =>
-        !CurrentGame.GameOver && !CountdownText.gameObject.activeSelf && !Manager.GameMenu.IsPaused;
+        !CurrentGame.GameOver && !Countdown.CountdownText.gameObject.activeSelf && !UI.GameMenu.IsPaused;
 
     private void UpdateFallDelay()
     {
-        delay.AdjustDelay(score.CurrentScore, DelayMultiplier);
+        delay.AdjustDelay(Score.CurrentScore, DelayMultiplier);
         timeSinceLastFall += Time.deltaTime;
     }
     public void SaveCurrentSettings()
@@ -281,12 +155,12 @@ public class GameExecuter : MonoBehaviour
             settings.KeyBindings[i] = Keys[i];
         }
 
-        SettingsManager.SaveSettings(settings);
+        FileManager.SaveToFile(settings);
     }
 
     public void LoadSettings()
     {
-        GameSettings settings = SettingsManager.LoadSettings();
+        GameSettings settings = FileManager.LoadSettings();
         KeyCode[] loadedKeys = settings.KeyBindings;
         InitializeKeyMappings(loadedKeys);
     }
@@ -329,10 +203,10 @@ public class GameExecuter : MonoBehaviour
     {
         actions = new Action[]
         {
-            () => { if (!LimitedMovement) { CurrentGame.XBack(); SoundEffects.PlayEffect(1); } },
-            () => { if (!LimitedMovement) { CurrentGame.XForward(); SoundEffects.PlayEffect(1); } },
-            () => { if (!LimitedMovement) { CurrentGame.ZBack(); SoundEffects.PlayEffect(1);  } },
-            () => { if (!LimitedMovement) { CurrentGame.ZForward(); SoundEffects.PlayEffect(1);  } },
+            () => { if (!Manager.LimitedMovement) { CurrentGame.XBack(); SoundEffects.PlayEffect(1); } },
+            () => { if (!Manager.LimitedMovement) { CurrentGame.XForward(); SoundEffects.PlayEffect(1); } },
+            () => { if (!Manager.LimitedMovement) { CurrentGame.ZBack(); SoundEffects.PlayEffect(1);  } },
+            () => { if (!Manager.LimitedMovement) { CurrentGame.ZForward(); SoundEffects.PlayEffect(1);  } },
             () => { CurrentGame.RotateBlockCCW(); SoundEffects.PlayEffect(1); },
             () => { CurrentGame.RotateBlockCW(); SoundEffects.PlayEffect(1); },
             () => {
@@ -356,13 +230,13 @@ public class GameExecuter : MonoBehaviour
                     SoundEffects.PlayEffect(1);
                 }
             },
-            () => { if (!Freezed) { AdjustScoreAndDelay(); } },
+            () => { if (!Manager.Freezed) { AdjustScoreAndDelay(); } },
             () => DropAndRestart(),
             () => HoldAndDrawBlocks(),
             () => RotateCamera(RotationAngle),
             () => RotateCamera(-RotationAngle),
             () => BackgroundRenderer.ResetToDefault(),
-            () => Manager.Pause()
+            () => UI.Pause()
         };
     }
 
@@ -385,8 +259,8 @@ public class GameExecuter : MonoBehaviour
     private void AdjustScoreAndDelay()
     {
         delay.CurrentDelay = 75;
-        score.IncrementScore(DoubleScore);
-        Manager.DrawScoreUI(score.CurrentScore);
+        Score.IncrementScore(Manager.DoubleScore);
+        UI.DrawScoreUI(Score.CurrentScore);
     }
 
     private void HoldAndDrawBlocks()
@@ -398,28 +272,10 @@ public class GameExecuter : MonoBehaviour
         }
         else
         {
-            blockManager.HoldCurrentBlock();
-            DrawHeldBlock(CurrentGame.HeldBlock);
-            DrawNextBlock(CurrentGame.Holder);
+            Manager.HoldCurrentBlock();
+            ImageDrawer.DrawHeldBlock(CurrentGame.HeldBlock);
+            ImageDrawer.DrawNextBlock(CurrentGame.Holder);
             SoundEffects.PlayEffect(4);
         }
-    }
-
-    IEnumerator CountdownCoroutine()
-    {
-        CountdownText.gameObject.SetActive(true);
-        CountdownText.text = "GET READY!";
-        yield return new WaitForSeconds(1f);
-
-        for (int i = 3; i > 0; i--)
-        {
-            CountdownText.text = i.ToString();
-            yield return new WaitForSeconds(1f);
-        }
-        CountdownText.text = "START!";
-        yield return new WaitForSeconds(1f);
-
-        CountdownText.gameObject.SetActive(false);
-        CountdownPanel.SetActive(false);
     }
 }

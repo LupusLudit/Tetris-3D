@@ -20,9 +20,9 @@ namespace Assets.Scripts.PowerUps
 
         private IEnumerator ActivateMovementLimitation()
         {
-            Executer.LimitedMovement = true;
+            Executer.Manager.LimitedMovement = true;
             yield return new WaitForSeconds(10f);
-            Executer.LimitedMovement = false;
+            Executer.Manager.LimitedMovement = false;
         }
     }
 }

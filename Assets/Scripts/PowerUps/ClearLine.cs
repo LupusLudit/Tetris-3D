@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.PowerUps
+﻿using Assets.Scripts.Logic;
+
+namespace Assets.Scripts.PowerUps
 {
     public class ClearLine : PowerUp
     {
@@ -22,7 +24,7 @@
             {
                 if (!grid.IsLayerEmpty(i))
                 {
-                    Executer.ClearBlocksInRow(i);
+                    Executer.Manager.ClearBlocksInRow(i);
                     break;
                 }
             }

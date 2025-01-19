@@ -30,7 +30,7 @@ namespace Assets.Scripts.PowerUps
 
         public Bomb(GameExecuter executer) : base(executer)
         {
-            tiles = executer.PlacedBlocks;
+            tiles = executer.Manager.PlacedBlocks;
         }
 
         public override void Use()
@@ -51,7 +51,7 @@ namespace Assets.Scripts.PowerUps
             foreach (var tile in tilesToRemove)
             {
                 tiles.Remove(tile);
-                Executer.RemoveTile(tile);
+                Executer.Manager.RemoveTile(tile);
             }
         }
 
