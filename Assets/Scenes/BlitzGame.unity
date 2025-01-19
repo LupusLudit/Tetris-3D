@@ -2879,50 +2879,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288172314}
   m_CullTransparentMesh: 1
---- !u!1 &315864046
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 315864047}
-  - component: {fileID: 315864048}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &315864047
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 315864046}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 195.71317, y: 705.8763, z: -0.0818427}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &315864048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 315864046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82885ffeb0bd56d4483f8e41eb6273cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &328126767
 GameObject:
   m_ObjectHideFlags: 0
@@ -12284,10 +12240,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 999185324}
-  KeyBinding: {fileID: 2030991030}
+  KeyBindingUI: {fileID: 2030991030}
   Countdown: {fileID: 1175275479}
   ImageDrawer: {fileID: 882991824}
-  GameCamera: {fileID: 330585545}
   BackgroundRenderer: {fileID: 27697500}
   XMax: 6
   YMax: 14
@@ -12301,8 +12256,7 @@ MonoBehaviour:
   - {fileID: 8194046477304389060, guid: f005721413b074b4f98bf86582ec467e, type: 3}
   - {fileID: 8194046477304389060, guid: 3a4ad3461808a0344b7f5c4b38132708, type: 3}
   SoundEffects: {fileID: 328126770}
-  Manager: {fileID: 315864048}
-  Keys: 
+  GameCamera: {fileID: 330585545}
 --- !u!1 &1211799875
 GameObject:
   m_ObjectHideFlags: 0
@@ -21462,7 +21416,6 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1207663576}
-  - {fileID: 315864047}
   - {fileID: 27697499}
   - {fileID: 999185323}
   - {fileID: 609735168}

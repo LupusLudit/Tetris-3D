@@ -47,11 +47,11 @@ public class InputManager : MonoBehaviour
     private void UpdateKeyBinding(string buttonId, KeyCode key)
     {
         int index = int.Parse(buttonId);
-        KeyCode[] keys = Executer.Keys;
+        KeyCode[] keys = Executer.KeyManager.Keys;
         if (!keys.Contains(key))
         {
             keys[index] = key;
-            Executer.SaveCurrentSettings();
+            Executer.KeyManager.SaveCurrentSettings();
 
             KeyBindingScript.ChangeButtonLabel(index, key.ToString());
             KeyBindingScript.HideKeyInputUI(key.ToString());

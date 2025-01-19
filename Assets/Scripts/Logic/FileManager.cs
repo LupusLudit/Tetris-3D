@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace Assets.Scripts.MonoBehaviour
+namespace Assets.Scripts.Logic
 {
     public class FileManager
     {

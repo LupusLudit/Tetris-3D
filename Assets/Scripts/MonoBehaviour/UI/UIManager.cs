@@ -1,6 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
-using Assets.Scripts;
+using Assets.Scripts.Logic;
 
 public class UIManager : MonoBehaviour
 {

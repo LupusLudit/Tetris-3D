@@ -35,7 +35,7 @@ public class BlitzTimer : MonoBehaviour
             Timer.UpdateTime($"Time remaining: {countdownTime}");
 
             yield return new WaitForSeconds(1f);
-            countdownTime--;
+            if(!Executer.UI.GameMenu.IsPaused) countdownTime--;
         }
 
         Timer.UpdateTime("Times up!");

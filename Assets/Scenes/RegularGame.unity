@@ -12090,6 +12090,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c96c0f666967640acff2d944f2fb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UI: {fileID: 999185324}
+  KeyBindingUI: {fileID: 2030991030}
+  Countdown: {fileID: 1175275479}
+  ImageDrawer: {fileID: 618074273}
+  BackgroundRenderer: {fileID: 27697500}
+  XMax: 10
+  YMax: 22
+  ZMax: 10
   BlockPrefabs:
   - {fileID: 8194046477304389060, guid: d155f047c9f970e4eab704016a0da506, type: 3}
   - {fileID: 8194046477304389060, guid: 344e6068b45f5954e9b3863313ad2b28, type: 3}
@@ -12098,17 +12106,8 @@ MonoBehaviour:
   - {fileID: 8194046477304389060, guid: 2ac0b530d62a58e4aabea4cd7d78d962, type: 3}
   - {fileID: 8194046477304389060, guid: f005721413b074b4f98bf86582ec467e, type: 3}
   - {fileID: 8194046477304389060, guid: 3a4ad3461808a0344b7f5c4b38132708, type: 3}
-  Manager: {fileID: 999185324}
-  KeyBinding: {fileID: 2030991030}
-  Countdown: {fileID: 1175275479}
-  ImageDrawer: {fileID: 618074273}
-  GameCamera: {fileID: 330585545}
-  BackgroundRenderer: {fileID: 27697500}
-  XMax: 10
-  YMax: 22
-  ZMax: 10
   SoundEffects: {fileID: 328126770}
-  Keys: 
+  GameCamera: {fileID: 330585545}
 --- !u!1 &1215235924
 GameObject:
   m_ObjectHideFlags: 0

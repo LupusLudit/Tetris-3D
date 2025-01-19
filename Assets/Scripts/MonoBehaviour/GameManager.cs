@@ -1,36 +1,34 @@
 using Assets.Scripts.Blocks;
-using Assets.Scripts;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.MonoBehaviour;
 using Assets.Scripts.Logic;
-using System;
 
 public class GameManager : MonoBehaviour
 {
-    private Game game;
-    private GameObject[] blockPrefabs;
 
+    public const float RotationAngle = 0.6f;
     public HashSet<GameObject> PlacedBlocks { get; private set; } = new HashSet<GameObject>();
-    private List<GameObject> currentBlockTiles = new List<GameObject>();
-    private List<GameObject> predictedBlockTiles = new List<GameObject>();
-    private int gridHeight;
-    private Renderer blockRenderer;
-    private UIManager ui;
-    private ImageDrawer imageDrawer;
-
     public bool DoubleScore { get; set; } = false;
     public bool Freezed { get; set; } = false;
     public bool LimitedMovement { get; set; } = false;
     public int ClearedLayers { get; private set; } = 0;
+
+    private Game game;
+    private GameObject[] blockPrefabs;
+    private List<GameObject> currentBlockTiles = new List<GameObject>();
+    private List<GameObject> predictedBlockTiles = new List<GameObject>();
+    private Renderer blockRenderer;
+    private UIManager ui;
+    private ImageDrawer imageDrawer;
+    private Camera gameCamera;
+    private int gridHeight;
 
     private Vector3 lookPoint;
     private Score score;
     private DelayManager delay;
     private int level = 0;
     private int linesCleaned = 0;
-    private const float RotationAngle = 0.6f;
-
     //TODO: instead of creating and destroying blocks, use pooling
 
     public void Initialize(GameExecuter gameExecuter)
@@ -42,7 +40,8 @@ public class GameManager : MonoBehaviour
         ui = gameExecuter.UI;
         imageDrawer = gameExecuter.ImageDrawer;
         score = gameExecuter.Score;
- 
+        gameCamera = gameExecuter.GameCamera;
+        lookPoint = gameExecuter.LookPoint;
     }
 
     public void CreateNewBlock(Block block)
@@ -239,5 +238,13 @@ public class GameManager : MonoBehaviour
         CreateNewBlock(game.CurrentBlock);
         CreateBlockPrediction(game.CurrentBlock);
         imageDrawer.DrawNextBlock(game.Holder);
+    }
+
+    public void RotateCamera(float angle)
+    {
+        Vector3 direction = gameCamera.transform.position - lookPoint;
+        direction = Quaternion.Euler(0, angle, 0) * direction;
+        gameCamera.transform.position = lookPoint + direction;
+        gameCamera.transform.LookAt(lookPoint);
     }
 }
