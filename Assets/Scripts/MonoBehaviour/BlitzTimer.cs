@@ -5,6 +5,7 @@ public class BlitzTimer : MonoBehaviour
 {
     public GameExecuter Executer;
     public TimerUI Timer;
+    public TimePlus TimePlusUI;
     public int countdownTime = 120;
 
     private bool countingDown = false;
@@ -22,11 +23,15 @@ public class BlitzTimer : MonoBehaviour
         if (Executer.Manager.ClearedLayers == 0) addTime = true;
         else if (Executer.Manager.ClearedLayers > 0 && addTime)
         {
-            countdownTime += Executer.Manager.ClearedLayers * 5;
-            Debug.Log(Executer.Manager.ClearedLayers * 5);
+            int extraTime = Executer.Manager.ClearedLayers * 5;
+            countdownTime += extraTime;
+            DisplayUIMessage(extraTime);
             addTime = false;
         }
     }
+
+    private void DisplayUIMessage(int extraTime) =>
+        TimePlusUI.DisplayTimeMessage($"+ {extraTime} sec");
 
     IEnumerator StartCountdown()
     {

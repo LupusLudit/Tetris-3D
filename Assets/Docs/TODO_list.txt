@@ -36,5 +36,4 @@ TODO:
 5. Improve lighting
 6. Add a game mode where the user will have to complete a certain number of rows in a limited time
 7. Add a game mode where the user will have to complete a certain number of rows with a limited number of blocks
-8. Make counting more dramatic (falling numbers)
-9. If possible, add multiple threads to handle the game logic
+8. If possible, add multiple threads to handle the game logic

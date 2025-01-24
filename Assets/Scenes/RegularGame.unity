@@ -2570,8 +2570,8 @@ MonoBehaviour:
   MusicTracks:
   - {fileID: 8300000, guid: 3308ded8f59b71f4ebb677aea8cb9c27, type: 3}
   - {fileID: 8300000, guid: 1d52ab9147dc2aa41a3833dd6448214c, type: 3}
-  - {fileID: 8300000, guid: bb7cfe694ab1d0e498748e008492c15c, type: 3}
-  - {fileID: 8300000, guid: adf691f416eb6af47967dd3961f5dcb9, type: 3}
+  - {fileID: 8300000, guid: 56d7b61ec475a9c4db266865c942e50c, type: 3}
+  - {fileID: 8300000, guid: bb7ff80c462eb464980e59e9fdd03bee, type: 3}
   - {fileID: 8300000, guid: a88a09a111cf3894889b9798a4d2ffd3, type: 3}
 --- !u!82 &205070146
 AudioSource:
@@ -3160,6 +3160,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0a2d89a1e701cd248aeefebec88a72fa, type: 3}
   - {fileID: 8300000, guid: b0039c1385e06d6408f5ecda10a746b0, type: 3}
   - {fileID: 8300000, guid: 3155c7347e22eb74a80ee06f4922c945, type: 3}
+  - {fileID: 8300000, guid: ab4c3920ec18fa54f9bfa791e60d4c7b, type: 3}
   Volume: 0.75
 --- !u!1 &330585543
 GameObject:
@@ -6535,6 +6536,7 @@ GameObject:
   - component: {fileID: 609735167}
   - component: {fileID: 609735166}
   - component: {fileID: 609735165}
+  - component: {fileID: 609735169}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6640,6 +6642,102 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!82 &609735169
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609735164}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2a93d69835ef4384785513ae9413060b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &618074272
 GameObject:
   m_ObjectHideFlags: 0
@@ -12181,6 +12279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CountdownPanel: {fileID: 1175275475}
+  Music: {fileID: 205070145}
   CountdownText: {fileID: 349599242}
   StartingText: {fileID: 299196868}
 --- !u!95 &1175275480
@@ -19958,7 +20057,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -63.999878}
+  m_AnchoredPosition: {x: 0, y: -63.999756}
   m_SizeDelta: {x: 0, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2028239055

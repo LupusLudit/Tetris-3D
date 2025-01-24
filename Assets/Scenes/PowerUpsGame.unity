@@ -2628,8 +2628,8 @@ MonoBehaviour:
   MusicTracks:
   - {fileID: 8300000, guid: 3308ded8f59b71f4ebb677aea8cb9c27, type: 3}
   - {fileID: 8300000, guid: 1d52ab9147dc2aa41a3833dd6448214c, type: 3}
-  - {fileID: 8300000, guid: bb7cfe694ab1d0e498748e008492c15c, type: 3}
-  - {fileID: 8300000, guid: adf691f416eb6af47967dd3961f5dcb9, type: 3}
+  - {fileID: 8300000, guid: 56d7b61ec475a9c4db266865c942e50c, type: 3}
+  - {fileID: 8300000, guid: bb7ff80c462eb464980e59e9fdd03bee, type: 3}
   - {fileID: 8300000, guid: a88a09a111cf3894889b9798a4d2ffd3, type: 3}
 --- !u!82 &205070146
 AudioSource:
@@ -12436,6 +12436,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0a2d89a1e701cd248aeefebec88a72fa, type: 3}
   - {fileID: 8300000, guid: b0039c1385e06d6408f5ecda10a746b0, type: 3}
   - {fileID: 8300000, guid: 3155c7347e22eb74a80ee06f4922c945, type: 3}
+  - {fileID: 8300000, guid: ab4c3920ec18fa54f9bfa791e60d4c7b, type: 3}
   Volume: 0.75
 --- !u!4 &1236090280
 Transform:
@@ -18285,6 +18286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CountdownPanel: {fileID: 1875367674}
+  Music: {fileID: 205070145}
   CountdownText: {fileID: 464055358}
   StartingText: {fileID: 623981423}
 --- !u!114 &1875367677

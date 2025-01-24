@@ -44,7 +44,7 @@ public class GameExecuter : MonoBehaviour
         delay = new DelayManager(750, 50, 25);
         KeyManager = new KeyManager(this);
 
-        StartCoroutine(Countdown.StartCounting());
+        StartCoroutine(Countdown.StartCounting(() => SoundEffects));
 
         Manager.CreateNewBlock(CurrentGame.CurrentBlock);
         Manager.CreateBlockPrediction(CurrentGame.CurrentBlock);

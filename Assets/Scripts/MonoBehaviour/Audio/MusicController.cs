@@ -25,11 +25,8 @@ public class MusicController : MonoBehaviour
         musicSource.volume = 0.5f;
         VolumeSlider.value = 0.5f;
 
-        if (MusicTracks.Length > 0)
-        {
-            musicSource.clip = MusicTracks[0];
-            musicSource.Play();
-        }
+        musicSource.clip = MusicTracks[0];
+        StopMusic(); // Stop music to prevent it from playing on start
 
         VolumeSlider.onValueChanged.AddListener(SetVolume);
         MusicToggle.onValueChanged.AddListener(ToggleMusic);
@@ -64,8 +61,9 @@ public class MusicController : MonoBehaviour
             }
         }
     }
-    public void StopMusic()
-    {
+    public void StopMusic() =>
         musicSource.Stop();
-    }
+
+    public void PlayMusic() =>
+        musicSource.Play();
 }

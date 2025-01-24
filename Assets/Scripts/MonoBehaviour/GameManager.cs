@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private Game game;
     private GameObject[] blockPrefabs;
     private List<GameObject> currentBlockTiles = new List<GameObject>();
-    private List<GameObject> predictedBlockTiles = new List<GameObject>();
+    private List<GameObject> predictedBlockTiles = new List<GameObject>(); 
     private Renderer blockRenderer;
     private UIManager ui;
     private ImageDrawer imageDrawer;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class StartingCountdown : MonoBehaviour
 {
     public GameObject CountdownPanel;
+    public MusicController Music;
     public TextMeshProUGUI CountdownText;
     public TextMeshProUGUI StartingText;
     private Animator countDownAnimator;
@@ -16,11 +18,12 @@ public class StartingCountdown : MonoBehaviour
         StartingText.text = "GET READY!";
     }
 
-    public IEnumerator StartCounting()
+    public IEnumerator StartCounting(Func<SoundEffects> effects)
     {
         yield return new WaitForSeconds(1f); //Giving the game some time to load everything
         CountdownText.gameObject.SetActive(true);
         StartingText.gameObject.SetActive(false);
+        effects().PlayEffect(5); //Countdown sound effect
 
         for (int i = 3; i > 0; i--)
         {
@@ -34,5 +37,8 @@ public class StartingCountdown : MonoBehaviour
 
         CountdownText.gameObject.SetActive(false);
         CountdownPanel.SetActive(false);
+
+        //After the countdown is done, the music will start playing
+        Music.PlayMusic();
     }
 }
