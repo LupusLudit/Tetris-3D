@@ -37,3 +37,6 @@ TODO:
 6. Add a game mode where the user will have to complete a certain number of rows in a limited time
 7. Add a game mode where the user will have to complete a certain number of rows with a limited number of blocks
 8. If possible, add multiple threads to handle the game logic
+9. Add small description of each game mode in the main menu
+10. Add sound effect volume control in the settings
+11. Add a posibility to change the dimensons of the game board in "not size fixed" game modes

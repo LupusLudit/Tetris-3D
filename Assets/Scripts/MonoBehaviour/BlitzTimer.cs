@@ -4,12 +4,13 @@ using UnityEngine;
 public class BlitzTimer : MonoBehaviour
 {
     public GameExecuter Executer;
-    public TimerUI Timer;
-    public TimePlus TimePlusUI;
+    public DynamicMessage Timer;
+    public PopUpMessage TimePlus;
     public int countdownTime = 120;
 
     private bool countingDown = false;
-    private bool addTime = false;
+    //Executer.Manager.ClearedLayers can be true for multiple turns, therefor we need to add an extra bool.
+    private bool canAddTime = false;
 
     void Update()
     {
@@ -20,30 +21,35 @@ public class BlitzTimer : MonoBehaviour
         }
 
         //Adding time if the player cleared some layers
-        if (Executer.Manager.ClearedLayers == 0) addTime = true;
-        else if (Executer.Manager.ClearedLayers > 0 && addTime)
+        if (!canAddTime && Executer.Manager.ClearedLayers == 0) canAddTime = true;
+        else if (Executer.Manager.ClearedLayers > 0 && canAddTime)
         {
             int extraTime = Executer.Manager.ClearedLayers * 5;
-            countdownTime += extraTime;
-            DisplayUIMessage(extraTime);
-            addTime = false;
+            AddTime(extraTime);
         }
     }
 
     private void DisplayUIMessage(int extraTime) =>
-        TimePlusUI.DisplayTimeMessage($"+ {extraTime} sec");
+        TimePlus.DisplayUpdatedMessage($"+ {extraTime} sec");
 
+
+    private void AddTime(int extraTime)
+    {
+        countdownTime += extraTime;
+        DisplayUIMessage(extraTime);
+        canAddTime = false;
+    }
     IEnumerator StartCountdown()
     {
         while (countdownTime > 0)
         {
-            Timer.UpdateTime($"Time remaining: {countdownTime}");
+            Timer.UpdateMessage($"Time remaining: {countdownTime} sec");
 
             yield return new WaitForSeconds(1f);
             if(!Executer.UI.GameMenu.IsPaused) countdownTime--;
         }
 
-        Timer.UpdateTime("Times up!");
+        Timer.UpdateMessage("Times up!");
         Executer.CurrentGame.GameOver = true;
     }
 }

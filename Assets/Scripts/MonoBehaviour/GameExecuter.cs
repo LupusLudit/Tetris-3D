@@ -28,6 +28,7 @@ public class GameExecuter : MonoBehaviour
     public GameManager Manager { get; private set; }
     public KeyManager KeyManager { get; private set; }
     public Vector3 LookPoint { get; private set; }
+    public int BlocksPlaced { get; private set; } = 0;
 
     private Queue<Action> actionQueue = new Queue<Action>();
     private DelayManager delay;
@@ -57,6 +58,7 @@ public class GameExecuter : MonoBehaviour
 
     void Update()
     {
+        BlocksPlaced = 0;
         if (!IsGameActive())
         {
             if(CurrentGame.GameOver) UI.DrawGameOverScreen();
@@ -75,8 +77,8 @@ public class GameExecuter : MonoBehaviour
     }
 
     private void ExecuteGameStep()
-    {
-        if(!Manager.Freezed) CurrentGame.MoveBlockDown();
+    { 
+        if (!Manager.Freezed) CurrentGame.MoveBlockDown();
         if (CurrentGame.BlockPlaced) RestartGameCycle();
 
         Manager.UpdateBlock(CurrentGame.CurrentBlock);
@@ -85,6 +87,7 @@ public class GameExecuter : MonoBehaviour
 
     private void RestartGameCycle()
     {
+        BlocksPlaced++;
         Manager.PlaceCurrentBlock();
         SoundEffects.PlayEffect(2); //placing sound effect
         Manager.ClearFullLayers();

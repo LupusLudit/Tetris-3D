@@ -11774,7 +11774,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Time remaining: 120'
+  m_text: 'Time remaining: 120 sec'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
@@ -11863,7 +11863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b23808de095b64488803dbd3e74527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 1098730033}
+  DynamicText: {fileID: 1098730033}
 --- !u!1 &1099334535
 GameObject:
   m_ObjectHideFlags: 0
@@ -12464,7 +12464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Executer: {fileID: 1207663577}
   Timer: {fileID: 1098730035}
-  TimePlusUI: {fileID: 2025767771}
+  TimePlus: {fileID: 2025767771}
   countdownTime: 120
 --- !u!1 &1215235924
 GameObject:
@@ -20131,8 +20131,8 @@ GameObject:
   - component: {fileID: 2025767766}
   - component: {fileID: 2025767769}
   - component: {fileID: 2025767768}
-  - component: {fileID: 2025767771}
   - component: {fileID: 2025767770}
+  - component: {fileID: 2025767771}
   m_Layer: 5
   m_Name: TimePlus
   m_TagString: Untagged
@@ -20286,10 +20286,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2025767765}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5380e2ac66ce44e88f752b5adc1828, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a593b16968d69c44852468b4d25026a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeText: {fileID: 2025767768}
+  PopUpText: {fileID: 2025767768}
 --- !u!1 &2028239053
 GameObject:
   m_ObjectHideFlags: 0
@@ -21748,6 +21748,7 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1207663576}
+  - {fileID: 1211799876}
   - {fileID: 27697499}
   - {fileID: 999185323}
   - {fileID: 609735168}
@@ -21758,5 +21759,4 @@ SceneRoots:
   - {fileID: 205070144}
   - {fileID: 129264467}
   - {fileID: 328126768}
-  - {fileID: 1211799876}
   - {fileID: 882991823}

@@ -136,7 +136,7 @@ namespace Assets.Scripts.Logic
                 }
             },
             () => { if (!manager.Freezed) { executer.AdjustDelay(); } },
-            () => executer.DropAndRestart(),
+            () => {executer.DropAndRestart();},
             () => executer.HoldAndDrawBlocks(),
             () => manager.RotateCamera(0.6f),
             () => manager.RotateCamera(-0.6f),
