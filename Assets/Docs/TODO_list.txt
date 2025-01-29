@@ -40,3 +40,4 @@ TODO:
 9. Add small description of each game mode in the main menu
 10. Add sound effect volume control in the settings
 11. Add a posibility to change the dimensons of the game board in "not size fixed" game modes
+12. Improve warning
