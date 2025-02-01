@@ -14,8 +14,11 @@ public class MainMenu : MonoBehaviour
     }
     public void ChooseMode()
     {
-        GameModeMenuUI.SetActive(true);
-        StartCoroutine(SlideLeftAndDeactivate());
+        if (!GameModeMenuUI.activeSelf)
+        {
+            GameModeMenuUI.SetActive(true);
+            StartCoroutine(SlideLeftAndDeactivate());
+        }
     }
     //TODO: add settings and quit logic
     public void GoToSettings()
