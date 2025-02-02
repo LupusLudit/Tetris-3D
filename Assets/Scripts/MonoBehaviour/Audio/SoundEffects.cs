@@ -1,9 +1,17 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundEffects : MonoBehaviour
 {
     public AudioClip[] Effects;
-    public float Volume = 0.75f;
+    public Slider VolumeSlider;
+
+    private float volume = 0.5f;
+
+    void Start()
+    {
+        VolumeSlider.onValueChanged.AddListener(SetVolume);
+    }
 
     public void PlayEffect(int index)
     {
@@ -17,9 +25,12 @@ public class SoundEffects : MonoBehaviour
         AudioSource tempAudioSource = tempAudioSourceObject.AddComponent<AudioSource>();
 
         tempAudioSource.clip = Effects[index];
-        tempAudioSource.volume = Volume;
+        tempAudioSource.volume = volume;
         tempAudioSource.Play();
 
         Destroy(tempAudioSourceObject, Effects[index].length);
     }
+
+    private void SetVolume(float vol) =>
+        volume = vol;
 }
