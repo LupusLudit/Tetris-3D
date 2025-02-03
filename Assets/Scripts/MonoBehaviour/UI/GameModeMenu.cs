@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using Assets.Scripts.Logic;
 
 public class GameModeMenu : MonoBehaviour
 {
@@ -47,15 +48,18 @@ public class GameModeMenu : MonoBehaviour
 
     private void LoadHints()
     {
-        string path = Path.Combine(Path.GetDirectoryName(Application.dataPath), "gameMode_hints.json");
+        string filePath = Path.Combine(Path.GetDirectoryName(Application.dataPath), "gameMode_hints.json");
+        HintData data = FileManager.LoadFromFile<HintData>(filePath);
 
-        if (File.Exists(path))
+        if (data?.Hints == null)
         {
-            string jsonText = File.ReadAllText(path);
-            HintData data = JsonUtility.FromJson<HintData>(jsonText);
-            buttonHints = new List<string>(data.hints);
+            Debug.LogError("Failed to load hints: Data is null or empty.");
+            return;
         }
+
+        buttonHints = new List<string>(data.Hints);
     }
+
 
     private IEnumerator SlideRightAndDeactivate()
     {
@@ -96,9 +100,4 @@ public class GameModeMenu : MonoBehaviour
         hoveredIndex = -1;
         Hint.text = "";
     }
-}
-
-public class HintData
-{
-    public string[] hints;
 }

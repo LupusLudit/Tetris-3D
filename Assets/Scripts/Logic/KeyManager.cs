@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.MonoBehaviour;
 using System;
+using System.IO;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic
@@ -46,17 +47,19 @@ namespace Assets.Scripts.Logic
 
         public void SaveCurrentSettings()
         {
+            string filePath = Path.Combine(Application.persistentDataPath, "settings.json");
+
             GameSettings settings = new GameSettings
             {
-                KeyBindings = new KeyCode[Keys.Length]
+                KeyBinds = new KeyCode[Keys.Length]
             };
 
             for (int i = 0; i < Keys.Length; i++)
             {
-                settings.KeyBindings[i] = Keys[i];
+                settings.KeyBinds[i] = Keys[i];
             }
 
-            FileManager.SaveToFile(settings);
+            FileManager.SaveToFile(settings, filePath);
         }
 
         private bool IsDesiredHeld(KeyCode key) =>
@@ -65,8 +68,9 @@ namespace Assets.Scripts.Logic
 
         private void LoadSettings()
         {
-            GameSettings settings = FileManager.LoadSettings();
-            KeyCode[] loadedKeys = settings.KeyBindings;
+            string filePath = Path.Combine(Application.persistentDataPath, "settings.json");
+            GameSettings settings = FileManager.LoadFromFile<GameSettings>(filePath);
+            KeyCode[] loadedKeys = settings.KeyBinds;
             InitializeKeyMappings(loadedKeys);
         }
 
