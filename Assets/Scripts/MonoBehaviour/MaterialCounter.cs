@@ -5,6 +5,7 @@ public class MaterialCounter : MonoBehaviour
     public GameExecuter Executer;
     public DynamicMessage BlockMessage;
     public PopUpMessage BlocksPlus;
+    public Warning Warning;
     public int BlocksRemaining = 50;
 
     /*
@@ -18,6 +19,7 @@ public class MaterialCounter : MonoBehaviour
     void Start()
     {
         BlockMessage.UpdateMessage($"Blocks remaining: {BlocksRemaining}");
+        Warning.UniversalConstant = 5;
     }
 
     void Update()
@@ -39,6 +41,7 @@ public class MaterialCounter : MonoBehaviour
 
         //If the player runs out of blocks, the game ends
         if (BlocksRemaining <= 0) EndGame();
+        Warning.UniversalVariable = BlocksRemaining;
     }
 
     private void UpdateMessage(int blocks)

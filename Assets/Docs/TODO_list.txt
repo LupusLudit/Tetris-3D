@@ -33,10 +33,5 @@ TODO:
 2. Add visual effects (when the block was collected, etc.)
 3. Add actual powerUp tiles
 4. Add functioning settings and quit button in the main menu
-5. Improve lighting
-6. Add a game mode where the user will have to complete a certain number of rows in a limited time
-7. Add a game mode where the user will have to complete a certain number of rows with a limited number of blocks
-8. If possible, add multiple threads to handle the game logic
-9. Make file manager universal
-10. Add a posibility to change the dimensons of the game board in "not size fixed" game modes
-11. Improve warning
+5. If possible, add multiple threads to handle the game logic
+6. Add a posibility to change the dimensons of the game board in "not size fixed" game modes

@@ -6,11 +6,17 @@ public class BlitzTimer : MonoBehaviour
     public GameExecuter Executer;
     public DynamicMessage Timer;
     public PopUpMessage TimePlus;
+    public Warning Warning;
     public int countdownTime = 120;
 
     private bool countingDown = false;
     //Executer.Manager.ClearedLayers can be true for multiple turns, therefor we need to add an extra bool.
     private bool canAddTime = false;
+
+    private void Start()
+    {
+        Warning.UniversalConstant = 10;
+    }
 
     void Update()
     {
@@ -27,6 +33,7 @@ public class BlitzTimer : MonoBehaviour
             int extraTime = Executer.Manager.ClearedLayers * 5;
             AddTime(extraTime);
         }
+        Warning.UniversalVariable = countdownTime;
     }
 
     private void DisplayUIMessage(int extraTime) =>

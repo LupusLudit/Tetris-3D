@@ -61,18 +61,20 @@ public class GameExecuter : MonoBehaviour
         BlocksPlaced = 0;
         if (!IsGameActive())
         {
-            if(CurrentGame.GameOver) UI.DrawGameOverScreen();
+            if (CurrentGame.GameOver) UI.DrawGameOverScreen();
             return;
         }
-
-        UpdateFallDelay();
-        KeyManager.HandleKeyInputs();
-
-        if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
+        else
         {
-            ExecuteQueuedActions();
-            ExecuteGameStep();
-            timeSinceLastFall = 0f;
+            UpdateFallDelay();
+            KeyManager.HandleKeyInputs();
+
+            if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
+            {
+                ExecuteQueuedActions();
+                ExecuteGameStep();
+                timeSinceLastFall = 0f;
+            }
         }
     }
 
@@ -80,9 +82,11 @@ public class GameExecuter : MonoBehaviour
     { 
         if (!Manager.Freezed) CurrentGame.MoveBlockDown();
         if (CurrentGame.BlockPlaced) RestartGameCycle();
-
-        Manager.UpdateBlock(CurrentGame.CurrentBlock);
-        Manager.UpdatePrediction(CurrentGame.CurrentBlock);
+        if (IsGameActive())
+        {
+            Manager.UpdateBlock(CurrentGame.CurrentBlock);
+            Manager.UpdatePrediction(CurrentGame.CurrentBlock);
+        }
     }
 
     private void RestartGameCycle()
@@ -92,9 +96,12 @@ public class GameExecuter : MonoBehaviour
         SoundEffects.PlayEffect(2); //placing sound effect
         Manager.ClearFullLayers();
         CurrentGame.NextBlock();
-        Manager.CreateNewBlock(CurrentGame.CurrentBlock);
-        Manager.CreateBlockPrediction(CurrentGame.CurrentBlock);
-        ImageDrawer.DrawNextBlock(CurrentGame.Holder);
+        if (IsGameActive())
+        {
+            Manager.CreateNewBlock(CurrentGame.CurrentBlock);
+            Manager.CreateBlockPrediction(CurrentGame.CurrentBlock);
+            ImageDrawer.DrawNextBlock(CurrentGame.Holder);
+        }
         CurrentGame.BlockPlaced = false;
     }
 

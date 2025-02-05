@@ -41,8 +41,11 @@ namespace Assets.Scripts.Logic
                 }
             }
 
-            manager.UpdateBlock(game.CurrentBlock);
-            manager.UpdatePrediction(game.CurrentBlock);
+            if (executer.IsGameActive())
+            {
+                manager.UpdateBlock(game.CurrentBlock);
+                manager.UpdatePrediction(game.CurrentBlock);
+            }
         }
 
         public void SaveCurrentSettings()
