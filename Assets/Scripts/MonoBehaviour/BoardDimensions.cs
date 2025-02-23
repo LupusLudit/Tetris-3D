@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.MonoBehaviour
+namespace Assets.Scripts.MonoBehavior
 {
     public class BoardDimensions
     {

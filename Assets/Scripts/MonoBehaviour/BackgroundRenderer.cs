@@ -1,5 +1,5 @@
 using Assets.Scripts.Logic;
-using Assets.Scripts.MonoBehaviour;
+using Assets.Scripts.MonoBehavior;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]

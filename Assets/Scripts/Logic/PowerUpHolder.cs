@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.MonoBehaviour;
+﻿using Assets.Scripts.MonoBehavior;
 using Assets.Scripts.PowerUps;
 using UnityEngine;
 

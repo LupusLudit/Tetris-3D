@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.PowerUps;
 using UnityEngine;
 
-namespace Assets.Scripts.MonoBehaviour
+namespace Assets.Scripts.MonoBehavior
 {
     public class PositionConvertor
     {

@@ -1,7 +1,7 @@
 using Assets.Scripts.Blocks;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Scripts.MonoBehaviour;
+using Assets.Scripts.MonoBehavior;
 using Assets.Scripts.Logic;
 
 public class GameManager : MonoBehaviour

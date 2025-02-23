@@ -1,5 +1,5 @@
 using Assets.Scripts.Logic;
-using Assets.Scripts.MonoBehaviour;
+using Assets.Scripts.MonoBehavior;
 using Assets.Scripts.PowerUps;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,7 +91,7 @@ public class PowerUpSpawner : MonoBehaviour
     private void InstantiatePowerUp(PowerUp powerUp)
     {
         GameObject powerUpObject = Instantiate(PowerUpPrefabs[powerUp.Id - 1],
-            PositionConvertor.PowerUpPosition(powerUp, PowerUpPrefabs[powerUp.Id - 1].GetComponent<Renderer>(), Executer.YMax),
+            PositionConvertor.PowerUpPosition(powerUp, powerUpRenderer, Executer.YMax),
             Quaternion.identity);
 
         activePowerUps.Add(powerUpObject);
