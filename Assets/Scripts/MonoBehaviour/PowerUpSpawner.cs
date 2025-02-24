@@ -70,7 +70,6 @@ public class PowerUpSpawner : MonoBehaviour
                     powerUp.Use();
                     PowerUpMessage.SetMessage(powerUp.Title, powerUp.Description);
                     PowerUpMessage.ShowUI();
-                    Debug.Log($"Used a power-up with id {powerUp.Id}");
                     RemovePowerUp(powerUpObject);
 
                     // Mark as processed
