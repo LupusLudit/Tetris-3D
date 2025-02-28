@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.MonoBehavior;
 using Assets.Scripts.Logic;
+using Assets.Scripts.PowerUps;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -66,24 +68,20 @@ public class GameManager : MonoBehaviour
 
     public void UpdateBlock(Block block)
     {
-        int i = 0;
-        foreach (Vector3 v in block.TilePositions())
+        foreach (var (tile, position) in currentBlockTiles.Zip(block.TilePositions(), (tile, position) => (tile, position)))
         {
-            currentBlockTiles[i].transform.position = PositionConvertor.ActualTilePosition(v, blockRenderer, gridHeight);
-            i++;
+            tile.transform.position = PositionConvertor.ActualTilePosition(position, blockRenderer, gridHeight);
         }
     }
 
     public void UpdatePrediction(Block block)
-    { 
-        int i = 0;
-        foreach (Vector3 v in block.TilePositions())
+    {
+        int drop = game.MaxPossibleDrop();
+        Vector3 dropVector = new Vector3(0, drop, 0);
+
+        foreach (var (tile, position) in predictedBlockTiles.Zip(block.TilePositions(), (tile, pos) => (tile, pos)))
         {
-            int drop = game.MaxPossibleDrop();
-            Vector3 dropVector = new Vector3(0, drop, 0);
-            Vector3 predictedPosition = PositionConvertor.ActualTilePosition(v, blockRenderer, gridHeight) - dropVector;
-            predictedBlockTiles[i].transform.position = predictedPosition;
-            i++;
+            tile.transform.position = PositionConvertor.ActualTilePosition(position, blockRenderer, gridHeight) - dropVector;
         }
     }
 

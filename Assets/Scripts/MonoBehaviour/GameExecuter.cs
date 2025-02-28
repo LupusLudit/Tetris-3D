@@ -68,10 +68,10 @@ public class GameExecuter : MonoBehaviour
         {
             UpdateFallDelay();
             KeyManager.HandleKeyInputs();
+            ExecuteQueuedActions();
 
             if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
             {
-                ExecuteQueuedActions();
                 ExecuteGameStep();
                 timeSinceLastFall = 0f;
             }

@@ -4,7 +4,7 @@ using Assets.Scripts.PowerUps;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpSpawner : MonoBehaviour
+public class PowerUpManager : MonoBehaviour
 {
     public GameExecuter Executer;
     public PowerUpMessage PowerUpMessage;
@@ -12,7 +12,6 @@ public class PowerUpSpawner : MonoBehaviour
 
     private PowerUpHolder powerUpHolder;
     private HashSet<GameObject> activePowerUps = new HashSet<GameObject>();
-    private HashSet<GameObject> processedPowerUps = new HashSet<GameObject>();
     private float spawnTimer = 0f;
     private Renderer powerUpRenderer;
    
@@ -25,7 +24,7 @@ public class PowerUpSpawner : MonoBehaviour
             if (powerUpHolder == null && Executer.CurrentGame.Grid != null)
             {
                 powerUpRenderer = Executer.BlockPrefabs[Executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>();
-                powerUpHolder = new PowerUpHolder(Executer, powerUpRenderer);
+                powerUpHolder = new PowerUpHolder(Executer);
             }
 
             if (powerUpHolder != null)
@@ -46,60 +45,78 @@ public class PowerUpSpawner : MonoBehaviour
     {
         if (activePowerUps.Count == 0) return;
 
-        processedPowerUps.Clear(); // Clear the processed set for the current frame
-
-        foreach (Vector3 tilePosition in Executer.CurrentGame.CurrentBlock.TilePositions())
+        foreach (Vector3 v in Executer.CurrentGame.CurrentBlock.TilePositions())
         {
-            Vector3 pos = PositionConvertor.ActualTilePosition(tilePosition,
+            Vector3 tilePos = PositionConvertor.ActualTilePosition(v,
                 Executer.BlockPrefabs[Executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>(),
                 Executer.YMax);
 
-            Collider[] hitColliders = Physics.OverlapSphere(pos, 0.1f);
+            List<GameObject> toRemove = new List<GameObject>();
 
-            foreach (Collider collider in hitColliders)
+            foreach (var powerUpObject in activePowerUps)
             {
-                if (collider.gameObject.TryGetComponent(out PowerUpComponent powerUpComponent))
+                PowerUp powerUp = powerUpObject.GetComponent<PowerUpComponent>().PowerUpInstance;
+                Vector3 powerUpPos = powerUpObject.transform.position;
+                if (powerUpPos == tilePos)
                 {
-                    GameObject powerUpObject = collider.gameObject;
-
-                    // Skip if this power-up has already been processed
-                    if (processedPowerUps.Contains(powerUpObject)) continue;
-
-                    // Process the power-up
-                    PowerUp powerUp = powerUpComponent.PowerUpInstance;
                     powerUp.Use();
                     PowerUpMessage.SetMessage(powerUp.Title, powerUp.Description);
                     PowerUpMessage.ShowUI();
-                    RemovePowerUp(powerUpObject);
-
-                    // Mark as processed
-                    processedPowerUps.Add(powerUpObject);
-                    //Play effect
+                    toRemove.Add(powerUpObject);
                     Executer.SoundEffects.PlayEffect(0);
                 }
             }
+
+            // Remove outside the loop
+            foreach (var powerUpObject in toRemove)
+            {
+                RemovePowerUp(powerUpObject);
+            }
+
         }
     }
 
     private void SpawnPowerUp()
     {
         PowerUp nextPowerUp = powerUpHolder.GetNextPowerUp();
-        InstantiatePowerUp(nextPowerUp);
+        nextPowerUp.Position = GenerateRandomPosition(nextPowerUp);
+        GameObject powerUpTile =  InstantiatePowerUp(nextPowerUp);
+        activePowerUps.Add(powerUpTile);
     }
 
-    private void InstantiatePowerUp(PowerUp powerUp)
+    private Vector3 GenerateRandomPosition(PowerUp powerUp)
+    {
+        Vector3 position;
+        System.Random random = new();
+        do
+        {
+            position = new Vector3(random.Next(Executer.XMax), random.Next(Executer.YMax - 2), random.Next(Executer.ZMax));
+        }
+        while (PositionInPlacedBlocks(powerUp));
+
+        return position;
+    }
+
+    private bool PositionInPlacedBlocks(PowerUp powerUp)
+    {
+        foreach (var tile in Executer.Manager.PlacedBlocks)
+        {
+            if (tile.transform.position == PositionConvertor.PowerUpPosition(powerUp, powerUpRenderer, Executer.YMax)) return true;
+        }
+
+        return false;
+    }
+
+    private GameObject InstantiatePowerUp(PowerUp powerUp)
     {
         GameObject powerUpObject = Instantiate(PowerUpPrefabs[powerUp.Id - 1],
             PositionConvertor.PowerUpPosition(powerUp, powerUpRenderer, Executer.YMax),
             Quaternion.identity);
 
-        activePowerUps.Add(powerUpObject);
-
         PowerUpComponent component = powerUpObject.AddComponent<PowerUpComponent>();
         component.Initialize(powerUp);
 
-        Collider collider = powerUpObject.AddComponent<BoxCollider>();
-        collider.isTrigger = true;
+        return powerUpObject;
     }
 
     private void RemovePowerUp(GameObject powerUp)

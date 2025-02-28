@@ -943,17 +943,17 @@ MonoBehaviour:
   Executer: {fileID: 1207663577}
   PowerUpMessage: {fileID: 1204292947}
   PowerUpPrefabs:
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
-  - {fileID: 919132149155446097, guid: 3fa43ece99f78e849a68190b6bd4d978, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
+  - {fileID: 919132149155446097, guid: bbb0db87bcda4d74c895a2f9261932be, type: 3}
 --- !u!1 &102081653
 GameObject:
   m_ObjectHideFlags: 0
