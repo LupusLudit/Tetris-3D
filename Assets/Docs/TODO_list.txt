@@ -14,11 +14,11 @@ Effect: Clears a small, targeted area around where it lands.
 Effect: Doubles the points for each completed row within a certain timeframe.
 6. Freeze Blocks*
 Effect: Temporarily stops new blocks from spawning.
-7. Block Switcher*
-Effect: Forces the player to swap the current block with the next one.
 
 Negative powerUps:
 
+7. Block Switcher*
+Effect: Forces the player to swap the current block with the next one.
 8. Speed Up*
 Effect: Temporarily speeds up the falling of the block
 9. Blind Player*
@@ -31,7 +31,7 @@ Effect: Prevents horizontal movement of the current block, leaving only rotation
 TODO:
 1. Add sound effects
 2. Add visual effects (when the block was collected, etc.)
-3. Add actual powerUp tiles
-4. Add functioning settings and quit button in the main menu
-5. If possible, add multiple threads to handle the game logic
-6. Add a posibility to change the dimensons of the game board in "not size fixed" game modes
+3. Add functioning settings and quit button in the main menu
+4. If possible, add multiple threads to handle the game logic
+5. Add a posibility to change the dimensons of the game board in "not size fixed" game modes
+6. Credits (as a funny easter egg, maybe a hidden button in the main menu) + easter egg in the form of a hidden block in the game

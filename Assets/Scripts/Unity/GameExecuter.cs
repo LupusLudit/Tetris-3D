@@ -1,5 +1,4 @@
 using Assets.Scripts.Logic;
-using Assets.Scripts.MonoBehavior;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +20,7 @@ public class GameExecuter : MonoBehaviour
     [Header("Other")]
     public SoundEffects SoundEffects;
     public Camera GameCamera;
+    public float HalfTileSize = 0.5f; //0.5 is the default size of a block, but this number can be adjusted for testing purposes
 
     public Game CurrentGame { get; private set; }
     public double DelayMultiplier { get; set; } = 1;

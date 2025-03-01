@@ -1,9 +1,7 @@
 using Assets.Scripts.Blocks;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Scripts.MonoBehavior;
 using Assets.Scripts.Logic;
-using Assets.Scripts.PowerUps;
 using System.Linq;
 
 public class GameManager : MonoBehaviour
@@ -20,11 +18,11 @@ public class GameManager : MonoBehaviour
     private GameObject[] blockPrefabs;
     private List<GameObject> currentBlockTiles = new List<GameObject>();
     private List<GameObject> predictedBlockTiles = new List<GameObject>(); 
-    private Renderer blockRenderer;
     private UIManager ui;
     private ImageDrawer imageDrawer;
     private Camera gameCamera;
     private int gridHeight;
+    private GameExecuter executer;
 
     private Vector3 lookPoint;
     private Score score;
@@ -35,10 +33,10 @@ public class GameManager : MonoBehaviour
 
     public void Initialize(GameExecuter gameExecuter)
     {
+        executer = gameExecuter;
         game = gameExecuter.CurrentGame;
         blockPrefabs = gameExecuter.BlockPrefabs;
         gridHeight = gameExecuter.YMax;
-        blockRenderer = gameExecuter.BlockPrefabs[game.CurrentBlock.Id - 1].GetComponent<Renderer>();
         ui = gameExecuter.UI;
         imageDrawer = gameExecuter.ImageDrawer;
         score = gameExecuter.Score;
@@ -50,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Vector3 tilePosition in block.TilePositions())
         {
-            GameObject tile = InstantiateTile(block, PositionConvertor.ActualTilePosition(tilePosition, blockRenderer, gridHeight));
+            GameObject tile = InstantiateTile(block, PositionConvertor.ActualTilePosition(tilePosition, executer, gridHeight));
             currentBlockTiles.Add(tile);
         }
     }
@@ -60,7 +58,7 @@ public class GameManager : MonoBehaviour
         int maxDrop = game.MaxPossibleDrop();
         foreach (Vector3 tilePosition in block.TilePositions())
         {
-            Vector3 predictedPosition = PositionConvertor.ActualTilePosition(tilePosition, blockRenderer, gridHeight) - Vector3.up * maxDrop;
+            Vector3 predictedPosition = PositionConvertor.ActualTilePosition(tilePosition, executer, gridHeight) - Vector3.up * maxDrop;
             GameObject tile = InstantiateTile(block, predictedPosition, isPrediction: true);
             predictedBlockTiles.Add(tile);
         }
@@ -70,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var (tile, position) in currentBlockTiles.Zip(block.TilePositions(), (tile, position) => (tile, position)))
         {
-            tile.transform.position = PositionConvertor.ActualTilePosition(position, blockRenderer, gridHeight);
+            tile.transform.position = PositionConvertor.ActualTilePosition(position, executer, gridHeight);
         }
     }
 
@@ -81,7 +79,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var (tile, position) in predictedBlockTiles.Zip(block.TilePositions(), (tile, pos) => (tile, pos)))
         {
-            tile.transform.position = PositionConvertor.ActualTilePosition(position, blockRenderer, gridHeight) - dropVector;
+            tile.transform.position = PositionConvertor.ActualTilePosition(position, executer, gridHeight) - dropVector;
         }
     }
 
@@ -90,7 +88,7 @@ public class GameManager : MonoBehaviour
         foreach (Vector3 v in game.CurrentBlock.TilePositions())
         {
             GameObject tile = Instantiate(blockPrefabs[game.CurrentBlock.Id - 1],
-                PositionConvertor.ActualTilePosition(v, blockRenderer, gridHeight),
+                PositionConvertor.ActualTilePosition(v, executer, gridHeight),
                 Quaternion.identity);
             PlacedBlocks.Add(tile);
         }
@@ -177,7 +175,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var tile in PlacedBlocks)
         {
-            if (tile.transform.position.y == gridHeight - 1 - y + 0.5f)
+            if (tile.transform.position.y == gridHeight - 1 - y + executer.HalfTileSize)
             {
                 tilesToRemove.Add(tile);
             }
@@ -197,7 +195,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var tile in PlacedBlocks)
         {
-            if (tile.transform.position.x == x + 0.5f && tile.transform.position.z == z + 0.5f)
+            if (tile.transform.position.x == x + executer.HalfTileSize && tile.transform.position.z == z + executer.HalfTileSize)
             {
                 tilesToRemove.Add(tile);
             }
@@ -222,7 +220,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var tile in PlacedBlocks)
         {
-            if (tile.transform.position.y == gridHeight - 1 - y + 0.5f)
+            if (tile.transform.position.y == gridHeight - 1 - y + executer.HalfTileSize)
             {
                 tile.transform.position -= dropVector;
             }

@@ -1,5 +1,4 @@
 using Assets.Scripts.Logic;
-using Assets.Scripts.MonoBehavior;
 using Assets.Scripts.PowerUps;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +8,11 @@ public class PowerUpManager : MonoBehaviour
     public GameExecuter Executer;
     public PowerUpMessage PowerUpMessage;
     public GameObject[] PowerUpPrefabs;
+    public float SpawnDelay = 10f;
 
     private PowerUpHolder powerUpHolder;
     private HashSet<GameObject> activePowerUps = new HashSet<GameObject>();
     private float spawnTimer = 0f;
-    private Renderer powerUpRenderer;
    
 
     void Update()
@@ -23,7 +22,6 @@ public class PowerUpManager : MonoBehaviour
             // Lazy initialization of PowerUpHolder => we need to initialize the powerUpHolder after the Grid
             if (powerUpHolder == null && Executer.CurrentGame.Grid != null)
             {
-                powerUpRenderer = Executer.BlockPrefabs[Executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>();
                 powerUpHolder = new PowerUpHolder(Executer);
             }
 
@@ -32,7 +30,7 @@ public class PowerUpManager : MonoBehaviour
                 UpdatePowerUps();
 
                 spawnTimer += Time.deltaTime;
-                if (spawnTimer >= 10f) // Temporarily set to 10
+                if (spawnTimer >= SpawnDelay) // Temporarily set to 10
                 {
                     spawnTimer = 0f;
                     SpawnPowerUp();
@@ -47,9 +45,7 @@ public class PowerUpManager : MonoBehaviour
 
         foreach (Vector3 v in Executer.CurrentGame.CurrentBlock.TilePositions())
         {
-            Vector3 tilePos = PositionConvertor.ActualTilePosition(v,
-                Executer.BlockPrefabs[Executer.CurrentGame.CurrentBlock.Id - 1].GetComponent<Renderer>(),
-                Executer.YMax);
+            Vector3 tilePos = PositionConvertor.ActualTilePosition(v, Executer, Executer.YMax);
 
             List<GameObject> toRemove = new List<GameObject>();
 
@@ -101,7 +97,7 @@ public class PowerUpManager : MonoBehaviour
     {
         foreach (var tile in Executer.Manager.PlacedBlocks)
         {
-            if (tile.transform.position == PositionConvertor.PowerUpPosition(powerUp, powerUpRenderer, Executer.YMax)) return true;
+            if (tile.transform.position == PositionConvertor.PowerUpPosition(powerUp, Executer, Executer.YMax)) return true;
         }
 
         return false;
@@ -110,8 +106,9 @@ public class PowerUpManager : MonoBehaviour
     private GameObject InstantiatePowerUp(PowerUp powerUp)
     {
         GameObject powerUpObject = Instantiate(PowerUpPrefabs[powerUp.Id - 1],
-            PositionConvertor.PowerUpPosition(powerUp, powerUpRenderer, Executer.YMax),
+            PositionConvertor.PowerUpPosition(powerUp, Executer, Executer.YMax),
             Quaternion.identity);
+        powerUpObject.transform.localScale *= 0.9f;
 
         PowerUpComponent component = powerUpObject.AddComponent<PowerUpComponent>();
         component.Initialize(powerUp);
