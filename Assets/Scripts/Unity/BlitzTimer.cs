@@ -30,7 +30,7 @@ public class BlitzTimer : MonoBehaviour
         if (!canAddTime && Executer.Manager.ClearedLayers == 0) canAddTime = true;
         else if (Executer.Manager.ClearedLayers > 0 && canAddTime)
         {
-            int extraTime = Executer.Manager.ClearedLayers * 5;
+            int extraTime = Executer.Manager.ClearedLayers * 15;
             AddTime(extraTime);
         }
         Warning.UniversalVariable = countdownTime;

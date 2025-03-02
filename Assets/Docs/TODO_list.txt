@@ -33,5 +33,5 @@ TODO:
 2. Add visual effects (when the block was collected, etc.)
 3. Add functioning settings and quit button in the main menu
 4. If possible, add multiple threads to handle the game logic
-5. Add a posibility to change the dimensons of the game board in "not size fixed" game modes
-6. Credits (as a funny easter egg, maybe a hidden button in the main menu) + easter egg in the form of a hidden block in the game
+5. Credits (as a funny easter egg, maybe a hidden button in the main menu)
+6. Add game over sound effect
