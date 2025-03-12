@@ -35,3 +35,4 @@ TODO:
 4. If possible, add multiple threads to handle the game logic
 5. Credits (as a funny easter egg, maybe a hidden button in the main menu)
 6. Add game over sound effect
+7. Use object pooling

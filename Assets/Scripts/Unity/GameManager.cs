@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Logic;
 using System.Linq;
+using Assets.Scripts.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -85,13 +86,17 @@ public class GameManager : MonoBehaviour
 
     public void PlaceCurrentBlock()
     {
+        List<Vector3> placedPositions = new List<Vector3>();
         foreach (Vector3 v in game.CurrentBlock.TilePositions())
         {
             GameObject tile = Instantiate(blockPrefabs[game.CurrentBlock.Id - 1],
                 PositionConvertor.ActualTilePosition(v, executer, gridHeight),
                 Quaternion.identity);
             PlacedBlocks.Add(tile);
+            placedPositions.Add(v);
         }
+        BlockEvents.RaiseBlockPlaced(placedPositions);
+
         ClearCurrentBlocks();
     }
 

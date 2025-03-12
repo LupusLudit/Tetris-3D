@@ -58,24 +58,24 @@ public class GameExecuter : MonoBehaviour
 
     void Update()
     {
-        BlocksPlaced = 0;
-        if (!IsGameActive())
-        {
-            if (CurrentGame.GameOver) UI.DrawGameOverScreen();
-            return;
-        }
-        else
-        {
-            UpdateFallDelay();
-            KeyManager.HandleKeyInputs();
-            ExecuteQueuedActions();
-
-            if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
+            BlocksPlaced = 0;
+            if (!IsGameActive())
             {
-                ExecuteGameStep();
-                timeSinceLastFall = 0f;
+                if (CurrentGame.GameOver) UI.DrawGameOverScreen();
+                return;
             }
-        }
+            else
+            {
+                UpdateFallDelay();
+                KeyManager.HandleKeyInputs();
+                ExecuteQueuedActions();
+
+                if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
+                {
+                    ExecuteGameStep();
+                    timeSinceLastFall = 0f;
+                }
+            }
     }
 
     private void ExecuteGameStep()

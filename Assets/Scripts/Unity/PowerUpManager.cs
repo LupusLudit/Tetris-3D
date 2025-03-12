@@ -1,6 +1,8 @@
+using Assets.Scripts.Events;
 using Assets.Scripts.Logic;
 using Assets.Scripts.PowerUps;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PowerUpManager : MonoBehaviour
@@ -27,7 +29,8 @@ public class PowerUpManager : MonoBehaviour
 
             if (powerUpHolder != null)
             {
-                UpdatePowerUps();
+
+                UpdatePowerUps(Executer.CurrentGame.CurrentBlock.TilePositions().ToList());
 
                 spawnTimer += Time.deltaTime;
                 if (spawnTimer >= SpawnDelay) // Temporarily set to 10
@@ -39,11 +42,11 @@ public class PowerUpManager : MonoBehaviour
         }
     }
 
-    private void UpdatePowerUps()
+    private void UpdatePowerUps(List<Vector3> positions)
     {
         if (activePowerUps.Count == 0) return;
 
-        foreach (Vector3 v in Executer.CurrentGame.CurrentBlock.TilePositions())
+        foreach (Vector3 v in positions)
         {
             Vector3 tilePos = PositionConvertor.ActualTilePosition(v, Executer, Executer.YMax);
 
@@ -72,6 +75,16 @@ public class PowerUpManager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        BlockEvents.OnBlockPlaced += UpdatePowerUps;
+    }
+
+    void OnDisable()
+    {
+        BlockEvents.OnBlockPlaced -= UpdatePowerUps;
+    }
+
     private void SpawnPowerUp()
     {
         PowerUp nextPowerUp = powerUpHolder.GetNextPowerUp();
@@ -79,7 +92,6 @@ public class PowerUpManager : MonoBehaviour
         GameObject powerUpTile =  InstantiatePowerUp(nextPowerUp);
         activePowerUps.Add(powerUpTile);
     }
-
     private Vector3 GenerateRandomPosition(PowerUp powerUp)
     {
         Vector3 position;
