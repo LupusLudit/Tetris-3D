@@ -51,7 +51,7 @@ namespace Assets.Scripts.PowerUps
             foreach (var tile in tilesToRemove)
             {
                 tiles.Remove(tile);
-                Executer.Manager.RemoveTile(tile);
+                TilePoolManager.Instance.ReturnTile(tile);
             }
         }
 

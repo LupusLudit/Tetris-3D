@@ -1,3 +1,4 @@
+using Assets.Scripts.Blocks;
 using Assets.Scripts.Events;
 using Assets.Scripts.Logic;
 using Assets.Scripts.PowerUps;
@@ -117,9 +118,8 @@ public class PowerUpManager : MonoBehaviour
 
     private GameObject InstantiatePowerUp(PowerUp powerUp)
     {
-        GameObject powerUpObject = Instantiate(PowerUpPrefabs[powerUp.Id - 1],
-            PositionConvertor.PowerUpPosition(powerUp, Executer, Executer.YMax),
-            Quaternion.identity);
+        GameObject powerUpObject = TilePoolManager.Instance.GetTile(PowerUpPrefabs[powerUp.Id - 1]);
+        powerUpObject.transform.position = PositionConvertor.PowerUpPosition(powerUp, Executer, Executer.YMax);
         powerUpObject.transform.localScale *= 0.9f;
 
         PowerUpComponent component = powerUpObject.AddComponent<PowerUpComponent>();

@@ -89,9 +89,7 @@ public class GameManager : MonoBehaviour
         List<Vector3> placedPositions = new List<Vector3>();
         foreach (Vector3 v in game.CurrentBlock.TilePositions())
         {
-            GameObject tile = Instantiate(blockPrefabs[game.CurrentBlock.Id - 1],
-                PositionConvertor.ActualTilePosition(v, executer, gridHeight),
-                Quaternion.identity);
+            GameObject tile = InstantiateTile(game.CurrentBlock, PositionConvertor.ActualTilePosition(v, executer, gridHeight));
             PlacedBlocks.Add(tile);
             placedPositions.Add(v);
         }
@@ -111,7 +109,8 @@ public class GameManager : MonoBehaviour
     }
     private GameObject InstantiateTile(Block block, Vector3 position, bool isPrediction = false)
     {
-        GameObject tile = Instantiate(blockPrefabs[block.Id - 1], position, Quaternion.identity);
+        GameObject tile = TilePoolManager.Instance.GetTile(blockPrefabs[block.Id - 1]);
+        tile.transform.position = position;
 
         if (isPrediction)
         {
@@ -126,7 +125,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var tile in list)
         {
-            Destroy(tile);
+            TilePoolManager.Instance.ReturnTile(tile);
         }
         list.Clear();
     }
@@ -189,7 +188,7 @@ public class GameManager : MonoBehaviour
         foreach (var tile in tilesToRemove)
         {
             PlacedBlocks.Remove(tile);
-            Destroy(tile);
+            TilePoolManager.Instance.ReturnTile(tile);
         }
     }
 
@@ -209,13 +208,8 @@ public class GameManager : MonoBehaviour
         foreach (var tile in tilesToRemove)
         {
             PlacedBlocks.Remove(tile);
-            Destroy(tile);
+            TilePoolManager.Instance.ReturnTile(tile);
         }
-    }
-
-    public void RemoveTile(GameObject tile)
-    {
-        Destroy(tile);
     }
 
     public void MoveBlocksDown(int y, int drop)
