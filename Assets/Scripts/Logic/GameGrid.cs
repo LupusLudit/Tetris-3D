@@ -8,6 +8,16 @@
 
         private readonly int[,,] grid;
 
+        /*
+         *   y
+         *   |
+         *   |
+         *   |_____z
+         *  /
+         * /
+         * x
+         */
+
 
         public int this[int x, int y, int z]
         {
@@ -83,7 +93,7 @@
             {
                 for (int z = 0; z < Z; z++)
                 {
-                    grid[x, y + numOfRows, z] = grid[x, y, z];
+                    grid[x, y - numOfRows, z] = grid[x, y, z];
                     grid[x, y, z] = 0;
                 }
             }

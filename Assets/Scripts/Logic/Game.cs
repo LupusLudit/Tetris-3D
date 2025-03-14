@@ -14,13 +14,19 @@ namespace Assets.Scripts.Logic
             {
                 currentBlock = value;
                 currentBlock.ResetBlock();
+                Debug.Log("Initializing a new block");
+                Debug.Log($"Current block: {currentBlock.Id}");
 
+                foreach (Vector3 v in CurrentBlock.TilePositions())
+                {
+                    Debug.Log($"New block: x: {v.x}, y: {v.y}, z: {v.z}");
+                }
                 for (int i = 0; i < 2; i++)
                 {
-                    currentBlock.Move(0,1,0);
+                    currentBlock.Move(0,-1,0);
                     if (!BlockFits())
                     {
-                        currentBlock.Move(0,-1,0);
+                        currentBlock.Move(0,1,0);
                     }
                 }
             }
@@ -132,7 +138,7 @@ namespace Assets.Scripts.Logic
 
         public bool CheckGameOver()
         {
-            return !(Grid.IsLayerEmpty(0) && Grid.IsLayerEmpty(1));
+            return !(Grid.IsLayerEmpty(Grid.Y - 1) && Grid.IsLayerEmpty(Grid.Y - 2));
         }
 
 
@@ -140,6 +146,7 @@ namespace Assets.Scripts.Logic
         {
             foreach (Vector3 v in CurrentBlock.TilePositions())
             {
+                Debug.Log($"Current block: x: {v.x}, y: {v.y}, z: {v.z}");
                 Grid[(int)v.x,(int)v.y,(int)v.z] = CurrentBlock.Id;
             }
 
@@ -153,11 +160,12 @@ namespace Assets.Scripts.Logic
 
         public void MoveBlockDown()
         {
-            CurrentBlock.Move(0,1,0);
+            Debug.Log($"Attempting to move block down");
+            CurrentBlock.Move(0,-1,0);
 
             if (!BlockFits())
             {
-                CurrentBlock.Move(0,-1,0);
+                CurrentBlock.Move(0,1,0);
                 PlaceCurrentBlock();
 
             }
@@ -166,7 +174,7 @@ namespace Assets.Scripts.Logic
         private int NumOfTilesBelow(Vector3 v)
         {
             int drop = 0;
-            while (Grid.IsEmpty((int)v.x, (int)v.y + 1 + drop, (int)v.z))
+            while (Grid.IsEmpty((int)v.x, (int)v.y - 1 - drop, (int)v.z))
             {
                 drop++;
             }
@@ -175,7 +183,7 @@ namespace Assets.Scripts.Logic
 
         public int MaxPossibleDrop()
         {
-            int drop = Grid.Y;
+            int drop = Grid.Y - 1;
 
             foreach (Vector3 v in CurrentBlock.TilePositions())
             {
@@ -187,7 +195,7 @@ namespace Assets.Scripts.Logic
 
         public void DropBlock()
         {
-            CurrentBlock.Move(0,MaxPossibleDrop(),0);
+            CurrentBlock.Move(0,-MaxPossibleDrop(),0);
             PlaceCurrentBlock();
         }
 

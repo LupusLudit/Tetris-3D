@@ -4,7 +4,6 @@ namespace Assets.Scripts.Logic
 {
     public class DelayManager
     {
-
         private int maxDelay;
         private int minDelay;
         private int delayDecrease;

@@ -20,7 +20,7 @@ namespace Assets.Scripts.PowerUps
         public override void Use()
         {
             int maxY = Executer.YMax;
-            for (int i = 0; i < maxY; i++)
+            for (int i = maxY-1; i >= 0; i--)
             {
                 if (!grid.IsLayerEmpty(i))
                 {

@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Vector3 tilePosition in block.TilePositions())
         {
-            GameObject tile = InstantiateTile(block, PositionConvertor.ActualTilePosition(tilePosition, executer, gridHeight));
+            GameObject tile = InstantiateTile(block, tilePosition);
             currentBlockTiles.Add(tile);
         }
     }
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         int maxDrop = game.MaxPossibleDrop();
         foreach (Vector3 tilePosition in block.TilePositions())
         {
-            Vector3 predictedPosition = PositionConvertor.ActualTilePosition(tilePosition, executer, gridHeight) - Vector3.up * maxDrop;
+            Vector3 predictedPosition = tilePosition - Vector3.up * maxDrop;
             GameObject tile = InstantiateTile(block, predictedPosition, isPrediction: true);
             predictedBlockTiles.Add(tile);
         }
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var (tile, position) in currentBlockTiles.Zip(block.TilePositions(), (tile, position) => (tile, position)))
         {
-            tile.transform.position = PositionConvertor.ActualTilePosition(position, executer, gridHeight);
+            tile.transform.position = position;
         }
     }
 
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var (tile, position) in predictedBlockTiles.Zip(block.TilePositions(), (tile, pos) => (tile, pos)))
         {
-            tile.transform.position = PositionConvertor.ActualTilePosition(position, executer, gridHeight) - dropVector;
+            tile.transform.position = position - dropVector;
         }
     }
 
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
         List<Vector3> placedPositions = new List<Vector3>();
         foreach (Vector3 v in game.CurrentBlock.TilePositions())
         {
-            GameObject tile = InstantiateTile(game.CurrentBlock, PositionConvertor.ActualTilePosition(v, executer, gridHeight));
+            GameObject tile = InstantiateTile(game.CurrentBlock, v);
             PlacedBlocks.Add(tile);
             placedPositions.Add(v);
         }
@@ -139,17 +139,17 @@ public class GameManager : MonoBehaviour
     public void ClearFullLayers()
     {
         ClearedLayers = 0;
-        for (int y = game.Grid.Y - 1; y > 0; y--)
+        for (int y = game.Grid.Y - 1; y >= 0; y--)
         {
-            if (game.Grid.IsLayerFull(y))
+            if (game.Grid.IsLayerFull(game.Grid.Y - 1 - y))
             {
-                ClearBlocksInRow(y);
+                ClearBlocksInRow(game.Grid.Y - 1 - y);
                 ClearedLayers++;
                 linesCleaned++;
             }
             else if (ClearedLayers > 0)
             {
-                MoveBlocksDown(y, ClearedLayers);
+                MoveBlocksDown(game.Grid.Y - 1 - y, ClearedLayers);
             }
         }
 
@@ -179,7 +179,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var tile in PlacedBlocks)
         {
-            if (tile.transform.position.y == gridHeight - 1 - y + executer.HalfTileSize)
+            if (tile.transform.position.y == y)
             {
                 tilesToRemove.Add(tile);
             }
@@ -199,7 +199,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var tile in PlacedBlocks)
         {
-            if (tile.transform.position.x == x + executer.HalfTileSize && tile.transform.position.z == z + executer.HalfTileSize)
+            if (tile.transform.position.x == x && tile.transform.position.z == z)
             {
                 tilesToRemove.Add(tile);
             }
@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var tile in PlacedBlocks)
         {
-            if (tile.transform.position.y == gridHeight - 1 - y + executer.HalfTileSize)
+            if (tile.transform.position.y == y)
             {
                 tile.transform.position -= dropVector;
             }

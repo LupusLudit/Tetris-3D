@@ -47,9 +47,8 @@ public class PowerUpManager : MonoBehaviour
     {
         if (activePowerUps.Count == 0) return;
 
-        foreach (Vector3 v in positions)
+        foreach (Vector3 tilePos in positions)
         {
-            Vector3 tilePos = PositionConvertor.ActualTilePosition(v, Executer, Executer.YMax);
 
             List<GameObject> toRemove = new List<GameObject>();
 
@@ -110,7 +109,7 @@ public class PowerUpManager : MonoBehaviour
     {
         foreach (var tile in Executer.Manager.PlacedBlocks)
         {
-            if (tile.transform.position == PositionConvertor.PowerUpPosition(powerUp, Executer, Executer.YMax)) return true;
+            if (tile.transform.position == powerUp.Position) return true;
         }
 
         return false;
@@ -119,7 +118,7 @@ public class PowerUpManager : MonoBehaviour
     private GameObject InstantiatePowerUp(PowerUp powerUp)
     {
         GameObject powerUpObject = TilePoolManager.Instance.GetTile(PowerUpPrefabs[powerUp.Id - 1]);
-        powerUpObject.transform.position = PositionConvertor.PowerUpPosition(powerUp, Executer, Executer.YMax);
+        powerUpObject.transform.position = powerUp.Position;
         powerUpObject.transform.localScale *= 0.9f;
 
         PowerUpComponent component = powerUpObject.AddComponent<PowerUpComponent>();

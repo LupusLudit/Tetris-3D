@@ -59,7 +59,7 @@ public class Warning : MonoBehaviour
 
     private bool BlocksNearTop()
     {
-        return !Executer.CurrentGame.Grid.IsLayerEmpty(3)
+        return !Executer.CurrentGame.Grid.IsLayerEmpty(Executer.YMax-3)
             && Executer.BlocksPlaced > 0 && canDraw;
     }
 
