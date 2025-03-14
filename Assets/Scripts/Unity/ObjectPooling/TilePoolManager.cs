@@ -31,6 +31,7 @@ public class TilePoolManager : MonoBehaviour
         GameObject tile = Instantiate(prefab);
         var pooledTile = tile.AddComponent<PooledTile>();
         pooledTile.prefabReference = prefab;
+        pooledTile.defaultColor = tile.GetComponent<Renderer>().material.color; // cache default
 
         tile.SetActive(false);
         tile.transform.SetParent(this.transform);
@@ -73,5 +74,7 @@ public class TilePoolConfig
 public class PooledTile : MonoBehaviour
 {
     public GameObject prefabReference;
+    public Color defaultColor;
 }
+
 

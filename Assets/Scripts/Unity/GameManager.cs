@@ -112,12 +112,18 @@ public class GameManager : MonoBehaviour
         GameObject tile = TilePoolManager.Instance.GetTile(blockPrefabs[block.Id - 1]);
         tile.transform.position = position;
 
+        Renderer renderer = tile.GetComponent<Renderer>();
+        var pooledTile = tile.GetComponent<PooledTile>();
+
+        tile.transform.localScale = Vector3.one/2;
+        renderer.material.color = pooledTile.defaultColor;
+
         if (isPrediction)
         {
-            tile.transform.localScale *= 0.999f;
-            Renderer renderer = tile.GetComponent<Renderer>();
+            tile.transform.localScale *= 0.98f;
             renderer.material.color = new Color(0.5f, 0.5f, 0.5f);
         }
+
         return tile;
     }
 

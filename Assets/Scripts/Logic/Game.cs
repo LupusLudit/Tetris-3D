@@ -14,13 +14,6 @@ namespace Assets.Scripts.Logic
             {
                 currentBlock = value;
                 currentBlock.ResetBlock();
-                Debug.Log("Initializing a new block");
-                Debug.Log($"Current block: {currentBlock.Id}");
-
-                foreach (Vector3 v in CurrentBlock.TilePositions())
-                {
-                    Debug.Log($"New block: x: {v.x}, y: {v.y}, z: {v.z}");
-                }
                 for (int i = 0; i < 2; i++)
                 {
                     currentBlock.Move(0,-1,0);
@@ -146,7 +139,6 @@ namespace Assets.Scripts.Logic
         {
             foreach (Vector3 v in CurrentBlock.TilePositions())
             {
-                Debug.Log($"Current block: x: {v.x}, y: {v.y}, z: {v.z}");
                 Grid[(int)v.x,(int)v.y,(int)v.z] = CurrentBlock.Id;
             }
 
@@ -160,7 +152,6 @@ namespace Assets.Scripts.Logic
 
         public void MoveBlockDown()
         {
-            Debug.Log($"Attempting to move block down");
             CurrentBlock.Move(0,-1,0);
 
             if (!BlockFits())

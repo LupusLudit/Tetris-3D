@@ -38,3 +38,5 @@ TODO:
 7. One draw call
 8. Change score logic
 9. Save initial camera position
+10. Optimize background renderer
+11. Remove as much as possible from the scene
