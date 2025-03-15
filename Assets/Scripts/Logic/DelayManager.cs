@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Assets.Scripts.Logic
 {
@@ -20,7 +21,7 @@ namespace Assets.Scripts.Logic
 
         public void AdjustDelay(int score, double multiplier)
         {
-            int temp = Math.Max(minDelay, maxDelay - (score / 10000 * delayDecrease));
+            int temp = Math.Max(minDelay, maxDelay - (score / 4000 * delayDecrease));
             CurrentDelay = temp * multiplier;
         }
     }

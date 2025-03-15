@@ -1596,7 +1596,7 @@ MonoBehaviour:
   BlockMessage: {fileID: 37680724}
   BlocksPlus: {fileID: 1625039353}
   Warning: {fileID: 564690458}
-  BlocksRemaining: 10
+  BlocksRemaining: 50
 --- !u!1 &177829455
 GameObject:
   m_ObjectHideFlags: 0
@@ -2629,6 +2629,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213027035}
   m_CullTransparentMesh: 1
+--- !u!1 &291358517
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 291358519}
+  - component: {fileID: 291358518}
+  m_Layer: 0
+  m_Name: TilePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &291358518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291358517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a98959a75b509149bf4448de85e0bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileConfigs:
+  - prefab: {fileID: 919132149155446097, guid: ae3c86827ce3c5a4b9e3132c87651300, type: 3}
+    poolSize: 10
+  - prefab: {fileID: 919132149155446097, guid: 898c30d4ca10cb94995bd9f472a3a234, type: 3}
+    poolSize: 70
+  - prefab: {fileID: 919132149155446097, guid: 3c764554ee97e4e419d10ad1ef091d4f, type: 3}
+    poolSize: 70
+  - prefab: {fileID: 919132149155446097, guid: 367c7bdbd9807da4ea3f3cf22534c9e1, type: 3}
+    poolSize: 70
+  - prefab: {fileID: 919132149155446097, guid: b9d3ea5643a42c34e8e99535df33a80c, type: 3}
+    poolSize: 70
+  - prefab: {fileID: 919132149155446097, guid: abc60f9396ef20443bad1f989b1667cc, type: 3}
+    poolSize: 70
+  - prefab: {fileID: 919132149155446097, guid: 2fa5ff16d4092bc48af51e1b29115c8c, type: 3}
+    poolSize: 70
+  - prefab: {fileID: 919132149155446097, guid: 50cf60436ea4ed04eb81568b7e939f9d, type: 3}
+    poolSize: 70
+--- !u!4 &291358519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291358517}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 904.74725, y: 642.1894, z: -1.5296708}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &291993556
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,10 +3089,11 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.09904577, y: -0.89239913, z: 0.23911765, w: 0.3696438}
-  m_LocalPosition: {x: 30, y: 27, z: 30}
+  m_LocalPosition: {x: 22, y: 20, z: 22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 410087041}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 30, y: -135, z: 0}
 --- !u!114 &330585547
@@ -3850,12 +3912,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.10571028, y: 0.607744, z: -0.50995773, w: 0.59951293}
+  m_LocalPosition: {x: 22, y: 20, z: 22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 330585546}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
@@ -10343,6 +10405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreText: {fileID: 374803390}
+  LevelUpText: {fileID: 756768443}
   LinesUI: {fileID: 2028239058}
   GameOverUI: {fileID: 1282134648}
   LevelUpUI: {fileID: 1537775060}
@@ -11731,6 +11794,7 @@ MonoBehaviour:
   YMax: 14
   ZMax: 6
   BlockPrefabs:
+  - {fileID: 919132149155446097, guid: ae3c86827ce3c5a4b9e3132c87651300, type: 3}
   - {fileID: 919132149155446097, guid: 898c30d4ca10cb94995bd9f472a3a234, type: 3}
   - {fileID: 919132149155446097, guid: 3c764554ee97e4e419d10ad1ef091d4f, type: 3}
   - {fileID: 919132149155446097, guid: 367c7bdbd9807da4ea3f3cf22534c9e1, type: 3}
@@ -19919,65 +19983,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904248828}
   m_CullTransparentMesh: 1
---- !u!1 &1914111621
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1914111623}
-  - component: {fileID: 1914111622}
-  m_Layer: 0
-  m_Name: TilePool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1914111622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914111621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a98959a75b509149bf4448de85e0bba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileConfigs:
-  - prefab: {fileID: 919132149155446097, guid: 898c30d4ca10cb94995bd9f472a3a234, type: 3}
-    poolSize: 70
-  - prefab: {fileID: 919132149155446097, guid: 3c764554ee97e4e419d10ad1ef091d4f, type: 3}
-    poolSize: 70
-  - prefab: {fileID: 919132149155446097, guid: 367c7bdbd9807da4ea3f3cf22534c9e1, type: 3}
-    poolSize: 70
-  - prefab: {fileID: 919132149155446097, guid: b9d3ea5643a42c34e8e99535df33a80c, type: 3}
-    poolSize: 70
-  - prefab: {fileID: 919132149155446097, guid: abc60f9396ef20443bad1f989b1667cc, type: 3}
-    poolSize: 70
-  - prefab: {fileID: 919132149155446097, guid: 2fa5ff16d4092bc48af51e1b29115c8c, type: 3}
-    poolSize: 70
-  - prefab: {fileID: 919132149155446097, guid: 50cf60436ea4ed04eb81568b7e939f9d, type: 3}
-    poolSize: 70
---- !u!4 &1914111623
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1914111621}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 904.74725, y: 642.1894, z: -1.5296708}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1914129158
 GameObject:
   m_ObjectHideFlags: 0
@@ -22516,7 +22521,6 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1207663576}
   - {fileID: 165531653}
@@ -22531,4 +22535,4 @@ SceneRoots:
   - {fileID: 129264467}
   - {fileID: 328126768}
   - {fileID: 185472415}
-  - {fileID: 1914111623}
+  - {fileID: 291358519}

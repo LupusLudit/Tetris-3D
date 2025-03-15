@@ -5,6 +5,7 @@ using Assets.Scripts.Logic;
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI LevelUpText;
     public LinesCompleted LinesUI;
     public GameOver GameOverUI;
     public LevelUp LevelUpUI;
@@ -30,6 +31,7 @@ public class UIManager : MonoBehaviour
     public void DrawLevelUpUI(int level)
     {
         LevelUpUI.LevelText.text = $"LEVEL: {level}";
+        LevelUpText.text = $"LEVEL: {level}";
         LevelUpUI.ShowUI();
     }
 

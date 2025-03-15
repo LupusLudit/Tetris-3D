@@ -2605,7 +2605,8 @@ Transform:
   m_LocalPosition: {x: 30, y: 27, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 410087041}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 30, y: -135, z: 0}
 --- !u!114 &330585547
@@ -3439,12 +3440,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.10571028, y: 0.607744, z: -0.50995773, w: 0.59951293}
+  m_LocalPosition: {x: 30, y: 27, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 330585546}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
@@ -3996,6 +3997,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileConfigs:
+  - prefab: {fileID: 919132149155446097, guid: ae3c86827ce3c5a4b9e3132c87651300, type: 3}
+    poolSize: 10
   - prefab: {fileID: 919132149155446097, guid: 898c30d4ca10cb94995bd9f472a3a234, type: 3}
     poolSize: 250
   - prefab: {fileID: 919132149155446097, guid: 3c764554ee97e4e419d10ad1ef091d4f, type: 3}
@@ -10400,6 +10403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreText: {fileID: 374803390}
+  LevelUpText: {fileID: 756768443}
   LinesUI: {fileID: 2028239058}
   GameOverUI: {fileID: 1282134648}
   LevelUpUI: {fileID: 1537775060}
@@ -12424,6 +12428,7 @@ MonoBehaviour:
   YMax: 22
   ZMax: 10
   BlockPrefabs:
+  - {fileID: 919132149155446097, guid: ae3c86827ce3c5a4b9e3132c87651300, type: 3}
   - {fileID: 919132149155446097, guid: 898c30d4ca10cb94995bd9f472a3a234, type: 3}
   - {fileID: 919132149155446097, guid: 3c764554ee97e4e419d10ad1ef091d4f, type: 3}
   - {fileID: 919132149155446097, guid: 367c7bdbd9807da4ea3f3cf22534c9e1, type: 3}
@@ -12433,7 +12438,6 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: 50cf60436ea4ed04eb81568b7e939f9d, type: 3}
   SoundEffects: {fileID: 1236090279}
   GameCamera: {fileID: 330585545}
-  HalfTileSize: 0.5
 --- !u!1 &1208682545
 GameObject:
   m_ObjectHideFlags: 0
@@ -22587,7 +22591,6 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1207663576}
   - {fileID: 98140476}

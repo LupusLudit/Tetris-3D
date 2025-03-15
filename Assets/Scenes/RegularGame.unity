@@ -306,6 +306,8 @@ MonoBehaviour:
   LineMaterial: {fileID: 2100000, guid: 1b3c8ea338689d449aa04b23df5ca83c, type: 2}
   RedLineMaterial: {fileID: 2100000, guid: c06ef27c34e50d941a879c1822a3781e, type: 2}
   MainCamera: {fileID: 330585545}
+  TopCamera: {fileID: 1989807166}
+  SideCamera: {fileID: 1479503454}
   XMax: 10
   YMax: 22
   ZMax: 10
@@ -1560,6 +1562,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileConfigs:
+  - prefab: {fileID: 919132149155446097, guid: ae3c86827ce3c5a4b9e3132c87651300, type: 3}
+    poolSize: 10
   - prefab: {fileID: 919132149155446097, guid: 898c30d4ca10cb94995bd9f472a3a234, type: 3}
     poolSize: 250
   - prefab: {fileID: 919132149155446097, guid: 3c764554ee97e4e419d10ad1ef091d4f, type: 3}
@@ -3557,7 +3561,8 @@ Transform:
   m_LocalPosition: {x: 30, y: 27, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 410087041}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 30, y: -135, z: 0}
 --- !u!114 &330585547
@@ -4400,13 +4405,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.12090369, y: 0.6127472, z: -0.5080577, w: 0.59312785}
+  m_LocalPosition: {x: 30, y: 27, z: 30.000011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_Father: {fileID: 330585546}
+  m_LocalEulerAnglesHint: {x: 50, y: 70, z: -45}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6028,89 +6033,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504480610}
   m_CullTransparentMesh: 1
---- !u!1 &521775172
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 521775175}
-  - component: {fileID: 521775174}
-  - component: {fileID: 521775173}
-  m_Layer: 0
-  m_Name: TetrisTile
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &521775173
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 521775172}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &521775174
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 521775172}
-  m_Mesh: {fileID: 5790638120366243463, guid: a1cc5b382210a254caeb00838642ba8a, type: 3}
---- !u!4 &521775175
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 521775172}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 68.93582, y: 0, z: 119.594086}
-  m_LocalScale: {x: 1.0353, y: 1.0353, z: 1.3341911}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &524250484
 GameObject:
   m_ObjectHideFlags: 0
@@ -11332,6 +11254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreText: {fileID: 374803390}
+  LevelUpText: {fileID: 756768443}
   LinesUI: {fileID: 2028239058}
   GameOverUI: {fileID: 1282134648}
   LevelUpUI: {fileID: 1537775060}
@@ -13090,6 +13013,7 @@ MonoBehaviour:
   YMax: 22
   ZMax: 10
   BlockPrefabs:
+  - {fileID: 919132149155446097, guid: ae3c86827ce3c5a4b9e3132c87651300, type: 3}
   - {fileID: 919132149155446097, guid: 898c30d4ca10cb94995bd9f472a3a234, type: 3}
   - {fileID: 919132149155446097, guid: 3c764554ee97e4e419d10ad1ef091d4f, type: 3}
   - {fileID: 919132149155446097, guid: 367c7bdbd9807da4ea3f3cf22534c9e1, type: 3}
@@ -13099,7 +13023,6 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: 50cf60436ea4ed04eb81568b7e939f9d, type: 3}
   SoundEffects: {fileID: 328126770}
   GameCamera: {fileID: 330585545}
-  HalfTileSize: 0.5
 --- !u!1 &1215235924
 GameObject:
   m_ObjectHideFlags: 0
@@ -22328,7 +22251,6 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 1207663576}
   - {fileID: 27697499}
@@ -22343,4 +22265,3 @@ SceneRoots:
   - {fileID: 328126768}
   - {fileID: 618074274}
   - {fileID: 157072722}
-  - {fileID: 521775175}

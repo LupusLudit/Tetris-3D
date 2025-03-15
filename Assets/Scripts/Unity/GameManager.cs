@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     private DelayManager delay;
     private int level = 0;
     private int linesCleaned = 0;
-    //TODO: instead of creating and destroying blocks, use pooling
+    private int lastLevelUpScore = 0;
 
     public void Initialize(GameExecuter gameExecuter)
     {
@@ -109,20 +109,11 @@ public class GameManager : MonoBehaviour
     }
     private GameObject InstantiateTile(Block block, Vector3 position, bool isPrediction = false)
     {
-        GameObject tile = TilePoolManager.Instance.GetTile(blockPrefabs[block.Id - 1]);
+        GameObject tile;
+        if (!isPrediction) tile = TilePoolManager.Instance.GetTile(blockPrefabs[block.Id]);
+        else tile = TilePoolManager.Instance.GetTile(blockPrefabs[0]); // Default prediction prefab
+
         tile.transform.position = position;
-
-        Renderer renderer = tile.GetComponent<Renderer>();
-        var pooledTile = tile.GetComponent<PooledTile>();
-
-        tile.transform.localScale = Vector3.one/2;
-        renderer.material.color = pooledTile.defaultColor;
-
-        if (isPrediction)
-        {
-            tile.transform.localScale *= 0.98f;
-            renderer.material.color = new Color(0.5f, 0.5f, 0.5f);
-        }
 
         return tile;
     }
@@ -161,21 +152,38 @@ public class GameManager : MonoBehaviour
 
         if (ClearedLayers > 0)
         {
-            CheckLevelUp();
             ui.DrawLinesCompletedUI(score, level, ClearedLayers, DoubleScore);
             ui.DrawScoreUI(score.CurrentScore);
         }
     }
 
-    private void CheckLevelUp()
+    public void CheckLevelUp()
     {
-        if (linesCleaned >= 10)
+        bool leveledUp = false;
+
+        // Line-based
+        if (linesCleaned >= 5)
         {
             level++;
             linesCleaned = 0;
+            leveledUp = true;
+        }
+
+        // Score-based
+        int threshold = 4000;
+        while (score.CurrentScore >= lastLevelUpScore + threshold)
+        {
+            level++;
+            lastLevelUpScore += threshold;
+            leveledUp = true;
+        }
+
+        if (leveledUp)
+        {
             ui.DrawLevelUpUI(level);
         }
     }
+
 
     //We cant remove elements from a collection while iterating over it, so we first load tiles into the tilesToRemove List.
     public void ClearBlocksInRow(int y)
