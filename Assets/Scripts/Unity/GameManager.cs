@@ -249,11 +249,14 @@ public class GameManager : MonoBehaviour
         imageDrawer.DrawNextBlock(game.Holder);
     }
 
-    public void RotateCamera(float angle)
+    public void RotateCamera(float anglePerSecond)
     {
+        float angleThisFrame = anglePerSecond * Time.deltaTime;
+
         Vector3 direction = gameCamera.transform.position - lookPoint;
-        direction = Quaternion.Euler(0, angle, 0) * direction;
+        direction = Quaternion.Euler(0, angleThisFrame, 0) * direction;
         gameCamera.transform.position = lookPoint + direction;
         gameCamera.transform.LookAt(lookPoint);
     }
+
 }

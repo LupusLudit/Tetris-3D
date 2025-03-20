@@ -383,8 +383,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BackgroundMaterial: {fileID: 2100000, guid: 4ec4bb5063db6db4ea5856c2120ba990, type: 2}
   LineMaterial: {fileID: 2100000, guid: 1b3c8ea338689d449aa04b23df5ca83c, type: 2}
-  RedLineMaterial: {fileID: 2100000, guid: c06ef27c34e50d941a879c1822a3781e, type: 2}
+  WarningMaterial: {fileID: 2100000, guid: c06ef27c34e50d941a879c1822a3781e, type: 2}
   MainCamera: {fileID: 330585545}
+  SideCamera: {fileID: 1479503454}
   XMax: 10
   YMax: 22
   ZMax: 10
@@ -2574,7 +2575,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 100
+  far clip plane: 50
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -3441,7 +3442,7 @@ Transform:
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
   m_LocalRotation: {x: 0.10571028, y: 0.607744, z: -0.50995773, w: 0.59951293}
-  m_LocalPosition: {x: 30, y: 27, z: 30}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14631,10 +14632,10 @@ Camera:
     width: 0.3
     height: 0.3
   near clip plane: 0.1
-  far clip plane: 100
+  far clip plane: 30
   field of view: 100
   orthographic: 1
-  orthographic size: 12
+  orthographic size: 11.5
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
@@ -20882,10 +20883,10 @@ Camera:
     width: 0.3
     height: 0.3
   near clip plane: 0.1
-  far clip plane: 100
+  far clip plane: 30
   field of view: 35
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 5.5
   m_Depth: 2
   m_CullingMask:
     serializedVersion: 2
@@ -20910,7 +20911,7 @@ Transform:
   m_GameObject: {fileID: 1989807163}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 5, y: 40, z: 5}
+  m_LocalPosition: {x: 5, y: 30, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

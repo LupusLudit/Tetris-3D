@@ -13,7 +13,7 @@ public class GameExecuter : MonoBehaviour
     public ImageDrawer ImageDrawer;
 
     [Header("Game Settings")]
-    public BackgroundRenderer BackgroundRenderer;
+    public BackgroundManager BackgroundRenderer;
     public int XMax, YMax, ZMax;
     public GameObject[] BlockPrefabs;
 
@@ -37,7 +37,7 @@ public class GameExecuter : MonoBehaviour
     {
         CurrentGame = new Game(XMax, YMax, ZMax);
         Score = new Score();
-        LookPoint = BoardDimensions.calcLookPoint(new Vector3(XMax, YMax, ZMax), GameCamera);
+        LookPoint = CalcLookPoint(new Vector3(XMax, YMax, ZMax), GameCamera);
 
         Manager = new GameManager();
         Manager.Initialize(this);
@@ -103,6 +103,21 @@ public class GameExecuter : MonoBehaviour
             ImageDrawer.DrawNextBlock(CurrentGame.Holder);
         }
         CurrentGame.BlockPlaced = false;
+    }
+
+    private Vector3 CalcLookPoint(Vector3 boardDim, Camera camera)
+    {
+        double cameraY = camera.transform.position.y;
+        double angleDown = camera.transform.rotation.eulerAngles.x * (Math.PI / 180);
+        //distance from point 0,0,0
+        double x = camera.transform.position.x;
+        double z = camera.transform.position.z;
+        double distance = Math.Sqrt(x * x + z * z) - Math.Sqrt(boardDim.x / 2 * boardDim.x / 2 + boardDim.z / 2 * boardDim.z / 2);
+        //calculating y distance from look point to the camera
+        double yDelta = Math.Tan(angleDown) * distance;
+        double actualY = cameraY - yDelta;
+
+        return new Vector3(boardDim.x / 2, (float)actualY, boardDim.z / 2);
     }
 
     public bool IsGameActive() =>

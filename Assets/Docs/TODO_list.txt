@@ -42,3 +42,4 @@ TODO:
 11. Movements (+x, -x, +z, -z) based on camera position
 12. Save all settings (brightness, volume, etc.)
 13. Fix Side and top camera rotation
+14. Prefferences settings

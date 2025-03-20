@@ -144,8 +144,8 @@ namespace Assets.Scripts.Logic
             () => { if (!manager.Freezed) { executer.AdjustDelay(); } },
             () => {executer.DropAndRestart();},
             () => executer.HoldAndDrawBlocks(),
-            () => manager.RotateCamera(0.6f),
-            () => manager.RotateCamera(-0.6f),
+            () => manager.RotateCamera(75f),
+            () => manager.RotateCamera(-75f),
             () => executer.BackgroundRenderer.ResetToDefault(),
             () => executer.UI.Pause()
             };

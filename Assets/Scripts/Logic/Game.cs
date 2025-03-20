@@ -45,7 +45,7 @@ namespace Assets.Scripts.Logic
 
         private Vector3 CalculateMultiplier(int x, int y, int z)
         {
-            return new Vector3((float) x / 10, (float) y / 22, (float) z / 10);
+            return new Vector3((float) x / 10, (float) y / 21, (float) z / 10);
         }
 
 
