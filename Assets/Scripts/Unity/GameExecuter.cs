@@ -55,6 +55,11 @@ public class GameExecuter : MonoBehaviour
         timeSinceLastFall = 0f;
     }
 
+    private void OnDestroy()
+    {
+        KeyManager?.Dispose();
+    }
+
     void Update()
     {
             BlocksPlaced = 0;

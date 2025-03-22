@@ -1,3 +1,4 @@
+using Assets.Scripts.Events;
 using System.Collections.Generic;
 using UnityEngine;
 enum Quadrant
@@ -58,6 +59,8 @@ public class BackgroundManager : MonoBehaviour
             int rotationAngle = quadrantAngles[quadrant] - quadrantAngle;
             quadrantAngle = quadrantAngles[quadrant];
             RotateGameBoard(rotationAngle);
+
+            AdjustKeyEvents.RaiseBoardRotated(rotationAngle == -90 || rotationAngle == 270);
         }
 
     }
@@ -98,6 +101,8 @@ public class BackgroundManager : MonoBehaviour
 
         currentQuadrant = GetQuadrant(CalculateCameraAngle());
         quadrantAngle = quadrantAngles[currentQuadrant];
+
+        AdjustKeyEvents.RaiseBoardReset();
     }
     private void InitializeFaces()
     {

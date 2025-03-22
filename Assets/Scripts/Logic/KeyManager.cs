@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Events;
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -21,7 +22,17 @@ namespace Assets.Scripts.Logic
             soundEffects = gameExecuter.SoundEffects;
 
             Initialize();
+
+            AdjustKeyEvents.OnRotation += AdjustMovements;
+            AdjustKeyEvents.OnReset += InitializeActions;
         }
+
+        public void Dispose()
+        {
+            AdjustKeyEvents.OnRotation -= AdjustMovements;
+            AdjustKeyEvents.OnReset -= InitializeActions;
+        }
+
 
         private void Initialize()
         {
@@ -64,6 +75,25 @@ namespace Assets.Scripts.Logic
             FileManager.SaveToFile(settings, filePath);
         }
 
+        public void AdjustMovements(bool movedRight)
+        {
+            //Pattern for switching the movement keys to the right or left
+            int[] pattern = movedRight
+                ? new int[] { 2, 3, 1, 0 }
+                : new int[] { 3, 2, 0, 1 };
+
+            Action[] newActions = new Action[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                newActions[i] = actions[pattern[i]];
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                actions[i] = newActions[i];
+            }
+        }
 
         private bool IsDesiredHeld(KeyCode key) =>
             key == Keys[9] || key == Keys[12] || key == Keys[13];
