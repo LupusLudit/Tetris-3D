@@ -41,3 +41,4 @@ TODO:
 10. Movements (+x, -x, +z, -z) based on camera position
 11. Save all settings (brightness, volume, etc.)
 12. Prefferences settings
+13. Make placed blocks static

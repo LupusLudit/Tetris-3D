@@ -21,6 +21,8 @@ public class PowerUpManager : MonoBehaviour
     {
         if (Executer.IsGameActive())
         {
+            if (Executer.CurrentGame?.CurrentBlock == null) return;
+
             // Lazy initialization of PowerUpHolder => we need to initialize the powerUpHolder after the Grid
             if (powerUpHolder == null && Executer.CurrentGame.Grid != null)
             {
@@ -42,38 +44,6 @@ public class PowerUpManager : MonoBehaviour
         }
     }
 
-    private void UpdatePowerUps(List<Vector3> positions)
-    {
-        if (activePowerUps.Count == 0) return;
-
-        foreach (Vector3 tilePos in positions)
-        {
-
-            List<GameObject> toRemove = new List<GameObject>();
-
-            foreach (var powerUpObject in activePowerUps)
-            {
-                PowerUp powerUp = powerUpObject.GetComponent<PowerUpComponent>().PowerUpInstance;
-                Vector3 powerUpPos = powerUpObject.transform.position;
-                if (powerUpPos == tilePos)
-                {
-                    powerUp.Use();
-                    PowerUpMessage.SetMessage(powerUp.Title, powerUp.Description);
-                    PowerUpMessage.ShowUI();
-                    toRemove.Add(powerUpObject);
-                    Executer.SoundEffects.PlayEffect(0);
-                }
-            }
-
-            // Remove outside the loop
-            foreach (var powerUpObject in toRemove)
-            {
-                RemovePowerUp(powerUpObject);
-            }
-
-        }
-    }
-
     void OnEnable()
     {
         BlockEvents.OnBlockPlaced += UpdatePowerUps;
@@ -84,20 +54,68 @@ public class PowerUpManager : MonoBehaviour
         BlockEvents.OnBlockPlaced -= UpdatePowerUps;
     }
 
+    private void UpdatePowerUps(List<Vector3> positions)
+    {
+        if (activePowerUps.Count == 0 || positions == null || positions.Count == 0) return;
+
+        List<GameObject> toRemove = new List<GameObject>();
+
+        foreach (Vector3 tilePos in positions)
+        {
+            foreach (var powerUpObject in activePowerUps)
+            {
+                var component = powerUpObject?.GetComponent<PowerUpComponent>();
+                if (component == null || component.PowerUpInstance == null) continue;
+
+                Vector3 powerUpPos = powerUpObject.transform.position;
+                if (powerUpPos == tilePos)
+                {
+                    component.PowerUpInstance.Use();
+
+                    PowerUpMessage.SetMessage(component.PowerUpInstance.Title, component.PowerUpInstance.Description);
+                    PowerUpMessage.ShowUI();
+
+                    toRemove.Add(powerUpObject);
+                    Executer?.SoundEffects?.PlayEffect(0);
+                }
+            }
+        }
+
+        foreach (var powerUpObject in toRemove)
+        {
+            RemovePowerUp(powerUpObject);
+        }
+    }
+
     private void SpawnPowerUp()
     {
         PowerUp nextPowerUp = powerUpHolder.GetNextPowerUp();
         nextPowerUp.Position = GenerateRandomPosition(nextPowerUp);
-        GameObject powerUpTile =  InstantiatePowerUp(nextPowerUp);
-        activePowerUps.Add(powerUpTile);
+        GameObject powerUpTile = InstantiatePowerUp(nextPowerUp);
+
+        if (powerUpTile != null)
+        {
+            activePowerUps.Add(powerUpTile);
+        }
     }
+
     private Vector3 GenerateRandomPosition(PowerUp powerUp)
     {
         Vector3 position;
         System.Random random = new();
+
+        int attempts = 0;
         do
         {
-            position = new Vector3(random.Next(Executer.XMax), random.Next(Executer.YMax - 2), random.Next(Executer.ZMax));
+            position = new Vector3(
+                random.Next(Executer.XMax),
+                random.Next(Mathf.Max(1, Executer.YMax - 2)),
+                random.Next(Executer.ZMax)
+            );
+
+            powerUp.Position = position;
+            attempts++;
+            if (attempts > 50) break;
         }
         while (PositionInPlacedBlocks(powerUp));
 
@@ -116,7 +134,8 @@ public class PowerUpManager : MonoBehaviour
 
     private GameObject InstantiatePowerUp(PowerUp powerUp)
     {
-        GameObject powerUpObject = TilePoolManager.Instance.GetTile(PowerUpPrefabs[powerUp.Id - 1]);
+        int index = Mathf.Clamp(powerUp.Id - 1, 0, PowerUpPrefabs.Length - 1);
+        GameObject powerUpObject = TilePoolManager.Instance.GetTile(PowerUpPrefabs[index]);
         powerUpObject.transform.position = powerUp.Position;
         powerUpObject.transform.localScale *= 0.9f;
 
