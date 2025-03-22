@@ -35,11 +35,9 @@ TODO:
 4. If possible, add multiple threads to handle the game logic
 5. Credits (as a funny easter egg, maybe a hidden button in the main menu)
 6. Add game over sound effect
-7. One draw call
-8. Change score logic
-9. Remove as much as possible from the scene
-10. Fix random crash bug in power ups mode
-11. Movements (+x, -x, +z, -z) based on camera position
-12. Save all settings (brightness, volume, etc.)
-13. Fix Side and top camera rotation
-14. Prefferences settings
+7. Change score logic
+8. Remove as much as possible from the scene
+9. Fix random crash bug in power ups mode
+10. Movements (+x, -x, +z, -z) based on camera position
+11. Save all settings (brightness, volume, etc.)
+12. Prefferences settings

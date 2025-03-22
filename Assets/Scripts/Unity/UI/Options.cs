@@ -58,9 +58,10 @@ public class Options : MonoBehaviour
     {
         foreach (var cam in SideCameras)
         {
-            cam.gameObject.SetActive(!cam.gameObject.activeSelf);
+            cam.enabled = !cam.enabled;
         }
     }
+
 
     public void ToggleShadows(bool isEnabled)
     {

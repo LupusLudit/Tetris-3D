@@ -20,10 +20,9 @@ public class MainMenu : MonoBehaviour
             StartCoroutine(SlideLeftAndDeactivate());
         }
     }
-    //TODO: add settings and quit logic
-    public void GoToSettings()
+    //TODO: add credits logic
+    public void GoToCredits()
     {
-
     }
 
     public void Quit()

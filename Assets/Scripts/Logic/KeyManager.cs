@@ -64,6 +64,7 @@ namespace Assets.Scripts.Logic
             FileManager.SaveToFile(settings, filePath);
         }
 
+
         private bool IsDesiredHeld(KeyCode key) =>
             key == Keys[9] || key == Keys[12] || key == Keys[13];
 
