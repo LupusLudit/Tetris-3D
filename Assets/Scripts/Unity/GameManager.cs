@@ -90,6 +90,9 @@ public class GameManager : MonoBehaviour
         foreach (Vector3 v in game.CurrentBlock.TilePositions())
         {
             GameObject tile = InstantiateTile(game.CurrentBlock, v);
+
+            tile.isStatic = true;
+
             PlacedBlocks.Add(tile);
             placedPositions.Add(v);
         }
@@ -97,6 +100,7 @@ public class GameManager : MonoBehaviour
 
         ClearCurrentBlocks();
     }
+
 
     public void HoldCurrentBlock()
     {
@@ -143,6 +147,7 @@ public class GameManager : MonoBehaviour
                 ClearBlocksInRow(game.Grid.Y - 1 - y);
                 ClearedLayers++;
                 linesCleaned++;
+                executer.SoundEffects.PlayEffect(7);
             }
             else if (ClearedLayers > 0)
             {

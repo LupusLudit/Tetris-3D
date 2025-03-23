@@ -53,6 +53,7 @@ public class TilePoolManager : MonoBehaviour
 
     public void ReturnTile(GameObject tile)
     {
+        tile.isStatic = false;
         var pooledTile = tile.GetComponent<PooledTile>();
 
         tile.SetActive(false);

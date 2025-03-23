@@ -12520,6 +12520,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b0039c1385e06d6408f5ecda10a746b0, type: 3}
   - {fileID: 8300000, guid: 3155c7347e22eb74a80ee06f4922c945, type: 3}
   - {fileID: 8300000, guid: ab4c3920ec18fa54f9bfa791e60d4c7b, type: 3}
+  - {fileID: 8300000, guid: 86fff7d56244fbf40a65aee1691edc08, type: 3}
+  - {fileID: 8300000, guid: 9d25e0be3c20feb49b916a693d798f45, type: 3}
+  - {fileID: 8300000, guid: dcb24c7428f03a34284f3936cd599744, type: 3}
   VolumeSlider: {fileID: 1208682547}
   poolSize: 10
 --- !u!4 &1236090280

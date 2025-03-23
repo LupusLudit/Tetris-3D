@@ -33,6 +33,8 @@ public class GameExecuter : MonoBehaviour
     private DelayManager delay;
     private float timeSinceLastFall;
 
+    private bool gameOverSoundPlayed = false;
+
     void Start()
     {
         CurrentGame = new Game(XMax, YMax, ZMax);
@@ -62,25 +64,31 @@ public class GameExecuter : MonoBehaviour
 
     void Update()
     {
-            BlocksPlaced = 0;
-            if (!IsGameActive())
+        BlocksPlaced = 0;
+        if (!IsGameActive())
+        {
+            if (CurrentGame.GameOver && !gameOverSoundPlayed)
             {
-                if (CurrentGame.GameOver) UI.DrawGameOverScreen();
-                return;
+                SoundEffects.PlayEffect(8);
+                UI.DrawGameOverScreen();
+                gameOverSoundPlayed = true;
             }
-            else
-            {
-                UpdateFallDelay();
-                KeyManager.HandleKeyInputs();
-                ExecuteQueuedActions();
-                Manager.CheckLevelUp();
+            return;
+        }
+        else
+        {
+            gameOverSoundPlayed = false; // Reset for next game session
+            UpdateFallDelay();
+            KeyManager.HandleKeyInputs();
+            ExecuteQueuedActions();
+            Manager.CheckLevelUp();
 
-                if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
-                {
-                    ExecuteGameStep();
-                    timeSinceLastFall = 0f;
-                }
+            if (timeSinceLastFall >= delay.CurrentDelay / 1000f)
+            {
+                ExecuteGameStep();
+                timeSinceLastFall = 0f;
             }
+        }
     }
 
     private void ExecuteGameStep()
@@ -131,6 +139,7 @@ public class GameExecuter : MonoBehaviour
     public void DropAndRestart()
     {
         CurrentGame.DropBlock();
+        SoundEffects.PlayEffect(6);
         RestartGameCycle();
     }
 
