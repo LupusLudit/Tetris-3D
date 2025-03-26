@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -20,9 +21,9 @@ public class MainMenu : MonoBehaviour
             StartCoroutine(SlideLeftAndDeactivate());
         }
     }
-    //TODO: add credits logic
     public void GoToCredits()
     {
+        SceneManager.LoadScene("CreditsScene");
     }
 
     public void Quit()

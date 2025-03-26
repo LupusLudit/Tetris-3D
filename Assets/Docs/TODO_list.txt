@@ -32,6 +32,5 @@ TODO:
 1. Add visual effects (when the block was collected, etc.)
 2. Add functioning CREDITS in the main menu
 3. If possible, add multiple threads to handle the game logic
-4. Add game over sound effect
-5. Save all settings (brightness, volume, etc.)
-6. Prefferences settings
+4. Save all settings (brightness, volume, etc.)
+5. Prefferences settings

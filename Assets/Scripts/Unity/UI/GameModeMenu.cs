@@ -53,7 +53,6 @@ public class GameModeMenu : MonoBehaviour
 
         if (data?.Hints == null)
         {
-            Debug.LogError("Failed to load hints: Data is null or empty.");
             return;
         }
 
