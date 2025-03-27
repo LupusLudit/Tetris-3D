@@ -28,4 +28,6 @@ public class Credits : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    //music (proper documentation will be added later): https://www.youtube.com/watch?v=0Utp5ogtMxE
 }

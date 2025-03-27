@@ -519,7 +519,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3308ded8f59b71f4ebb677aea8cb9c27, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 95611dca04ba97b4fa6ee7280144d914, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -639,8 +639,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -500}
-  m_SizeDelta: {x: 800, y: 2000}
+  m_AnchoredPosition: {x: 0, y: -675}
+  m_SizeDelta: {x: 800, y: 2450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1149340241
 MonoBehaviour:
@@ -675,7 +675,71 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: TETRIS 3D
+  m_Text: 'TETRIS 3D
+
+
+    Written and directed by:
+
+    Michal Bielina
+
+
+    Produced
+    by:
+
+    Michal Bielina
+
+
+    Lead Designer:
+
+    Michal Bielina
+
+
+    Lead Programmer:
+
+    Michal
+    Bielina
+
+
+    Sound Effects:
+
+    Michal Bielina
+
+
+    Scene Design:
+
+    Michal
+    Bielina
+
+
+    Animation Design:
+
+    Michal Bielina
+
+
+    Visual Effects by:
+
+    Michal
+    Bielina
+
+
+    UI and UX Design:
+
+    Michal Bielina
+
+
+    Catering:
+
+    Michal
+    Bielina
+
+
+    Emotional Support on Set:
+
+    Michal Bielina
+
+
+    *These credits
+    are just satire, do not take them seriously :)'
 --- !u!222 &1149340242
 CanvasRenderer:
   m_ObjectHideFlags: 0
