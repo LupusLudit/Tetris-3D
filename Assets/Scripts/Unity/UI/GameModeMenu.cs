@@ -48,7 +48,7 @@ public class GameModeMenu : MonoBehaviour
 
     private void LoadHints()
     {
-        string filePath = Path.Combine(Path.GetDirectoryName(Application.dataPath), "gameMode_hints.json");
+        string filePath = Path.Combine(Application.persistentDataPath, "gameMode_hints.json");
         HintData data = FileManager.LoadFromFile<HintData>(filePath);
 
         if (data?.Hints == null)

@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
+    public GameExecuter Executer;
     public GameObject OptionsUI;
     public GameObject SettingsUI;
+    public MusicController MusicController;
+    public SoundEffects SoundEffects;
     public GameMenu MenuScript;
     public Camera[] SideCameras;
     public GameObject[] UIs;
@@ -14,18 +16,9 @@ public class Options : MonoBehaviour
 
     private Animator OptionsAnimator;
 
-    public Toggle ShadowToggle;
-    public Slider BrightnessSlider;
-    private float defaultBrightness = 1f;
-
     private void Start()
     {
         OptionsAnimator = OptionsUI.GetComponent<Animator>();
-
-        ShadowToggle.onValueChanged.AddListener(ToggleShadows);
-        BrightnessSlider.value = defaultBrightness;
-        BrightnessSlider.onValueChanged.AddListener(AdjustBrightness);
-        
     }
 
     private IEnumerator Deactivate()
@@ -43,36 +36,26 @@ public class Options : MonoBehaviour
 
     public void ToggleUI()
     {
-        foreach (var item in UIs)
-        {
-            item.SetActive(!item.activeSelf);
-        }
     }
 
     public void ToggleHint()
     {
-        Hint.SetActive(!Hint.activeSelf);
     }
 
     public void ToggleCameras()
     {
-        foreach (var cam in SideCameras)
-        {
-            cam.enabled = !cam.enabled;
-        }
+
     }
 
 
     public void ToggleShadows(bool isEnabled)
     {
-        float shadowStrength = isEnabled ? 1f : 0f;
 
-        GameLight.shadowStrength = shadowStrength;
     }
 
     public void AdjustBrightness(float value)
     {
-        RenderSettings.ambientIntensity = value;
+
     }
 
     public void Exit()

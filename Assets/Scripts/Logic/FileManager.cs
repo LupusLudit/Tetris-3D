@@ -40,11 +40,11 @@ namespace Assets.Scripts.Logic
     }
 
     [Serializable]
-    public class GameSettings
+    public class KeySettings
     {
         public KeyCode[] KeyBinds;
 
-        public GameSettings()
+        public KeySettings()
         {
             KeyBinds = new KeyCode[0];
         }

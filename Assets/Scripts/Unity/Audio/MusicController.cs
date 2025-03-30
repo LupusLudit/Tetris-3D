@@ -5,9 +5,6 @@ using UnityEngine.UI;
 public class MusicController : MonoBehaviour
 {
     private AudioSource musicSource;
-    public Slider VolumeSlider;
-    public Toggle MusicToggle;
-    public TMP_Dropdown MusicDropdown;
     public AudioClip[] MusicTracks;
 
     /*
@@ -23,14 +20,9 @@ public class MusicController : MonoBehaviour
     {
         musicSource = GetComponent<AudioSource>();
         musicSource.volume = 0.5f;
-        VolumeSlider.value = 0.5f;
 
         musicSource.clip = MusicTracks[0];
         StopMusic(); // Stop music to prevent it from playing on start
-
-        VolumeSlider.onValueChanged.AddListener(SetVolume);
-        MusicToggle.onValueChanged.AddListener(ToggleMusic);
-        MusicDropdown.onValueChanged.AddListener(SwitchTrack);
     }
 
     public void SetVolume(float volume)
@@ -40,22 +32,18 @@ public class MusicController : MonoBehaviour
 
     public void ToggleMusic(bool isOn)
     {
-        if (isOn)
-        {
-            musicSource.Play();
-        }
-        else
-        {
-            musicSource.Pause();
-        }
+        musicSource.enabled = isOn;
+        if (isOn) musicSource.Play();
+        else musicSource.Pause();
     }
 
-    public void SwitchTrack(int trackIndex)
+
+    public void SwitchTrack(int trackIndex, bool musicOn)
     {
         if (trackIndex < MusicTracks.Length)
         {
             musicSource.clip = MusicTracks[trackIndex];
-            if (MusicToggle.isOn)
+            if (musicOn)
             {
                 musicSource.Play();
             }

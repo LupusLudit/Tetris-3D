@@ -52,8 +52,8 @@ public class GameExecuter : MonoBehaviour
         Manager.CreateBlockPrediction(CurrentGame.CurrentBlock);
         ImageDrawer.DrawNextBlock(CurrentGame.Holder);
 
-        KeyBindingUI.InitializeButtonLabels(KeyManager.Keys);
-        KeyBindingUI.InitializeHintLabels(KeyManager.Keys); 
+        KeyBindingUI.UpdateButtonLabels(KeyManager.Keys);
+        KeyBindingUI.UpdateHintLabels(KeyManager.Keys); 
         timeSinceLastFall = 0f;
     }
 

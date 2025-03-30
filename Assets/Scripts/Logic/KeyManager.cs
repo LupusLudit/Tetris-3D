@@ -60,9 +60,10 @@ namespace Assets.Scripts.Logic
 
         public void SaveCurrentSettings()
         {
-            string filePath = Path.Combine(Application.persistentDataPath, "settings.json");
+            string filePath = Path.Combine(Application.persistentDataPath, "keybinds.json");
 
-            GameSettings settings = new GameSettings
+
+            KeySettings settings = new KeySettings
             {
                 KeyBinds = new KeyCode[Keys.Length]
             };
@@ -101,11 +102,20 @@ namespace Assets.Scripts.Logic
 
         private void LoadSettings()
         {
-            string filePath = Path.Combine(Application.persistentDataPath, "settings.json");
-            GameSettings settings = FileManager.LoadFromFile<GameSettings>(filePath);
-            KeyCode[] loadedKeys = settings.KeyBinds;
-            InitializeKeyMappings(loadedKeys);
+            string filePath = Path.Combine(Application.persistentDataPath, "keybinds.json");
+
+            if (File.Exists(filePath))
+            {
+                KeySettings settings = FileManager.LoadFromFile<KeySettings>(filePath);
+                if (settings != null && settings.KeyBinds != null)
+                {
+                    InitializeKeyMappings(settings.KeyBinds);
+                    return;
+                }
+            }
+            SetKeyMappingDefault();
         }
+
 
         private void InitializeKeyMappings(KeyCode[] loadedBindings)
         {
@@ -119,7 +129,7 @@ namespace Assets.Scripts.Logic
             else SetKeyMappingDefault();
         }
 
-        private void SetKeyMappingDefault()
+        public void SetKeyMappingDefault()
         {
             Keys = new KeyCode[]{
             KeyCode.UpArrow,

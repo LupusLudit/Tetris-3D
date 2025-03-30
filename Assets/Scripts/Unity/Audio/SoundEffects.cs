@@ -1,11 +1,9 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class SoundEffects : MonoBehaviour
 {
     public AudioClip[] Effects;
-    public Slider VolumeSlider;
     public int poolSize = 10;
 
     private float volume = 0.5f;
@@ -14,8 +12,6 @@ public class SoundEffects : MonoBehaviour
 
     void Start()
     {
-        VolumeSlider.onValueChanged.AddListener(SetVolume);
-
         audioSourcePool = new List<AudioSource>(poolSize);
         for (int i = 0; i < poolSize; i++)
         {
@@ -64,7 +60,7 @@ public class SoundEffects : MonoBehaviour
         return fallback;
     }
 
-    private void SetVolume(float vol)
+    public void SetVolume(float vol)
     {
         volume = vol;
     }
