@@ -9,6 +9,7 @@ public class GameExecuter : MonoBehaviour
     [Header("UI Elements")]
     public UIManager UI;
     public KeyBinding KeyBindingUI;
+    public Options OptionsUI;
     public StartingCountdown Countdown;
     public ImageDrawer ImageDrawer;
 
@@ -20,12 +21,12 @@ public class GameExecuter : MonoBehaviour
     [Header("Other")]
     public SoundEffects SoundEffects;
     public Camera GameCamera;
-
     public Game CurrentGame { get; private set; }
     public double DelayMultiplier { get; set; } = 1;
     public Score Score { get; private set; }
     public GameManager Manager { get; private set; }
     public KeyManager KeyManager { get; private set; }
+    public OptionsManager OptionsManager { get; private set; }
     public Vector3 LookPoint { get; private set; }
     public int BlocksPlaced { get; private set; } = 0;
 
@@ -45,17 +46,20 @@ public class GameExecuter : MonoBehaviour
         Manager.Initialize(this);
         delay = new DelayManager(750, 50, 25);
         KeyManager = new KeyManager(this);
+        OptionsManager = new OptionsManager();
+        OptionsUI.AssignValues();
+        OptionsUI.MusicController.StopMusic();
 
         StartCoroutine(Countdown.StartCounting(() => SoundEffects));
-
         Manager.CreateNewBlock(CurrentGame.CurrentBlock);
         Manager.CreateBlockPrediction(CurrentGame.CurrentBlock);
         ImageDrawer.DrawNextBlock(CurrentGame.Holder);
 
         KeyBindingUI.UpdateButtonLabels(KeyManager.Keys);
-        KeyBindingUI.UpdateHintLabels(KeyManager.Keys); 
+        KeyBindingUI.UpdateHintLabels(KeyManager.Keys);
         timeSinceLastFall = 0f;
     }
+
 
     private void OnDestroy()
     {

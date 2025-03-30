@@ -43,15 +43,8 @@ public class KeyBinding : MonoBehaviour
         ChangeKeysToPrevious();
     }
 
-    public void AskSave()
-    {
-        KeybindsConformation.SetActive(true);
-    }
-
-    public void AskReset()
-    {
-        ResetConformation.SetActive(true);
-    }
+    public void AskSave() => KeybindsConformation.SetActive(true);
+    public void AskReset() => ResetConformation.SetActive(true);
 
     public void ChangeKeysToPrevious()
     {

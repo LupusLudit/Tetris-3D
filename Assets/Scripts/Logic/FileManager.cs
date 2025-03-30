@@ -50,4 +50,48 @@ namespace Assets.Scripts.Logic
         }
     }
 
+    [Serializable]
+    public class OptionsSettings
+    {
+        public bool MusicOn;
+        public float MusicVolume;
+        public int MusicTrack;
+        public float SoundEffectsVolume;
+        public bool UiOn;
+        public bool HintOn;
+        public bool CamerasOn;
+        public bool ShadowsOn;
+        public float Brightness;
+
+        public OptionsSettings()
+        {
+            MusicOn = true;
+            MusicVolume = 0.5f;
+            MusicTrack = 0;
+            SoundEffectsVolume = 0.5f;
+            UiOn = true;
+            HintOn = true;
+            CamerasOn = true;
+            ShadowsOn = true;
+            Brightness = 1;
+        }
+
+        public OptionsSettings Clone()
+        {
+            return new OptionsSettings
+            {
+                MusicOn = this.MusicOn,
+                MusicVolume = this.MusicVolume,
+                MusicTrack = this.MusicTrack,
+                SoundEffectsVolume = this.SoundEffectsVolume,
+                UiOn = this.UiOn,
+                HintOn = this.HintOn,
+                CamerasOn = this.CamerasOn,
+                ShadowsOn = this.ShadowsOn,
+                Brightness = this.Brightness
+            };
+        }
+
+    }
+
 }

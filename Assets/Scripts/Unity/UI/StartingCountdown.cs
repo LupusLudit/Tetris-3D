@@ -11,7 +11,6 @@ public class StartingCountdown : MonoBehaviour
     public TextMeshProUGUI StartingText;
     private Animator countDownAnimator;
     private static readonly int CountdownStep = Animator.StringToHash("CountdownStep");
-
     void Start()
     {
         countDownAnimator = CountdownPanel.GetComponent<Animator>();
