@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class KeyBinding : MonoBehaviour
 {
@@ -43,8 +44,16 @@ public class KeyBinding : MonoBehaviour
         ChangeKeysToPrevious();
     }
 
-    public void AskSave() => KeybindsConformation.SetActive(true);
-    public void AskReset() => ResetConformation.SetActive(true);
+    public void AskSave()
+    {
+        SetOptionsInteractable(false);
+        KeybindsConformation.SetActive(true);
+    }
+    public void AskReset()
+    {
+        SetOptionsInteractable(false);
+        ResetConformation.SetActive(true);
+    }
 
     public void ChangeKeysToPrevious()
     {
@@ -52,6 +61,7 @@ public class KeyBinding : MonoBehaviour
         KeybindsConformation.SetActive(false);
         tempKeys = (KeyCode[])Executer.KeyManager.Keys.Clone();
         UpdateButtonLabels(Executer.KeyManager.Keys);
+        SetOptionsInteractable(true);
     }
 
     public void SaveKeys()
@@ -60,6 +70,7 @@ public class KeyBinding : MonoBehaviour
         Executer.KeyManager.SaveCurrentSettings();
         Executer.KeyManager.Keys = tempKeys;
         UpdateHintLabels(Executer.KeyManager.Keys);
+        SetOptionsInteractable(true);
     }
 
     public void ResetKeysToDefault()
@@ -68,6 +79,7 @@ public class KeyBinding : MonoBehaviour
         Executer.KeyManager.SetKeyMappingDefault();
         ChangeKeysToPrevious();
         SaveKeys();
+        SetOptionsInteractable(true);
     }
 
     public void GoBack()
@@ -105,6 +117,25 @@ public class KeyBinding : MonoBehaviour
         {
             ChangeHintLabel(i, keys[i].ToString());
         }
+    }
+
+    private void SetOptionsInteractable(bool state)
+    {
+
+        foreach (Button button in FindObjectsOfType<Button>())
+        {
+            if (!IsConfirmationButton(button))
+            {
+                button.interactable = state;
+            }
+        }
+    }
+
+    private bool IsConfirmationButton(Button button)
+    {
+        string name = button.gameObject.name.ToLower();
+        return button.transform.IsChildOf(KeybindsConformation.transform) ||
+                button.transform.IsChildOf(ResetConformation.transform);
     }
 
     private void ChangeButtonLabel(int index, string text)

@@ -13,6 +13,8 @@ public class Options : MonoBehaviour
     public GameObject SettingsUI;
     public GameObject OptionsConformation;
     public GameObject ResetConformation;
+    public GameObject ExitConformation;
+    public GameObject GoBackConformation;
     public MusicController MusicController;
     public SoundEffects SoundEffects;
     public GameMenu MenuScript;
@@ -131,7 +133,6 @@ public class Options : MonoBehaviour
         }
     }
 
-
     private IEnumerator Deactivate()
     {
         OptionsAnimator.SetTrigger("SlideLeft");
@@ -139,22 +140,67 @@ public class Options : MonoBehaviour
         OptionsUI.SetActive(false);
     }
 
-    public void GoBack()
+    private bool HaveOptionsChanged()
     {
-        StartCoroutine(Deactivate());
-        SettingsUI.SetActive(true);
+        var currentOptions = Executer.OptionsManager.Options;
+        return tempOptions.MusicOn != currentOptions.MusicOn ||
+               tempOptions.UiOn != currentOptions.UiOn ||
+               tempOptions.HintOn != currentOptions.HintOn ||
+               tempOptions.CamerasOn != currentOptions.CamerasOn ||
+               tempOptions.ShadowsOn != currentOptions.ShadowsOn ||
+               tempOptions.MusicVolume != currentOptions.MusicVolume ||
+               tempOptions.SoundEffectsVolume != currentOptions.SoundEffectsVolume ||
+               tempOptions.Brightness != currentOptions.Brightness ||
+               tempOptions.MusicTrack != currentOptions.MusicTrack;
+    }
+    private void SetOptionsInteractable(bool state)
+    {
+        foreach (Toggle toggle in FindObjectsOfType<Toggle>())
+        {
+            toggle.interactable = state;
+        }
+
+        foreach (Slider slider in FindObjectsOfType<Slider>())
+        {
+            slider.interactable = state;
+        }
+
+        foreach (TMP_Dropdown dropdown in FindObjectsOfType<TMP_Dropdown>())
+        {
+            dropdown.interactable = state;
+        }
+
+        foreach (Button button in FindObjectsOfType<Button>())
+        {
+            if (!IsConfirmationButton(button))
+            {
+                button.interactable = state;
+            }
+        }
     }
 
-    public void AskSave() => OptionsConformation.SetActive(true);
-    public void AskReset() => ResetConformation.SetActive(true);
+    // Checks if the button is inside a confirmation window and named "Yes" or "No"
+    private bool IsConfirmationButton(Button button)
+    {
+        string name = button.gameObject.name.ToLower();
+        return button.transform.IsChildOf(ExitConformation.transform) ||
+                button.transform.IsChildOf(GoBackConformation.transform) ||
+                button.transform.IsChildOf(OptionsConformation.transform) ||
+                button.transform.IsChildOf(ResetConformation.transform);
+    }
 
+    private void ApplyChanges()
+    {
+        tempOptions = Executer.OptionsManager.Options.Clone();
+        AssignValues();
+        ApplySettingsToUI();
+        SetOptionsInteractable(true);
+    }
     public void ChangeOptionsToPrevious()
     {
         ResetConformation.SetActive(false);
         OptionsConformation.SetActive(false);
-        tempOptions = Executer.OptionsManager.Options.Clone();
-        AssignValues();
-        ApplySettingsToUI();
+        ApplyChanges();
     }
 
     public void SaveOptions()
@@ -162,7 +208,70 @@ public class Options : MonoBehaviour
         OptionsConformation.SetActive(false);
         Executer.OptionsManager.Options = tempOptions;
         Executer.OptionsManager.SaveCurrentOptions();
-        AssignValues();
+        ApplyChanges();
+    }
+
+    public void Exit()
+    {
+        ExitConformation.SetActive(false);
+        StartCoroutine(Deactivate());
+        MenuScript.IsPaused = false;
+        ApplyChanges();
+    }
+
+    public void GoBackToSettings()
+    {
+        GoBackConformation.SetActive(false);
+        StartCoroutine(Deactivate());
+        SettingsUI.SetActive(true);
+        ApplyChanges();
+    }
+
+    public void ResetOptionsToDefault()
+    {
+        ResetConformation.SetActive(false);
+        Executer.OptionsManager.SetOptionsDefault();
+        tempOptions = Executer.OptionsManager.Options.Clone();
+        ChangeOptionsToPrevious();
+        SaveOptions();
+        ApplySettingsToUI();
+    }
+
+    public void GoToOptionsAgain()
+    {
+        GoBackConformation.SetActive(false);
+        ExitConformation.SetActive(false);
+        SetOptionsInteractable(true);
+    }
+
+    public void AskSave()
+    {
+        SetOptionsInteractable(false);
+        OptionsConformation.SetActive(true);
+    }
+    public void AskReset()
+    {
+        SetOptionsInteractable(false);
+        ResetConformation.SetActive(true);
+    }
+    public void AskExit()
+    {
+        if (HaveOptionsChanged())
+        {
+            SetOptionsInteractable(false);
+            ExitConformation.SetActive(true);
+        }
+        else Exit();
+    }
+
+    public void AskGoBack()
+    {
+        if (HaveOptionsChanged())
+        {
+            SetOptionsInteractable(false);
+            GoBackConformation.SetActive(true);
+        }
+        else GoBackToSettings();
     }
 
     //Actually applying the changes
@@ -198,17 +307,6 @@ public class Options : MonoBehaviour
         //Brightness
         RenderSettings.ambientIntensity = Executer.OptionsManager.Options.Brightness;
     }
-
-    public void ResetOptionsToDefault()
-    {
-        ResetConformation.SetActive(false);
-        Executer.OptionsManager.SetOptionsDefault();
-        tempOptions = Executer.OptionsManager.Options.Clone();
-        ChangeOptionsToPrevious();
-        SaveOptions();
-        ApplySettingsToUI();
-    }
-
 
     //We apply the changes to the temporarily as a preview
     public void ToggleMusic(bool isOn)
@@ -263,11 +361,5 @@ public class Options : MonoBehaviour
     {
         tempOptions.Brightness = value;
         RenderSettings.ambientIntensity = value;
-    }
-
-    public void Exit()
-    {
-        StartCoroutine(Deactivate());
-        MenuScript.IsPaused = false;
     }
 }

@@ -6,6 +6,7 @@ public class GameMenu : MonoBehaviour
 {
     public GameObject MenuUI;
     public GameObject SettingsUI;
+    public GameObject ExitConformation;
     private Animator menuAnimator;
     public bool IsPaused = false;
     public bool IsAnimating = false;
@@ -40,8 +41,11 @@ public class GameMenu : MonoBehaviour
     {
         StartCoroutine(SlideUpAndDeactivate());
         SettingsUI.SetActive(true);
-
     }
+
+    public void AskLeave() => ExitConformation.SetActive(true);
+
+    public void DoNotLeave() => ExitConformation.SetActive(false);
 
     public void LeaveToMainMenu()
     {

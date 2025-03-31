@@ -12,9 +12,15 @@ public class GameOver : MonoBehaviour
         MusicController.StopMusic();
     }
 
-    public void EndGame()
+    public void ToMenu()
     {
         SceneManager.LoadScene(0);
+        GameOverUI.SetActive(false);
+    }
+
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GameOverUI.SetActive(false);
     }
 }

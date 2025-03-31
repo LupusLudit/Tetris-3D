@@ -33,9 +33,11 @@ public class MusicController : MonoBehaviour
     public void ToggleMusic(bool isOn)
     {
         musicSource.enabled = isOn;
-        if (isOn) musicSource.Play();
+
+        if (isOn && (!musicSource.isPlaying || musicSource.time == 0)) musicSource.Play();
         else musicSource.Pause();
     }
+
 
 
     public void SwitchTrack(int trackIndex, bool musicOn)
