@@ -13,6 +13,8 @@ public class KeyBinding : MonoBehaviour
     public GameObject SettingsUI;
     public GameObject KeybindsConformation;
     public GameObject ResetConformation;
+    public GameObject ExitConformation;
+    public GameObject GoBackConformation;
     public GameMenu MenuScript;
     public GameExecuter Executer;
 
@@ -55,6 +57,33 @@ public class KeyBinding : MonoBehaviour
         ResetConformation.SetActive(true);
     }
 
+    public void AskExit()
+    {
+        if (KeybindsHaveChanged())
+        {
+            SetOptionsInteractable(false);
+            ExitConformation.SetActive(true);
+        }
+        else Exit();
+    }
+
+    public void AskGoBack()
+    {
+        if (KeybindsHaveChanged())
+        {
+            SetOptionsInteractable(false);
+            GoBackConformation.SetActive(true);
+        }
+        else GoBackToSettings();
+    }
+
+    public void GoToKeybindsAgain()
+    {
+        GoBackConformation.SetActive(false);
+        ExitConformation.SetActive(false);
+        SetOptionsInteractable(true);
+    }
+
     public void ChangeKeysToPrevious()
     {
         ResetConformation.SetActive(false);
@@ -67,11 +96,12 @@ public class KeyBinding : MonoBehaviour
     public void SaveKeys()
     {
         KeybindsConformation.SetActive(false);
+        Executer.KeyManager.Keys = (KeyCode[])tempKeys.Clone();
         Executer.KeyManager.SaveCurrentSettings();
-        Executer.KeyManager.Keys = tempKeys;
         UpdateHintLabels(Executer.KeyManager.Keys);
         SetOptionsInteractable(true);
     }
+
 
     public void ResetKeysToDefault()
     {
@@ -82,14 +112,16 @@ public class KeyBinding : MonoBehaviour
         SetOptionsInteractable(true);
     }
 
-    public void GoBack()
+    public void GoBackToSettings()
     {
+        GoBackConformation.SetActive(false);
         StartCoroutine(Deactivate());
         SettingsUI.SetActive(true);
     }
 
     public void Exit()
     {
+        ExitConformation.SetActive(false);
         StartCoroutine(Deactivate());
         MenuScript.IsPaused = false;
     }
@@ -117,6 +149,19 @@ public class KeyBinding : MonoBehaviour
         {
             ChangeHintLabel(i, keys[i].ToString());
         }
+    }
+
+    private bool KeybindsHaveChanged()
+    {
+        var savedKeybinds = Executer.KeyManager.Keys;
+        foreach (KeyCode key in savedKeybinds)
+        {
+            if (!tempKeys.Contains(key))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void SetOptionsInteractable(bool state)

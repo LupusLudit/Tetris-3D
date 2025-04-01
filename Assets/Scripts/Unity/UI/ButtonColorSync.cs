@@ -20,24 +20,35 @@ public class ButtonColorSync : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        UpdateTextColor(pressedTextColor);
+        if (TargetButton.interactable)
+        {
+            UpdateTextColor(pressedTextColor);
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        UpdateTextColor(normalTextColor);
+        if (TargetButton.interactable)
+        {
+            UpdateTextColor(normalTextColor);
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        UpdateTextColor(highlightedTextColor);
+        if (TargetButton.interactable)
+        {
+            UpdateTextColor(highlightedTextColor);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        UpdateTextColor(normalTextColor);
+        if (TargetButton.interactable)
+        {
+            UpdateTextColor(normalTextColor);
+        }
     }
-
 
     private void UpdateTextColor(Color color)
     {
@@ -46,10 +57,12 @@ public class ButtonColorSync : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             if (text != null)
             {
                 text.color = color;
-                TargetButton.image.color = color;
-                
             }
+        }
+
+        if (TargetButton.image != null)
+        {
+            TargetButton.image.color = color;
         }
     }
 }
-

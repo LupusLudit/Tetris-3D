@@ -140,18 +140,18 @@ public class Options : MonoBehaviour
         OptionsUI.SetActive(false);
     }
 
-    private bool HaveOptionsChanged()
+    private bool OptionsHaveChanged()
     {
-        var currentOptions = Executer.OptionsManager.Options;
-        return tempOptions.MusicOn != currentOptions.MusicOn ||
-               tempOptions.UiOn != currentOptions.UiOn ||
-               tempOptions.HintOn != currentOptions.HintOn ||
-               tempOptions.CamerasOn != currentOptions.CamerasOn ||
-               tempOptions.ShadowsOn != currentOptions.ShadowsOn ||
-               tempOptions.MusicVolume != currentOptions.MusicVolume ||
-               tempOptions.SoundEffectsVolume != currentOptions.SoundEffectsVolume ||
-               tempOptions.Brightness != currentOptions.Brightness ||
-               tempOptions.MusicTrack != currentOptions.MusicTrack;
+        var savedOptions = Executer.OptionsManager.Options;
+        return tempOptions.MusicOn != savedOptions.MusicOn ||
+               tempOptions.UiOn != savedOptions.UiOn ||
+               tempOptions.HintOn != savedOptions.HintOn ||
+               tempOptions.CamerasOn != savedOptions.CamerasOn ||
+               tempOptions.ShadowsOn != savedOptions.ShadowsOn ||
+               tempOptions.MusicVolume != savedOptions.MusicVolume ||
+               tempOptions.SoundEffectsVolume != savedOptions.SoundEffectsVolume ||
+               tempOptions.Brightness != savedOptions.Brightness ||
+               tempOptions.MusicTrack != savedOptions.MusicTrack;
     }
     private void SetOptionsInteractable(bool state)
     {
@@ -256,7 +256,7 @@ public class Options : MonoBehaviour
     }
     public void AskExit()
     {
-        if (HaveOptionsChanged())
+        if (OptionsHaveChanged())
         {
             SetOptionsInteractable(false);
             ExitConformation.SetActive(true);
@@ -266,7 +266,7 @@ public class Options : MonoBehaviour
 
     public void AskGoBack()
     {
-        if (HaveOptionsChanged())
+        if (OptionsHaveChanged())
         {
             SetOptionsInteractable(false);
             GoBackConformation.SetActive(true);
