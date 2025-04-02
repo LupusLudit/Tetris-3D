@@ -18,7 +18,7 @@ public class Credits : MonoBehaviour
     {
         creditsText.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
 
-        if (creditsText.anchoredPosition.y - textHeight/2 >= Screen.height)
+        if (creditsText.anchoredPosition.y - textHeight / 2 >= creditsText.parent.GetComponent<RectTransform>().rect.height/2)
         {
             creditsText.anchoredPosition = new Vector2(creditsText.anchoredPosition.x, initialY);
         }
