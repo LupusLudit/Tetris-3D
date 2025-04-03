@@ -1,0 +1,9 @@
+{
+    "Hints": [
+        "A regular game of 3D tetris.",
+        "A mini game of 3D tetris.",
+        "A game of 3D tetris with power ups. From time to time a powerup spawns. If you hit it, you will expierence its effect.",
+        "A blitz game of 3D tetris. You will have limited time to clear the layers. If you fail to clear the board in time, the game will end. If you manage to clear a layer, the game will give you more time",
+        "A material game of 3D tetris. You will have limited amount of blocks with which you can clear the board. If you clear a layer the game will give you more blocks. If you run out of blocks the game will end."
+    ]
+}

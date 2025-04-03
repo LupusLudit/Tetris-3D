@@ -49,7 +49,7 @@ public class GameModeMenu : MonoBehaviour
     private void LoadHints()
     {
         string filePath = Path.Combine(Application.persistentDataPath, "gameMode_hints.json");
-        HintData data = FileManager.LoadFromFile<HintData>(filePath);
+        HintData data = FileManager.LoadFromFile<HintData>(filePath, "gameMode_hints.json");
 
         if (data?.Hints == null)
         {

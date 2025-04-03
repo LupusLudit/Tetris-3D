@@ -1,0 +1,11 @@
+{
+    "MusicOn": true,
+    "MusicVolume": 0.5,
+    "MusicTrack": 0,
+    "SoundEffectsVolume": 0.5,
+    "UiOn": true,
+    "HintOn": true,
+    "CamerasOn": true,
+    "ShadowsOn": true,
+    "Brightness": 1.0
+}

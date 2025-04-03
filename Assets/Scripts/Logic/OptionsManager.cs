@@ -21,25 +21,28 @@ namespace Assets.Scripts.Logic
         private void LoadOptions()
         {
             string filePath = Path.Combine(Application.persistentDataPath, "options.json");
-            if (File.Exists(filePath))
+
+            OptionsSettings loaded = FileManager.LoadFromFile<OptionsSettings>(filePath, "options.json");
+            if (loaded != null)
             {
-                OptionsSettings loaded = FileManager.LoadFromFile<OptionsSettings>(filePath);
-                if (loaded != null)
-                {
-                    Options.MusicOn = loaded.MusicOn;
-                    Options.MusicVolume = loaded.MusicVolume;
-                    Options.MusicTrack = loaded.MusicTrack;
-                    Options.SoundEffectsVolume = loaded.SoundEffectsVolume;
-                    Options.UiOn = loaded.UiOn;
-                    Options.HintOn = loaded.HintOn;
-                    Options.CamerasOn = loaded.CamerasOn;
-                    Options.ShadowsOn = loaded.ShadowsOn;
-                    Options.Brightness = loaded.Brightness;
-                    return;
-                }
+                Options.MusicOn = loaded.MusicOn;
+                Options.MusicVolume = loaded.MusicVolume;
+                Options.MusicTrack = loaded.MusicTrack;
+                Options.SoundEffectsVolume = loaded.SoundEffectsVolume;
+                Options.UiOn = loaded.UiOn;
+                Options.HintOn = loaded.HintOn;
+                Options.CamerasOn = loaded.CamerasOn;
+                Options.ShadowsOn = loaded.ShadowsOn;
+                Options.Brightness = loaded.Brightness;
+                return;
             }
-            SetOptionsDefault();
+            else
+            {
+                SetOptionsDefault();
+                SaveCurrentOptions();
+            }
         }
+
 
         public void SetOptionsDefault()
         {

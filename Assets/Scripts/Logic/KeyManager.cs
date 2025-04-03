@@ -104,17 +104,18 @@ namespace Assets.Scripts.Logic
         {
             string filePath = Path.Combine(Application.persistentDataPath, "keybinds.json");
 
-            if (File.Exists(filePath))
+            KeySettings settings = FileManager.LoadFromFile<KeySettings>(filePath, "keybinds.json");
+            if (settings.KeyBinds != null)
             {
-                KeySettings settings = FileManager.LoadFromFile<KeySettings>(filePath);
-                if (settings != null && settings.KeyBinds != null)
-                {
-                    InitializeKeyMappings(settings.KeyBinds);
-                    return;
-                }
+                InitializeKeyMappings(settings.KeyBinds);
             }
-            SetKeyMappingDefault();
+            else
+            {
+                SetKeyMappingDefault();
+                SaveCurrentSettings();
+            }
         }
+
 
 
         private void InitializeKeyMappings(KeyCode[] loadedBindings)

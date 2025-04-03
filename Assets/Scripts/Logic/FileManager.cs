@@ -8,22 +8,34 @@ namespace Assets.Scripts.Logic
     {
         public static void SaveToFile<T>(T content, string filePath)
         {
-            if (File.Exists(filePath))
-            {
-                string json = JsonUtility.ToJson(content, true);
-                File.WriteAllText(filePath, json);
-            }
+            string json = JsonUtility.ToJson(content, true);
+            File.WriteAllText(filePath, json);
         }
 
-        public static T LoadFromFile<T>(string filePath) where T : class, new()
+        public static T LoadFromFile<T>(string filePath, string defaultFileName) where T : class, new()
         {
+            if (!File.Exists(filePath))
+            {
+                CopyDefaultFile(defaultFileName, filePath);
+            }
+
             if (File.Exists(filePath))
             {
                 string json = File.ReadAllText(filePath);
-                T fileContent = JsonUtility.FromJson<T>(json);
-                return fileContent;
+                return JsonUtility.FromJson<T>(json) ?? new T();
             }
+
             return new T();
+        }
+
+        private static void CopyDefaultFile(string defaultFileName, string destinationPath)
+        {
+            string defaultFilePath = Path.Combine(Application.streamingAssetsPath, defaultFileName);
+
+            if (File.Exists(defaultFilePath))
+            {
+                File.Copy(defaultFilePath, destinationPath, true);
+            }
         }
     }
 
