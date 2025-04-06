@@ -10402,7 +10402,6 @@ RectTransform:
   - {fileID: 676550153}
   - {fileID: 1977757914}
   - {fileID: 1391046570}
-  - {fileID: 1550320728}
   - {fileID: 1033974965}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11563,10 +11562,7 @@ MonoBehaviour:
   SettingsUI: {fileID: 1740385865}
   KeybindsConformation: {fileID: 1599873240}
   ResetConformation: {fileID: 1650463000}
-  ExitConformation: {fileID: 708892885}
   GoBackConformation: {fileID: 1298973476}
-  MenuScript: {fileID: 1977757913}
-  Executer: {fileID: 1207663577}
   KeyInputText: {fileID: 453965167}
   ButtonLabels:
   - {fileID: 337545752}
@@ -11584,6 +11580,9 @@ MonoBehaviour:
   - {fileID: 894310279}
   - {fileID: 1200983521}
   - {fileID: 59028846}
+  Executer: {fileID: 1207663577}
+  ExitConformation: {fileID: 708892885}
+  MenuScript: {fileID: 1977757913}
   HintLabels:
   - {fileID: 504480612}
   - {fileID: 818049921}
@@ -11677,6 +11676,7 @@ RectTransform:
   - {fileID: 1650463003}
   - {fileID: 708892888}
   - {fileID: 1298973479}
+  - {fileID: 1550320728}
   m_Father: {fileID: 609735168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -20848,16 +20848,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a9ffb15560f554f90766d63fd2f9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Executer: {fileID: 1207663577}
   OptionsUI: {fileID: 1391046565}
   SettingsUI: {fileID: 1740385865}
   OptionsConformation: {fileID: 6260813}
   ResetConformation: {fileID: 163196354}
-  ExitConformation: {fileID: 1853740175}
   GoBackConformation: {fileID: 1934529592}
+  Executer: {fileID: 1207663577}
   MusicController: {fileID: 205070145}
   SoundEffects: {fileID: 1236090279}
   MenuScript: {fileID: 1977757913}
+  ExitConformation: {fileID: 1853740175}
   SideCameras:
   - {fileID: 330585545}
   - {fileID: 1989807166}
@@ -23509,18 +23509,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1550320727}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.42857292, y: 0.39999977, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 453965166}
-  m_Father: {fileID: 609735168}
+  m_Father: {fileID: 676550153}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -76, y: -68.6416}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1550320729
 MonoBehaviour:

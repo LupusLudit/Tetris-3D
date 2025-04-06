@@ -5212,8 +5212,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2030991030}
-        m_TargetAssemblyTypeName: KeyBinding, Assembly-CSharp
-        m_MethodName: GoBackToSettings
+        m_TargetAssemblyTypeName: Assets.Scripts.Unity.Settings.KeyBinding.KeyBinding,
+          Assembly-CSharp
+        m_MethodName: GoBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7454,16 +7455,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a9ffb15560f554f90766d63fd2f9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Executer: {fileID: 1207663577}
   OptionsUI: {fileID: 496108223}
   SettingsUI: {fileID: 2054097631}
   OptionsConformation: {fileID: 1906474495}
   ResetConformation: {fileID: 2136391289}
-  ExitConformation: {fileID: 247102980}
   GoBackConformation: {fileID: 497374430}
+  Executer: {fileID: 1207663577}
   MusicController: {fileID: 205070145}
   SoundEffects: {fileID: 1236090279}
   MenuScript: {fileID: 548947755}
+  ExitConformation: {fileID: 247102980}
   SideCameras:
   - {fileID: 1989807166}
   - {fileID: 1479503454}
@@ -8969,7 +8970,6 @@ RectTransform:
   - {fileID: 2030991026}
   - {fileID: 548947752}
   - {fileID: 2054097632}
-  - {fileID: 1550320728}
   - {fileID: 820872162}
   - {fileID: 1033974965}
   m_Father: {fileID: 0}
@@ -21714,18 +21714,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1550320727}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.4285715, y: 0.40000007, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 453965166}
-  m_Father: {fileID: 609735168}
+  m_Father: {fileID: 2030991026}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -76, y: -68.6416}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1550320729
 MonoBehaviour:
@@ -29381,6 +29381,7 @@ RectTransform:
   - {fileID: 983315081}
   - {fileID: 1387775606}
   - {fileID: 198358782}
+  - {fileID: 1550320728}
   m_Father: {fileID: 609735168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -29464,10 +29465,7 @@ MonoBehaviour:
   SettingsUI: {fileID: 2054097631}
   KeybindsConformation: {fileID: 1418819678}
   ResetConformation: {fileID: 983315080}
-  ExitConformation: {fileID: 1387775605}
   GoBackConformation: {fileID: 198358781}
-  MenuScript: {fileID: 548947755}
-  Executer: {fileID: 1207663577}
   KeyInputText: {fileID: 453965167}
   ButtonLabels:
   - {fileID: 930388262}
@@ -29485,6 +29483,9 @@ MonoBehaviour:
   - {fileID: 558723002}
   - {fileID: 1620267131}
   - {fileID: 1594165477}
+  Executer: {fileID: 1207663577}
+  ExitConformation: {fileID: 1387775605}
+  MenuScript: {fileID: 548947755}
   HintLabels:
   - {fileID: 504480612}
   - {fileID: 818049921}
@@ -29601,8 +29602,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 496108224}
-        m_TargetAssemblyTypeName: Options, Assembly-CSharp
-        m_MethodName: GoBackToSettings
+        m_TargetAssemblyTypeName: InGameOptions, Assembly-CSharp
+        m_MethodName: GoBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

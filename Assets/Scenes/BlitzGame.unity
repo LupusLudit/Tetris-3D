@@ -6802,16 +6802,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a9ffb15560f554f90766d63fd2f9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Executer: {fileID: 1207663577}
   OptionsUI: {fileID: 406811294}
   SettingsUI: {fileID: 1054559280}
   OptionsConformation: {fileID: 1201436215}
   ResetConformation: {fileID: 230185108}
-  ExitConformation: {fileID: 1582326709}
   GoBackConformation: {fileID: 367650005}
+  Executer: {fileID: 1207663577}
   MusicController: {fileID: 205070145}
   SoundEffects: {fileID: 328126770}
   MenuScript: {fileID: 1014973546}
+  ExitConformation: {fileID: 1582326709}
   SideCameras:
   - {fileID: 1989807166}
   - {fileID: 1479503454}
@@ -9603,7 +9603,6 @@ RectTransform:
   - {fileID: 406811299}
   - {fileID: 994109986}
   - {fileID: 1014973550}
-  - {fileID: 861885633}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12712,16 +12711,16 @@ RectTransform:
   m_GameObject: {fileID: 861885629}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.29999614, y: 0.29999614, z: 1}
+  m_LocalScale: {x: 0.42856738, y: 0.3999946, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 448080089}
-  m_Father: {fileID: 609735168}
+  m_Father: {fileID: 994109986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0}
+  m_SizeDelta: {x: -76, y: -68.6416}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &877166329
 GameObject:
@@ -14536,10 +14535,7 @@ MonoBehaviour:
   SettingsUI: {fileID: 1054559280}
   KeybindsConformation: {fileID: 1318282058}
   ResetConformation: {fileID: 2131898092}
-  ExitConformation: {fileID: 462248370}
   GoBackConformation: {fileID: 1482207504}
-  MenuScript: {fileID: 1014973546}
-  Executer: {fileID: 1207663577}
   KeyInputText: {fileID: 448080090}
   ButtonLabels:
   - {fileID: 2121901598}
@@ -14557,6 +14553,9 @@ MonoBehaviour:
   - {fileID: 1696328786}
   - {fileID: 1202410260}
   - {fileID: 277462204}
+  Executer: {fileID: 1207663577}
+  ExitConformation: {fileID: 462248370}
+  MenuScript: {fileID: 1014973546}
   HintLabels:
   - {fileID: 2012483637}
   - {fileID: 295419292}
@@ -14650,6 +14649,7 @@ RectTransform:
   - {fileID: 2131898095}
   - {fileID: 462248373}
   - {fileID: 1482207507}
+  - {fileID: 861885633}
   m_Father: {fileID: 609735168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Xml.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Logic
@@ -104,6 +105,24 @@ namespace Assets.Scripts.Logic
             };
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is not OptionsSettings other) return false;
+            return MusicOn == other.MusicOn &&
+                   UiOn == other.UiOn &&
+                   HintOn == other.HintOn &&
+                   CamerasOn == other.CamerasOn &&
+                   ShadowsOn == other.ShadowsOn &&
+                   MusicVolume == other.MusicVolume &&
+                   SoundEffectsVolume == other.SoundEffectsVolume &&
+                   Brightness == other.Brightness &&
+                   MusicTrack == other.MusicTrack;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
 }

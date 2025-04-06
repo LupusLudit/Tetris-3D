@@ -1,4 +1,6 @@
 using Assets.Scripts.Logic;
+using Assets.Scripts.Unity.Settings.KeyBinding;
+using Assets.Scripts.Unity.Settings.Options;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +10,8 @@ public class GameExecuter : MonoBehaviour
 
     [Header("UI Elements")]
     public UIManager UI;
-    public KeyBinding KeyBindingUI;
-    public Options OptionsUI;
+    public InGameKeyBinding KeyBindingUI;
+    public InGameOptions OptionsUI;
     public StartingCountdown Countdown;
     public ImageDrawer ImageDrawer;
 
