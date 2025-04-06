@@ -21,7 +21,8 @@ public class Settings : MonoBehaviour
 
     private IEnumerator SlideUpAndDeactivate()
     {
-        settingsAnimator.SetTrigger("SlideDown");
+        settingsAnimator.SetTrigger("SlideDown"); //For in-game menu
+        settingsAnimator.SetTrigger("SlideRight"); //For main menu
         yield return new WaitForSeconds(1f);
         SettingsUI.SetActive(false);
     }

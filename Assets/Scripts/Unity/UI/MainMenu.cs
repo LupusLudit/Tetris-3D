@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 
     public GameObject MainMenuUI;
     public GameObject GameModeMenuUI;
+    public GameObject SettingsUI;
     private Animator animator;
 
     void Start()
@@ -21,6 +22,16 @@ public class MainMenu : MonoBehaviour
             StartCoroutine(SlideLeftAndDeactivate());
         }
     }
+
+    public void GoToSettings()
+    {
+        if (!SettingsUI.activeSelf)
+        {
+            SettingsUI.SetActive(true);
+            StartCoroutine(SlideLeftAndDeactivate());
+        }
+    }
+
     public void GoToCredits()
     {
         SceneManager.LoadScene("CreditsScene");
