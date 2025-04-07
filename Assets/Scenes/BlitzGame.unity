@@ -1907,8 +1907,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76391f5fa1a674418d143dafac6d403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyBindingScript: {fileID: 0}
-  Executer: {fileID: 1207663577}
 --- !u!1 &144485247
 GameObject:
   m_ObjectHideFlags: 0
@@ -9543,8 +9541,8 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1024, y: 720}
-  m_ScreenMatchMode: 1
-  m_MatchWidthOrHeight: 0.75
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
