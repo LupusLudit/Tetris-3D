@@ -13,24 +13,25 @@ namespace Assets.Scripts.PowerUps
 
         public override string Description => "Boom! Blocks around you have been destroyed";
 
-        private Vector3[] blastRadiusPositions =
-        {
-            new Vector3(-1, -1, -1), new Vector3(-1, -1, 0), new Vector3(-1, -1, 1),
-            new Vector3(-1, 0, -1), new Vector3(-1, 0, 0), new Vector3(-1, 0, 1),
-            new Vector3(-1, 1, -1), new Vector3(-1, 1, 0), new Vector3(-1, 1, 1),
-
-            new Vector3(0, -1, -1), new Vector3(0, -1, 0), new Vector3(0, -1, 1),
-            new Vector3(0, 0, -1), new Vector3(0, 0, 1),
-            new Vector3(0, 1, -1), new Vector3(0, 1, 0), new Vector3(0, 1, 1),
-
-            new Vector3(1, -1, -1), new Vector3(1, -1, 0), new Vector3(1, -1, 1),
-            new Vector3(1, 0, -1), new Vector3(1, 0, 0), new Vector3(1, 0, 1),
-            new Vector3(1, 1, -1), new Vector3(1, 1, 0), new Vector3(1, 1, 1)
-        };
+        private Vector3[] blastRadiusPositions;
 
         public Bomb(GameExecuter executer) : base(executer)
         {
             tiles = executer.Manager.PlacedBlocks;
+            blastRadiusPositions = new Vector3[]
+            {
+                new Vector3(-1, -1, -1), new Vector3(-1, -1, 0), new Vector3(-1, -1, 1),
+                new Vector3(-1, 0, -1), new Vector3(-1, 0, 0), new Vector3(-1, 0, 1),
+                new Vector3(-1, 1, -1), new Vector3(-1, 1, 0), new Vector3(-1, 1, 1),
+
+                new Vector3(0, -1, -1), new Vector3(0, -1, 0), new Vector3(0, -1, 1),
+                new Vector3(0, 0, -1), new Vector3(0, 0, 1),
+                new Vector3(0, 1, -1), new Vector3(0, 1, 0), new Vector3(0, 1, 1),
+
+                new Vector3(1, -1, -1), new Vector3(1, -1, 0), new Vector3(1, -1, 1),
+                new Vector3(1, 0, -1), new Vector3(1, 0, 0), new Vector3(1, 0, 1),
+                new Vector3(1, 1, -1), new Vector3(1, 1, 0), new Vector3(1, 1, 1)
+            };
         }
 
         public override void Use()
@@ -50,8 +51,8 @@ namespace Assets.Scripts.PowerUps
             }
             foreach (var tile in tilesToRemove)
             {
-                tiles.Remove(tile);
                 TilePoolManager.Instance.ReturnTile(tile);
+                tiles.Remove(tile);
             }
         }
 

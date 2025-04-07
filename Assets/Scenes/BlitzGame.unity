@@ -26075,7 +26075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameOverUI: {fileID: 1779546255}
-  MusicController: {fileID: 0}
+  MusicController: {fileID: 205070145}
 --- !u!95 &1779546257
 Animator:
   serializedVersion: 5
