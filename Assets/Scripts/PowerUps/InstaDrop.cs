@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.PowerUps
+﻿using Assets.Scripts.Unity;
+
+namespace Assets.Scripts.PowerUps
 {
     public class InstaDrop : PowerUp
     {

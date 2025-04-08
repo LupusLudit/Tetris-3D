@@ -1,12 +1,16 @@
 using TMPro;
 using UnityEngine;
 
-public class DynamicMessage : MonoBehaviour
+namespace Assets.Scripts.Unity.UI.DynamicMessages
 {
-    public TextMeshProUGUI DynamicText;
-
-    public void UpdateMessage(string message)
+    public class DynamicMessage : MonoBehaviour
     {
-        DynamicText.text = message;
+        public TextMeshProUGUI DynamicText;
+
+        public void UpdateMessage(string message)
+        {
+            DynamicText.text = message;
+        }
     }
 }
+

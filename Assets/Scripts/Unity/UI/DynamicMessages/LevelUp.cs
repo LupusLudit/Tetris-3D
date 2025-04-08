@@ -1,19 +1,11 @@
 using TMPro;
-using UnityEngine;
 
-public class LevelUp : MonoBehaviour
+namespace Assets.Scripts.Unity.UI.DynamicMessages
 {
-
-    public GameObject levelUI;
-    public TextMeshProUGUI LevelText;
-
-    public void ShowUI()
+    public class LevelUp : UIBase
     {
-        levelUI.SetActive(true);
-    }
-
-    public void HideUI()
-    {
-        levelUI.SetActive(false);
+        //We need to store the LevelText in this class
+        public TextMeshProUGUI LevelText;
     }
 }
+

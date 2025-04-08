@@ -1,18 +1,21 @@
 using TMPro;
-using UnityEngine;
 
-public class PopUpMessage : MonoBehaviour
+namespace Assets.Scripts.Unity.UI.DynamicMessages
 {
-    public TextMeshProUGUI PopUpText;
-
-    public void DisplayUpdatedMessage(string message)
+    public class PopUpMessage : UIBase
     {
-        PopUpText.gameObject.SetActive(true);
-        PopUpText.text = message;
-    }
+        public TextMeshProUGUI PopUpText;
 
-    public void HideText() 
-    {
-        PopUpText.gameObject.SetActive(false);
+        public void DisplayUpdatedMessage(string message)
+        {
+            PopUpText.gameObject.SetActive(true);
+            PopUpText.text = message;
+        }
+
+        public void HideText()
+        {
+            PopUpText.gameObject.SetActive(false);
+        }
     }
 }
+

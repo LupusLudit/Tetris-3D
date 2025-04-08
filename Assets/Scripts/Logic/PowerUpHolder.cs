@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.PowerUps;
-using UnityEngine;
+using Assets.Scripts.Unity;
 
 namespace Assets.Scripts.Logic
 {

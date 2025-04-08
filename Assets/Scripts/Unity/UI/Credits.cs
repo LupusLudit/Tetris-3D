@@ -1,33 +1,35 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class Credits : MonoBehaviour
+namespace Assets.Scripts.Unity.UI
 {
-    public RectTransform creditsText;
-    public float scrollSpeed = 50f;
-    private float initialY;
-    private float textHeight;
-
-    void Start()
+    public class Credits : MonoBehaviour
     {
-        initialY = creditsText.anchoredPosition.y;
-        textHeight = creditsText.rect.height;
-    }
+        public RectTransform creditsText;
+        public float scrollSpeed = 50f;
+        private float initialY;
+        private float textHeight;
 
-    void Update()
-    {
-        creditsText.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
-
-        if (creditsText.anchoredPosition.y - textHeight / 2 >= creditsText.parent.GetComponent<RectTransform>().rect.height/2)
+        void Start()
         {
-            creditsText.anchoredPosition = new Vector2(creditsText.anchoredPosition.x, initialY);
+            initialY = creditsText.anchoredPosition.y;
+            textHeight = creditsText.rect.height;
         }
-    }
 
-    public void GoBackToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
+        void Update()
+        {
+            creditsText.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
 
-    //music (proper documentation will be added later): https://www.youtube.com/watch?v=0Utp5ogtMxE
+            if (creditsText.anchoredPosition.y - textHeight / 2 >= creditsText.parent.GetComponent<RectTransform>().rect.height / 2)
+            {
+                creditsText.anchoredPosition = new Vector2(creditsText.anchoredPosition.x, initialY);
+            }
+        }
+
+        public void GoBackToMainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        //music (proper documentation will be added later): https://www.youtube.com/watch?v=0Utp5ogtMxE
+    }
 }

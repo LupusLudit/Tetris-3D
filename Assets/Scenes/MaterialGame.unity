@@ -2135,50 +2135,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125155206}
   m_CullTransparentMesh: 1
---- !u!1 &129264466
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 129264467}
-  - component: {fileID: 129264468}
-  m_Layer: 0
-  m_Name: InputManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &129264467
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129264466}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 605.13135, y: 520.0024, z: -4.984431}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &129264468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129264466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76391f5fa1a674418d143dafac6d403, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &137586500
 GameObject:
   m_ObjectHideFlags: 0
@@ -6107,7 +6063,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10aada1476fd2e648a6d0037b8a6aeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuUI: {fileID: 386933219}
   SettingsUI: {fileID: 1890745132}
   ExitConformation: {fileID: 732190588}
   IsPaused: 0
@@ -9077,7 +9032,7 @@ Animator:
   m_GameObject: {fileID: 564690455}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 32d519f0686d2b24e89da5e246498e66, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0d9a6a98051fe8d499920a45c7dfc62e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -21968,7 +21923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17fa8d35502baf4cb1bdb734b3b0fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelUI: {fileID: 1537775055}
   LevelText: {fileID: 1499236987}
 --- !u!1 &1539699056
 GameObject:
@@ -29827,7 +29781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379883ad585700344946fcfa84b5dd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CountdownPanel: {fileID: 2025463119}
   Music: {fileID: 205070145}
   CountdownText: {fileID: 1639880107}
   StartingText: {fileID: 1624821990}
@@ -30002,7 +29955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15423bcef97e3864687546af4fc14288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineUI: {fileID: 2028239053}
   Message: {fileID: 46903786}
   PlusScore: {fileID: 1808013505}
 --- !u!1 &2032720111
@@ -31375,7 +31327,6 @@ SceneRoots:
   - {fileID: 1745079468}
   - {fileID: 449652257}
   - {fileID: 205070144}
-  - {fileID: 129264467}
   - {fileID: 328126768}
   - {fileID: 185472415}
   - {fileID: 291358519}

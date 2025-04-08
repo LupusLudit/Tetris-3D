@@ -1,26 +1,30 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using Assets.Scripts.Unity.Audio;
 
-public class GameOver : MonoBehaviour
+namespace Assets.Scripts.Unity.UI
 {
-    public GameObject GameOverUI;
-    public MusicController MusicController;
-
-    public void ShowEndGameScreen()
+    public class GameOver : MonoBehaviour
     {
-        GameOverUI.SetActive(true);
-        MusicController.StopMusic();
-    }
+        public GameObject GameOverUI;
+        public MusicController MusicController;
 
-    public void ToMenu()
-    {
-        SceneManager.LoadScene(0);
-        GameOverUI.SetActive(false);
-    }
+        public void ShowEndGameScreen()
+        {
+            GameOverUI.SetActive(true);
+            MusicController.StopMusic();
+        }
 
-    public void PlayAgain()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        GameOverUI.SetActive(false);
+        public void ToMenu()
+        {
+            SceneManager.LoadScene(0);
+            GameOverUI.SetActive(false);
+        }
+
+        public void PlayAgain()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            GameOverUI.SetActive(false);
+        }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using Unity.VisualScripting;
+﻿using Assets.Scripts.Unity;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.PowerUps

@@ -1,24 +1,17 @@
 using TMPro;
-using UnityEngine;
 
-public class PowerUpMessage : MonoBehaviour
+namespace Assets.Scripts.Unity.UI.DynamicMessages
 {
-    public GameObject PowerUpUI;
-    public TextMeshProUGUI Title;
-    public TextMeshProUGUI Description;
-
-    public void ShowUI()
+    public class PowerUpMessage : UIBase
     {
-        PowerUpUI.SetActive(true);
-    }
+        public TextMeshProUGUI Title;
+        public TextMeshProUGUI Description;
 
-    public void SetMessage(string title, string description) {
-        Title.text = title;
-        Description.text = description;
-    }
-
-    public void HideUI()
-    {
-        PowerUpUI.SetActive(false);
+        public void SetMessage(string title, string description)
+        {
+            Title.text = title;
+            Description.text = description;
+        }
     }
 }
+

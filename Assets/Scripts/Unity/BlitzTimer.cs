@@ -1,62 +1,68 @@
+using Assets.Scripts.Unity.UI.DynamicMessages;
+using Assets.Scripts.Unity.UI.Other;
 using System.Collections;
 using UnityEngine;
 
-public class BlitzTimer : MonoBehaviour
+namespace Assets.Scripts.Unity
 {
-    public GameExecuter Executer;
-    public DynamicMessage Timer;
-    public PopUpMessage TimePlus;
-    public Warning Warning;
-    public int countdownTime = 120;
 
-    private bool countingDown = false;
-    //Executer.Manager.ClearedLayers can be true for multiple turns, therefor we need to add an extra bool.
-    private bool canAddTime = false;
-
-    private void Start()
+    public class BlitzTimer : MonoBehaviour
     {
-        Warning.UniversalConstant = 10;
-    }
+        public GameExecuter Executer;
+        public DynamicMessage Timer;
+        public PopUpMessage TimePlus;
+        public Warning Warning;
+        public int countdownTime = 120;
 
-    void Update()
-    {
-        if (Executer.IsGameActive() && !countingDown)
+        private bool countingDown = false;
+        //Executer.Manager.ClearedLayers can be true for multiple turns, therefor we need to add an extra bool.
+        private bool canAddTime = false;
+
+        private void Start()
         {
-            StartCoroutine(StartCountdown());
-            countingDown = true;
+            Warning.UniversalConstant = 10;
         }
 
-        //Adding time if the player cleared some layers
-        if (!canAddTime && Executer.Manager.ClearedLayers == 0) canAddTime = true;
-        else if (Executer.Manager.ClearedLayers > 0 && canAddTime)
+        void Update()
         {
-            int extraTime = Executer.Manager.ClearedLayers * 15;
-            AddTime(extraTime);
-        }
-        Warning.UniversalVariable = countdownTime;
-    }
+            if (Executer.IsGameActive() && !countingDown)
+            {
+                StartCoroutine(StartCountdown());
+                countingDown = true;
+            }
 
-    private void DisplayUIMessage(int extraTime) =>
-        TimePlus.DisplayUpdatedMessage($"+ {extraTime} sec");
-
-
-    private void AddTime(int extraTime)
-    {
-        countdownTime += extraTime;
-        DisplayUIMessage(extraTime);
-        canAddTime = false;
-    }
-    IEnumerator StartCountdown()
-    {
-        while (countdownTime > 0)
-        {
-            Timer.UpdateMessage($"Time remaining: {countdownTime} sec");
-
-            yield return new WaitForSeconds(1f);
-            if(!Executer.UI.GameMenu.IsPaused) countdownTime--;
+            //Adding time if the player cleared some layers
+            if (!canAddTime && Executer.Manager.ClearedLayers == 0) canAddTime = true;
+            else if (Executer.Manager.ClearedLayers > 0 && canAddTime)
+            {
+                int extraTime = Executer.Manager.ClearedLayers * 15;
+                AddTime(extraTime);
+            }
+            Warning.UniversalVariable = countdownTime;
         }
 
-        Timer.UpdateMessage("Times up!");
-        Executer.CurrentGame.GameOver = true;
+        private void DisplayUIMessage(int extraTime) =>
+            TimePlus.DisplayUpdatedMessage($"+ {extraTime} sec");
+
+
+        private void AddTime(int extraTime)
+        {
+            countdownTime += extraTime;
+            DisplayUIMessage(extraTime);
+            canAddTime = false;
+        }
+        IEnumerator StartCountdown()
+        {
+            while (countdownTime > 0)
+            {
+                Timer.UpdateMessage($"Time remaining: {countdownTime} sec");
+
+                yield return new WaitForSeconds(1f);
+                if (!Executer.UI.GameMenu.IsPaused) countdownTime--;
+            }
+
+            Timer.UpdateMessage("Times up!");
+            Executer.CurrentGame.GameOver = true;
+        }
     }
 }

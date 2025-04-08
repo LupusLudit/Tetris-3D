@@ -2000,50 +2000,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
---- !u!1 &129264466
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 129264467}
-  - component: {fileID: 129264468}
-  m_Layer: 0
-  m_Name: InputManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &129264467
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129264466}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 605.13135, y: 520.0024, z: -4.984431}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &129264468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129264466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76391f5fa1a674418d143dafac6d403, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &154251611
 GameObject:
   m_ObjectHideFlags: 0
@@ -16469,7 +16425,7 @@ Animator:
   m_GameObject: {fileID: 1033974964}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 32d519f0686d2b24e89da5e246498e66, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0d9a6a98051fe8d499920a45c7dfc62e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -18515,7 +18471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec8d53de25032b841b68ed991bb8b3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PowerUpUI: {fileID: 1204292942}
   Title: {fileID: 1576381433}
   Description: {fileID: 1881443765}
 --- !u!1 &1207663575
@@ -23290,7 +23245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17fa8d35502baf4cb1bdb734b3b0fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelUI: {fileID: 1537775055}
   LevelText: {fileID: 1499236987}
 --- !u!1 &1542466274
 GameObject:
@@ -28471,7 +28425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379883ad585700344946fcfa84b5dd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CountdownPanel: {fileID: 1875367674}
   Music: {fileID: 205070145}
   CountdownText: {fileID: 464055358}
   StartingText: {fileID: 623981423}
@@ -29640,7 +29593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10aada1476fd2e648a6d0037b8a6aeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuUI: {fileID: 1977757912}
   SettingsUI: {fileID: 1740385865}
   ExitConformation: {fileID: 400897758}
   IsPaused: 0
@@ -30574,7 +30526,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15423bcef97e3864687546af4fc14288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineUI: {fileID: 2028239053}
   Message: {fileID: 46903786}
   PlusScore: {fileID: 1808013505}
 --- !u!1 &2035312108
@@ -31444,7 +31395,6 @@ SceneRoots:
   - {fileID: 1989807167}
   - {fileID: 1479503455}
   - {fileID: 205070144}
-  - {fileID: 129264467}
   - {fileID: 1236090280}
   - {fileID: 265967505}
   - {fileID: 447021231}

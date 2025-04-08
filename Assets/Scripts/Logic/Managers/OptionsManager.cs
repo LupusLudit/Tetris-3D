@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 
-namespace Assets.Scripts.Logic
+namespace Assets.Scripts.Logic.Managers
 {
     public class OptionsManager
     {

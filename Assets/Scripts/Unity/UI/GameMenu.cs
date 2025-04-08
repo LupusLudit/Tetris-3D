@@ -2,54 +2,56 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameMenu : MonoBehaviour
+namespace Assets.Scripts.Unity.UI
 {
-    public GameObject MenuUI;
-    public GameObject SettingsUI;
-    public GameObject ExitConformation;
-    private Animator menuAnimator;
-    public bool IsPaused = false;
-    public bool IsAnimating = false;
-
-    void Start()
+    public class GameMenu : UIBase
     {
-        menuAnimator = MenuUI.GetComponent<Animator>();
-    }
+        public GameObject SettingsUI;
+        public GameObject ExitConformation;
+        private Animator menuAnimator;
+        public bool IsPaused = false;
+        public bool IsAnimating = false;
 
-    public void ShowUI()
-    {
-        MenuUI.SetActive(true);
-        IsAnimating = true;
-    }
+        void Start()
+        {
+            menuAnimator = gameObject.GetComponent<Animator>();
+        }
 
-    private IEnumerator SlideUpAndDeactivate()
-    {
-        IsAnimating = true; // Setting to true at the start of animation
-        menuAnimator.SetTrigger("SlideUp");
-        yield return new WaitForSeconds(1f);
-        MenuUI.SetActive(false);
-        IsAnimating = false; // Resetting to false after animation completes
-    }
+        public override void ShowUI()
+        {
+            gameObject.SetActive(true);
+            IsAnimating = true;
+        }
 
-    public void ResumeGame()
-    {
-        StartCoroutine(SlideUpAndDeactivate());
-        IsPaused = false;
-    }
+        private IEnumerator SlideUpAndDeactivate()
+        {
+            IsAnimating = true; // Setting to true at the start of animation
+            menuAnimator.SetTrigger("SlideUp");
+            yield return new WaitForSeconds(1f);
+            gameObject.SetActive(false);
+            IsAnimating = false; // Resetting to false after animation completes
+        }
 
-    public void GoToSettings()
-    {
-        StartCoroutine(SlideUpAndDeactivate());
-        SettingsUI.SetActive(true);
-    }
+        public void ResumeGame()
+        {
+            StartCoroutine(SlideUpAndDeactivate());
+            IsPaused = false;
+        }
 
-    public void AskLeave() => ExitConformation.SetActive(true);
+        public void GoToSettings()
+        {
+            StartCoroutine(SlideUpAndDeactivate());
+            SettingsUI.SetActive(true);
+        }
 
-    public void DoNotLeave() => ExitConformation.SetActive(false);
+        public void AskLeave() => ExitConformation.SetActive(true);
 
-    public void LeaveToMainMenu()
-    {
-        SceneManager.LoadScene(0);
+        public void DoNotLeave() => ExitConformation.SetActive(false);
+
+        public void LeaveToMainMenu()
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }
 

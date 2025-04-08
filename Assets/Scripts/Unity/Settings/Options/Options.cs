@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Logic;
+﻿using Assets.Scripts.Logic.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;

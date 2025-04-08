@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Blocks;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Logic
 {
     public class BlockHolder
     {

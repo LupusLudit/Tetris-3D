@@ -1,9 +1,11 @@
 ﻿using Assets.Scripts.Events;
+using Assets.Scripts.Unity;
+using Assets.Scripts.Unity.Audio;
 using System;
 using System.IO;
 using UnityEngine;
 
-namespace Assets.Scripts.Logic
+namespace Assets.Scripts.Logic.Managers
 {
     public class KeyManager
     {

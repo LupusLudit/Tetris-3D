@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Xml.Linq;
 using UnityEngine;
 
-namespace Assets.Scripts.Logic
+namespace Assets.Scripts.Logic.Managers
 {
     public static class FileManager
     {

@@ -8224,7 +8224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10aada1476fd2e648a6d0037b8a6aeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuUI: {fileID: 548947751}
   SettingsUI: {fileID: 2054097631}
   ExitConformation: {fileID: 1729113228}
   IsPaused: 0
@@ -14919,7 +14918,7 @@ Animator:
   m_GameObject: {fileID: 1033974964}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 32d519f0686d2b24e89da5e246498e66, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0d9a6a98051fe8d499920a45c7dfc62e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -21649,7 +21648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17fa8d35502baf4cb1bdb734b3b0fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelUI: {fileID: 1537775055}
   LevelText: {fileID: 1499236987}
 --- !u!1 &1542466274
 GameObject:
@@ -26275,7 +26273,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379883ad585700344946fcfa84b5dd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CountdownPanel: {fileID: 1875367674}
   Music: {fileID: 205070145}
   CountdownText: {fileID: 464055358}
   StartingText: {fileID: 623981423}
@@ -29336,7 +29333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15423bcef97e3864687546af4fc14288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineUI: {fileID: 2028239053}
   Message: {fileID: 46903786}
   PlusScore: {fileID: 1808013505}
 --- !u!1 &2030991025

@@ -3,66 +3,69 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class ButtonColorSync : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+namespace Assets.Scripts.Unity.UI.Other
 {
-    public Button TargetButton;
-    public TextMeshProUGUI[] Texts;
-
-    public Color normalTextColor;
-    public Color highlightedTextColor;
-    public Color pressedTextColor;
-    public Color disabledTextColor;
-
-    private void Start()
+    public class ButtonColorSync : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        UpdateTextColor(TargetButton.interactable ? normalTextColor : disabledTextColor);
-    }
+        public Button TargetButton;
+        public TextMeshProUGUI[] Texts;
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (TargetButton.interactable)
+        public Color normalTextColor;
+        public Color highlightedTextColor;
+        public Color pressedTextColor;
+        public Color disabledTextColor;
+
+        private void Start()
         {
-            UpdateTextColor(pressedTextColor);
+            UpdateTextColor(TargetButton.interactable ? normalTextColor : disabledTextColor);
         }
-    }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        if (TargetButton.interactable)
+        public void OnPointerDown(PointerEventData eventData)
         {
-            UpdateTextColor(normalTextColor);
-        }
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (TargetButton.interactable)
-        {
-            UpdateTextColor(highlightedTextColor);
-        }
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (TargetButton.interactable)
-        {
-            UpdateTextColor(normalTextColor);
-        }
-    }
-
-    private void UpdateTextColor(Color color)
-    {
-        foreach (var text in Texts)
-        {
-            if (text != null)
+            if (TargetButton.interactable)
             {
-                text.color = color;
+                UpdateTextColor(pressedTextColor);
             }
         }
 
-        if (TargetButton.image != null)
+        public void OnPointerUp(PointerEventData eventData)
         {
-            TargetButton.image.color = color;
+            if (TargetButton.interactable)
+            {
+                UpdateTextColor(normalTextColor);
+            }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (TargetButton.interactable)
+            {
+                UpdateTextColor(highlightedTextColor);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (TargetButton.interactable)
+            {
+                UpdateTextColor(normalTextColor);
+            }
+        }
+
+        private void UpdateTextColor(Color color)
+        {
+            foreach (var text in Texts)
+            {
+                if (text != null)
+                {
+                    text.color = color;
+                }
+            }
+
+            if (TargetButton.image != null)
+            {
+                TargetButton.image.color = color;
+            }
         }
     }
 }

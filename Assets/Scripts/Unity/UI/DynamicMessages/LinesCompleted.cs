@@ -1,18 +1,11 @@
 using TMPro;
-using UnityEngine;
 
-public class LinesCompleted : MonoBehaviour
+namespace Assets.Scripts.Unity.UI.DynamicMessages
 {
-    public GameObject lineUI;
-    public TextMeshProUGUI Message;
-    public TextMeshProUGUI PlusScore;
-    public void ShowUI()
+    public class LinesCompleted : UIBase
     {
-        lineUI.SetActive(true);
-    }
-
-    public void HideUI()
-    {
-        lineUI.SetActive(false);
+        public TextMeshProUGUI Message;
+        public TextMeshProUGUI PlusScore;
     }
 }
+

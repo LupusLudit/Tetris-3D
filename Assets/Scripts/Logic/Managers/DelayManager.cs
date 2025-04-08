@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 
-namespace Assets.Scripts.Logic
+namespace Assets.Scripts.Logic.Managers
 {
     public class DelayManager
     {
