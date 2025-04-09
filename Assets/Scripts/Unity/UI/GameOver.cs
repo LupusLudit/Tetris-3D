@@ -17,7 +17,7 @@ namespace Assets.Scripts.Unity.UI
 
         public void ToMenu()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("MainMenu");
             GameOverUI.SetActive(false);
         }
 

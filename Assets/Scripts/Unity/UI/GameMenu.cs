@@ -50,7 +50,7 @@ namespace Assets.Scripts.Unity.UI
 
         public void LeaveToMainMenu()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }
