@@ -30,5 +30,3 @@ Effect: Prevents horizontal movement of the current block, leaving only rotation
 
 TODO:
 1. Add visual effects (when the block was collected, etc.)
-2. If possible, add multiple threads to handle the game logic
-3. Make some classes that handle UI logic more universal

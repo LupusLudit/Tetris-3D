@@ -38,22 +38,25 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             }
         }
 
-        protected void ApplyChanges()
+        public virtual void GoToKeybindsAgain()
         {
-            Manager.Keys = (KeyCode[])TempKeys.Clone();
+            KeybindsConformation.SetActive(false);
+            GoBackConformation.SetActive(false);
+            ResetConformation.SetActive(false);
             SetOptionsInteractable(true);
+        }
+
+        public virtual void SaveKeys()
+        {
+            KeybindsConformation.SetActive(false);
+            ApplyChanges();
+            Manager.SaveCurrentSettings();
         }
 
         public void AskSave()
         {
             SetOptionsInteractable(false);
             KeybindsConformation.SetActive(true);
-        }
-        public virtual void SaveKeys()
-        {
-            KeybindsConformation.SetActive(false);
-            ApplyChanges();
-            Manager.SaveCurrentSettings();
         }
 
         public void AskReset()
@@ -91,14 +94,6 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             SettingsUI.SetActive(true);
         }
 
-        public virtual void GoToKeybindsAgain()
-        {
-            KeybindsConformation.SetActive(false);
-            GoBackConformation.SetActive(false);
-            ResetConformation.SetActive(false);
-            SetOptionsInteractable(true);
-        }
-
         public void ChangeKeysToPrevious()
         {
             ResetConformation.SetActive(false);
@@ -124,6 +119,12 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             }
         }
 
+        protected void ApplyChanges()
+        {
+            Manager.Keys = (KeyCode[])TempKeys.Clone();
+            SetOptionsInteractable(true);
+        }
+
         protected bool KeybindsHaveChanged()
         {
             foreach (KeyCode key in Manager.Keys)
@@ -135,8 +136,6 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             }
             return false;
         }
-
-        protected abstract bool IsConfirmationButton(Button button);
 
         protected void SetOptionsInteractable(bool state)
         {
@@ -193,8 +192,6 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             }
         }
 
-        protected abstract IEnumerator Deactivate();
-
         protected IEnumerator HideKeyInputUICoroutine(string key)
         {
             KeyInputText.text = key;
@@ -207,6 +204,10 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             KeyInputText.text = "Awaiting Key Input ...";
             KeyInputUI.SetActive(true);
         }
+
+        protected abstract IEnumerator Deactivate();
+
+        protected abstract bool IsConfirmationButton(Button button);
     }
 }
 

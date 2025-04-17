@@ -11,7 +11,7 @@ namespace Assets.Scripts.Blocks
         public int CurrentState { get; private set; } = 0;
         public int CurrentRotationState { get; private set; } = 0;
         public Vector3 CurrentOffset { get; private set; }
-        private readonly Vector3 offsetMultiplier;
+        private Vector3 offsetMultiplier;
 
         protected Block(Vector3 offsetMultiplier)
         {

@@ -152,8 +152,6 @@ namespace Assets.Scripts.Unity.Settings.Options
             return !TempOptions.Equals(saved);
         }
 
-        protected abstract bool IsConfirmationButton(Button button);
-
         protected virtual void ApplyChanges()
         {
             TempOptions = Manager.Options.Clone();
@@ -230,6 +228,7 @@ namespace Assets.Scripts.Unity.Settings.Options
         protected abstract void OnBrightnessChange(float value);
 
         protected abstract IEnumerator Deactivate();
+        protected abstract bool IsConfirmationButton(Button button);
 
     }
 }
