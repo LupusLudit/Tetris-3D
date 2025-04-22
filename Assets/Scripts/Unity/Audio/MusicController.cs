@@ -52,10 +52,8 @@ namespace Assets.Scripts.Unity.Audio
                 }
             }
         }
-        public void StopMusic() =>
-            musicSource.Stop();
+        public void StopMusic() => musicSource.Stop();
 
-        public void PlayMusic() =>
-            musicSource.Play();
+        public void PlayMusic() => musicSource.Play();
     }
 }

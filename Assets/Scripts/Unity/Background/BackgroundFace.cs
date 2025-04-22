@@ -112,13 +112,17 @@ namespace Assets.Scripts.Unity.Background
 
         private int GetAxisLength(int axis)
         {
-            return axis switch
+            switch(axis)
             {
-                0 => x,
-                1 => y,
-                2 => z,
-                _ => 1
-            };
+                case 0:
+                    return x;
+                case 1:
+                    return y;
+                case 2:
+                    return z;
+                default:
+                    return 1;
+            }
         }
 
         /*

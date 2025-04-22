@@ -48,7 +48,6 @@ namespace Assets.Scripts.Logic
             return new Vector3((float) x / 10, (float) y / 21, (float) z / 10);
         }
 
-
         private bool BlockFits()
         {
             foreach (Vector3 v in CurrentBlock.TilePositions())

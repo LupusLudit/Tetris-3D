@@ -15,7 +15,7 @@ namespace Assets.Scripts.Unity.UI.Other
         public Color pressedTextColor;
         public Color disabledTextColor;
 
-        private void Start()
+        void Start()
         {
             UpdateTextColor(TargetButton.interactable ? normalTextColor : disabledTextColor);
         }

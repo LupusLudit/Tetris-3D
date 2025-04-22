@@ -12,7 +12,7 @@ namespace Assets.Scripts.Unity
         public DynamicMessage Timer;
         public PopUpMessage TimePlus;
         public Warning Warning;
-        public int countdownTime = 120;
+        public int CountdownTime = 120;
 
         private bool countingDown = false;
         //Executer.Manager.ClearedLayers can be true for multiple turns, therefor we need to add an extra bool.
@@ -38,27 +38,26 @@ namespace Assets.Scripts.Unity
                 int extraTime = Executer.Manager.ClearedLayers * 15;
                 AddTime(extraTime);
             }
-            Warning.UniversalVariable = countdownTime;
+            Warning.UniversalVariable = CountdownTime;
         }
 
-        private void DisplayUIMessage(int extraTime) =>
-            TimePlus.DisplayUpdatedMessage($"+ {extraTime} sec");
+        private void DisplayUIMessage(int extraTime) => TimePlus.DisplayUpdatedMessage($"+ {extraTime} sec");
 
 
         private void AddTime(int extraTime)
         {
-            countdownTime += extraTime;
+            CountdownTime += extraTime;
             DisplayUIMessage(extraTime);
             canAddTime = false;
         }
         IEnumerator StartCountdown()
         {
-            while (countdownTime > 0)
+            while (CountdownTime > 0)
             {
-                Timer.UpdateMessage($"Time remaining: {countdownTime} sec");
+                Timer.UpdateMessage($"Time remaining: {CountdownTime} sec");
 
                 yield return new WaitForSeconds(1f);
-                if (!Executer.UI.GameMenu.IsPaused) countdownTime--;
+                if (!Executer.UI.GameMenu.IsPaused) CountdownTime--;
             }
 
             Timer.UpdateMessage("Times up!");

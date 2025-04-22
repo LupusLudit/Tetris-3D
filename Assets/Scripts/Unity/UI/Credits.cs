@@ -4,24 +4,24 @@ namespace Assets.Scripts.Unity.UI
 {
     public class Credits : MonoBehaviour
     {
-        public RectTransform creditsText;
-        public float scrollSpeed = 50f;
+        public RectTransform CreditsText;
+        public float ScrollSpeed = 50f;
         private float initialY;
         private float textHeight;
 
         void Start()
         {
-            initialY = creditsText.anchoredPosition.y;
-            textHeight = creditsText.rect.height;
+            initialY = CreditsText.anchoredPosition.y;
+            textHeight = CreditsText.rect.height;
         }
 
         void Update()
         {
-            creditsText.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
+            CreditsText.anchoredPosition += Vector2.up * ScrollSpeed * Time.deltaTime;
 
-            if (creditsText.anchoredPosition.y - textHeight / 2 >= creditsText.parent.GetComponent<RectTransform>().rect.height / 2)
+            if (CreditsText.anchoredPosition.y - textHeight / 2 >= CreditsText.parent.GetComponent<RectTransform>().rect.height / 2)
             {
-                creditsText.anchoredPosition = new Vector2(creditsText.anchoredPosition.x, initialY);
+                CreditsText.anchoredPosition = new Vector2(CreditsText.anchoredPosition.x, initialY);
             }
         }
 

@@ -27,18 +27,6 @@ namespace Assets.Scripts.Unity.ObjectPooling
             }
         }
 
-        private void AddTileToPool(GameObject prefab, Queue<GameObject> pool)
-        {
-            GameObject tile = Instantiate(prefab);
-            var pooledTile = tile.AddComponent<PooledTile>();
-            pooledTile.prefabReference = prefab;
-
-            tile.SetActive(false);
-            tile.transform.SetParent(this.transform);
-            pool.Enqueue(tile);
-        }
-
-
         public GameObject GetTile(GameObject prefab)
         {
             var pool = pools[prefab];
@@ -61,6 +49,17 @@ namespace Assets.Scripts.Unity.ObjectPooling
             tile.SetActive(false);
             tile.transform.SetParent(this.transform);
             pools[pooledTile.prefabReference].Enqueue(tile);
+        }
+
+        private void AddTileToPool(GameObject prefab, Queue<GameObject> pool)
+        {
+            GameObject tile = Instantiate(prefab);
+            var pooledTile = tile.AddComponent<PooledTile>();
+            pooledTile.prefabReference = prefab;
+
+            tile.SetActive(false);
+            tile.transform.SetParent(this.transform);
+            pool.Enqueue(tile);
         }
 
     }

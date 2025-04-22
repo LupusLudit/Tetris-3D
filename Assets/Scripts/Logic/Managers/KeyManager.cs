@@ -13,8 +13,9 @@ namespace Assets.Scripts.Logic.Managers
         private GameManager manager;
         private Game game;
         private SoundEffects soundEffects;
-        public KeyCode[] Keys;
         private Action[] actions;
+
+        public KeyCode[] Keys;
 
         public KeyManager(GameExecuter gameExecuter)
         {
@@ -98,9 +99,7 @@ namespace Assets.Scripts.Logic.Managers
             }
         }
 
-        private bool IsDesiredHeld(KeyCode key) =>
-            key == Keys[9] || key == Keys[12] || key == Keys[13];
-
+        private bool IsDesiredHeld(KeyCode key) => key == Keys[9] || key == Keys[12] || key == Keys[13];
 
         private void LoadSettings()
         {

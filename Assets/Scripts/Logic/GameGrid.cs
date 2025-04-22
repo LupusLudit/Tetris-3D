@@ -18,7 +18,6 @@
          * x
          */
 
-
         public int this[int x, int y, int z]
         {
             get => grid[x, y, z];

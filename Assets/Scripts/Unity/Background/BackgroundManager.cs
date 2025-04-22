@@ -34,12 +34,12 @@ namespace Assets.Scripts.Unity.Background
         private int quadrantAngle;
 
         Dictionary<Quadrant, int> quadrantAngles = new Dictionary<Quadrant, int>
-    {
-        { Quadrant.I, 90 },
-        { Quadrant.II, 180 },
-        { Quadrant.III, 270 },
-        { Quadrant.IV, 0 }
-    };
+        {
+            { Quadrant.I, 90 },
+            { Quadrant.II, 180 },
+            { Quadrant.III, 270 },
+            { Quadrant.IV, 0 }
+        };
 
         void Start()
         {
@@ -68,6 +68,22 @@ namespace Assets.Scripts.Unity.Background
 
         }
 
+        public void ResetToDefault()
+        {
+            MainCamera.transform.position = mainCameraInitialPosition;
+            MainCamera.transform.rotation = Quaternion.Euler(30, -135, 0);
+            SideCamera.transform.position = sideCameraInitialPosition;
+            SideCamera.transform.rotation = Quaternion.Euler(0, -90, 0);
+
+            transform.position = initialPosition;
+            transform.rotation = initialRotation;
+
+            currentQuadrant = GetQuadrant(CalculateCameraAngle());
+            quadrantAngle = quadrantAngles[currentQuadrant];
+
+            AdjustKeyEvents.RaiseBoardReset();
+        }
+
         private Quadrant GetQuadrant(float angle)
         {
             if (angle >= 0 && angle < 90) return Quadrant.I;
@@ -90,22 +106,6 @@ namespace Assets.Scripts.Unity.Background
             Vector3 rotationCenter = new Vector3(XMax / 2f, YMax / 2f, ZMax / 2f);
             transform.RotateAround(rotationCenter, Vector3.up, angle);
             SideCamera.transform.RotateAround(rotationCenter, Vector3.up, angle);
-        }
-
-        public void ResetToDefault()
-        {
-            MainCamera.transform.position = mainCameraInitialPosition;
-            MainCamera.transform.rotation = Quaternion.Euler(30, -135, 0);
-            SideCamera.transform.position = sideCameraInitialPosition;
-            SideCamera.transform.rotation = Quaternion.Euler(0, -90, 0);
-
-            transform.position = initialPosition;
-            transform.rotation = initialRotation;
-
-            currentQuadrant = GetQuadrant(CalculateCameraAngle());
-            quadrantAngle = quadrantAngles[currentQuadrant];
-
-            AdjustKeyEvents.RaiseBoardReset();
         }
         private void InitializeFaces()
         {

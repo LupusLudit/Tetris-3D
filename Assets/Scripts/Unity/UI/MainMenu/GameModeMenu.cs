@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-using Assets.Scripts.Logic;
 using Assets.Scripts.Logic.Managers;
 
 namespace Assets.Scripts.Unity.UI.MainMenu
@@ -60,7 +59,6 @@ namespace Assets.Scripts.Unity.UI.MainMenu
 
             buttonHints = new List<string>(data.Hints);
         }
-
 
         private IEnumerator SlideRightAndDeactivate()
         {

@@ -5,11 +5,11 @@ namespace Assets.Scripts.Unity.UI
 {
     public class SplashLoader : MonoBehaviour
     {
-        public float delayBeforeLoading = 4f;
+        public float DelayBeforeLoading = 4f;
 
         void Start()
         {
-            Invoke("LoadNextScene", delayBeforeLoading);
+            Invoke("LoadNextScene", DelayBeforeLoading);
         }
 
         void LoadNextScene()

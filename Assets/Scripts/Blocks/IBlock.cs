@@ -2,6 +2,9 @@
 
 namespace Assets.Scripts.Blocks
 {
+    /// <summary>
+    /// TODO: add a link here
+    /// </summary>
     public class IBlock : Block
     {
         private readonly Vector3[][][] tiles = new Vector3[][][]
@@ -29,9 +32,7 @@ namespace Assets.Scripts.Blocks
             }
         };
 
-
         public IBlock(Vector3 offsetMultiplier) : base(offsetMultiplier) { }
-
         protected override Vector3 StartingOffset => new Vector3((int)(3 * OffsetMultiplier.x), (int)(19 * OffsetMultiplier.y), (int)(3 * OffsetMultiplier.z));
         public override int Id => 1;
         protected override Vector3[][][] Tiles => tiles;

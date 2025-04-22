@@ -8,9 +8,10 @@ namespace Assets.Scripts.Unity.UI
     {
         public GameObject SettingsUI;
         public GameObject ExitConformation;
-        private Animator menuAnimator;
         public bool IsPaused = false;
         public bool IsAnimating = false;
+
+        private Animator menuAnimator;
 
         void Start()
         {
