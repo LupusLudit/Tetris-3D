@@ -4,9 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Events
 {
-    /// <summary>
-    /// TODO: add a link here
-    /// </summary>
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="BlockEvents"]/*'/>
     public static class BlockEvents
     {
         public static event Action<List<Vector3>> OnBlockPlaced;

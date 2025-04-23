@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic.Managers
 {
+    /// <include file='../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="OptionsManager"]/*'/>
     public class OptionsManager
     {
         public OptionsSettings Options;
@@ -12,12 +13,18 @@ namespace Assets.Scripts.Logic.Managers
             LoadOptions();
         }
 
+        /// <summary>
+        /// Saves the current options to the json file.
+        /// </summary>
         public void SaveCurrentOptions()
         {
             string filePath = Path.Combine(Application.persistentDataPath, "options.json");
             FileManager.SaveToFile(Options, filePath);
         }
 
+        /// <summary>
+        /// Loads the options from the json file.
+        /// </summary>
         private void LoadOptions()
         {
             string filePath = Path.Combine(Application.persistentDataPath, "options.json");
@@ -44,6 +51,9 @@ namespace Assets.Scripts.Logic.Managers
         }
 
 
+        /// <summary>
+        /// Sets the options default.
+        /// </summary>
         public void SetOptionsDefault()
         {
             Options.MusicOn = true;

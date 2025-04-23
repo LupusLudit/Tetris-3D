@@ -2,9 +2,7 @@
 
 namespace Assets.Scripts.Events
 {
-    /// <summary>
-    /// TODO: add a link here
-    /// </summary>
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="AdjustKeyEvents"]/*'/>
     public static class AdjustKeyEvents
     {
         public static event Action<bool> OnRotation;

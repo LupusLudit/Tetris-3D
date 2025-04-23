@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProjectDocs>
+	<ClassMember name="Block">
+		<summary>
+			Represents a Tetris block in the game.
+			Each block has a position, rotation and an ID.
+
+			Position is defined by the <see cref="Tiles"/> array and the <see cref="CurrentOffset"/> vector.
+
+			<see cref="Tiles"/> contains relative positions of the block’s tiles for each axis and rotation within a bounding box.
+			<see cref="CurrentOffset"/> determines the block’s position offset from the game board origin.
+
+			The <see cref="Id"/> distinguishes the block from other blocks.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="IBlock">
+		<summary>
+			Class representing the "I" block (light blue color).
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="JBlock">
+		<summary>
+			Class representing the "J" block (dark blue color).
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="LBlock">
+		<summary>
+			Class representing the "L" block (orange color).
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="OBlock">
+		<summary>
+			Class representing the "O" block (yellow color).
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="SBlock">
+		<summary>
+			Class representing the "S" block (green color).
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="TBlock">
+		<summary>
+			Class representing the "T" block (purple color).
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="ZBlock">
+		<summary>
+			Class representing the "Z" block (green color).
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="ZBlock">
+		<summary>
+			Class representing the "Z" block (green color).
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="AdjustKeyEvents">
+		<summary>
+			Class handling key events related to rotation of the game board.
+			When the board is rotated, the keys that control the block movements (UpArrow, DownArrow, LeftArrow and RightArrow by default)
+			have to be adjusted to the new orientation of the board.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="BlockEvents">
+		<summary>
+			Class handling powerup intialization related events after the current block has been placed.
+			When the block is placed, the PowerUpManager searches for all powerups on the board and checks whether they intersect with the newly placed block.
+			If they do, the powerup is activated and the corresponding event is triggered.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="DelayManager">
+		<summary>
+			Handles the falling delay of the current block.
+			The delay detemines how fast the block falls (it decreases with the level and score -> more progress means faster falling block)
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="FileManager">
+		<summary>
+			Handles the file saving and loading.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="HintData">
+		<summary>
+			Class reprsenting the hint data that are shown to player.
+			It is used while saving/loading the actual data to/from the file.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="KeySettings">
+		<summary>
+			Class reprsenting the key settings data.
+			It is used while saving/loading the actual data to/from the file.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="OptionsSettings">
+		<summary>
+			Class reprsenting the options data.
+			It is used while saving/loading the actual data to/from the file.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="KeyManager">
+		<summary>
+			Manages players key inputs.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="OptionsManager">
+		<summary>
+			Manages players saved options.
+		</summary>
+	</ClassMember>
+</ProjectDocs>

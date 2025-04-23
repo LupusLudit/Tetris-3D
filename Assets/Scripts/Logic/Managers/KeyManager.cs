@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic.Managers
 {
+    /// <include file='../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="KeyManager"]/*'/>
     public class KeyManager
     {
         private GameExecuter executer;
@@ -16,7 +17,6 @@ namespace Assets.Scripts.Logic.Managers
         private Action[] actions;
 
         public KeyCode[] Keys;
-
         public KeyManager(GameExecuter gameExecuter)
         {
             executer = gameExecuter;
@@ -30,6 +30,9 @@ namespace Assets.Scripts.Logic.Managers
             AdjustKeyEvents.OnReset += InitializeActions;
         }
 
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
         public void Dispose()
         {
             AdjustKeyEvents.OnRotation -= AdjustMovements;
@@ -37,6 +40,9 @@ namespace Assets.Scripts.Logic.Managers
         }
 
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         private void Initialize()
         {
             SetKeyMappingDefault();
@@ -44,6 +50,9 @@ namespace Assets.Scripts.Logic.Managers
             LoadSettings();
         }
 
+        /// <summary>
+        /// Handles the players key inputs.
+        /// </summary>
         public void HandleKeyInputs()
         {
             for (int i = 0; i < Keys.Length; i++)
@@ -61,6 +70,9 @@ namespace Assets.Scripts.Logic.Managers
             }
         }
 
+        /// <summary>
+        /// Saves the current settings to the json file.
+        /// </summary>
         public void SaveCurrentSettings()
         {
             string filePath = Path.Combine(Application.persistentDataPath, "keybinds.json");
@@ -79,6 +91,10 @@ namespace Assets.Scripts.Logic.Managers
             FileManager.SaveToFile(settings, filePath);
         }
 
+        /// <summary>
+        /// Adjusts the key settings for the movements (UpArrow, DownArrow, LeftArrow and RightArrow by default).
+        /// </summary>
+        /// <param name="movedRight">if set to <c>true</c> [moved right].</param>
         public void AdjustMovements(bool movedRight)
         {
             //Pattern for switching the movement keys to the right or left
@@ -99,8 +115,19 @@ namespace Assets.Scripts.Logic.Managers
             }
         }
 
+        /// <summary>
+        /// Determines whether a desired key is being held.
+        /// Explanation: We want some keys to be held down (like the movement keys) and not just pressed, this method checks if the key is one of those.
+        /// </summary>
+        /// <param name="key">The key that was pressed/is being held.</param>
+        /// <returns>
+        ///   <c>true</c> if the key is between those that need to be held. Otherwise, <c>false</c>.
+        /// </returns>
         private bool IsDesiredHeld(KeyCode key) => key == Keys[9] || key == Keys[12] || key == Keys[13];
 
+        /// <summary>
+        /// Loads the settings.
+        /// </summary>
         private void LoadSettings()
         {
             string filePath = Path.Combine(Application.persistentDataPath, "keybinds.json");
@@ -117,8 +144,11 @@ namespace Assets.Scripts.Logic.Managers
             }
         }
 
-
-
+        /// <summary>
+        /// Initializes the key mappings if it they were loaded correctly.
+        /// If not, it sets the key mappings to default values.
+        /// </summary>
+        /// <param name="loadedBindings">The loaded key bindings.</param>
         private void InitializeKeyMappings(KeyCode[] loadedBindings)
         {
             if (loadedBindings != null && loadedBindings.Length == Keys.Length)
@@ -131,6 +161,9 @@ namespace Assets.Scripts.Logic.Managers
             else SetKeyMappingDefault();
         }
 
+        /// <summary>
+        /// Sets the key settings to default values.
+        /// </summary>
         public void SetKeyMappingDefault()
         {
             Keys = new KeyCode[]{
@@ -153,6 +186,9 @@ namespace Assets.Scripts.Logic.Managers
         };
         }
 
+        /// <summary>
+        /// Initializes the actions for the key inputs.
+        /// </summary>
         private void InitializeActions()
         {
             actions = new Action[]

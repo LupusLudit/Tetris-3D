@@ -2,9 +2,7 @@
 
 namespace Assets.Scripts.Blocks
 {
-    /// <summary>
-    /// TODO: add a link here
-    /// </summary>
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="JBlock"]/*'/>
     public class JBlock : Block
     {
         private Vector3[][][] tiles = new Vector3[][][]

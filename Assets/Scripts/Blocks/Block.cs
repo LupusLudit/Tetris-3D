@@ -3,9 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Blocks
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="Block"]/*'/>
     public abstract class Block
     {
         //Note: Commentary for this class implies for all block overrides as well.
