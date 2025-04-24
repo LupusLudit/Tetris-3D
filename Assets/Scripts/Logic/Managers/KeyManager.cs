@@ -94,7 +94,10 @@ namespace Assets.Scripts.Logic.Managers
         /// <summary>
         /// Adjusts the key settings for the movements (UpArrow, DownArrow, LeftArrow and RightArrow by default).
         /// </summary>
-        /// <param name="movedRight">if set to <c>true</c> [moved right].</param>
+        /// <param name="movedRight">
+        /// If set to <c>true</c> it means that the board had moved to right. Otherwise, <c>false</c>.
+        /// The pattern is then picked accordingly.
+        /// </param>
         public void AdjustMovements(bool movedRight)
         {
             //Pattern for switching the movement keys to the right or left

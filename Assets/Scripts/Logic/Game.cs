@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic
 {
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="Game"]/*'/>
     public class Game
     {
         private Block currentBlock;
@@ -28,11 +29,9 @@ namespace Assets.Scripts.Logic
         public GameGrid Grid { get; }
         public BlockHolder Holder { get; }
         public bool GameOver { get; set; }
-        public int Score { get; set; }
         public Block HeldBlock { get; set; }
         public bool CanHold { get; set; }
         public bool BlockPlaced { get; set; }
-
 
         public Game(int x, int y, int z)
         {
@@ -43,11 +42,22 @@ namespace Assets.Scripts.Logic
             BlockPlaced = false;
         }
 
+        /// <summary>
+        /// Calculates the offset multiplier based on board dimensions.
+        /// </summary>
+        /// <param name="x">The size of the game board in terms of "x".</param>
+        /// <param name="y">The size of the game board in terms of "y".</param>
+        /// <param name="z">The size of the game board in terms of "z".</param>
+        /// <returns>3D vector representing the offset multiplier.</returns>
         private Vector3 CalculateMultiplier(int x, int y, int z)
         {
             return new Vector3((float) x / 10, (float) y / 21, (float) z / 10);
         }
 
+        /// <summary>
+        /// Checks whether the block fits on the board.
+        /// </summary>
+        /// <returns><c>true</c> it the block fits. Otherwise, <c>false</c>.</returns>
         private bool BlockFits()
         {
             foreach (Vector3 v in CurrentBlock.TilePositions())
@@ -57,6 +67,9 @@ namespace Assets.Scripts.Logic
             return true;
         }
 
+        /// <summary>
+        /// Holds the current block "in storage", if it was not held already.
+        /// </summary>
         public void HoldBlock()
         {
             if (HeldBlock == null)
@@ -73,6 +86,9 @@ namespace Assets.Scripts.Logic
             CanHold = false;
         }
 
+        /// <summary>
+        /// Rotates the block clockwise if the new orientation fits on the board.
+        /// </summary>
         public void RotateBlockCW()
         {
             CurrentBlock.RotateCW();
@@ -83,6 +99,9 @@ namespace Assets.Scripts.Logic
             }
         }
 
+        /// <summary>
+        /// Rotates the block counter clockwise if the new orientation fits on the board.
+        /// </summary>
         public void RotateBlockCCW()
         {
             CurrentBlock.RotateCCW();
@@ -93,6 +112,10 @@ namespace Assets.Scripts.Logic
             }
         }
 
+        /// <summary>
+        /// Switches the block to a "different axis" if the new orientation fits on the board.
+        /// </summary>
+        /// <param name="axis">The axis "to which we switch".</param>
         public void SwitchToDifAxis(int axis)
         {
             int prevAxis = CurrentBlock.CurrentState;
@@ -103,37 +126,55 @@ namespace Assets.Scripts.Logic
             }
         }
 
+        /// <summary>
+        /// Moves the block forward in the x direction if the new position fits on the board.
+        /// </summary>
         public void XForward()
         {
             CurrentBlock.Move(1,0,0);
             if (!BlockFits()) CurrentBlock.Move(-1, 0, 0);
         }
 
+        /// <summary>
+        /// Moves the block back in the x direction if the new position fits on the board.
+        /// </summary>
         public void XBack()
         {
             CurrentBlock.Move(-1, 0, 0);
             if (!BlockFits()) CurrentBlock.Move(1, 0, 0);
         }
 
+        /// <summary>
+        /// Moves the block forward in the z direction if the new position fits on the board.
+        /// </summary>
         public void ZForward()
         {
             CurrentBlock.Move(0, 0, 1);
             if (!BlockFits()) CurrentBlock.Move(0, 0, -1);
         }
 
+        /// <summary>
+        /// Moves the block back in the z direction if the new position fits on the board.
+        /// </summary>
         public void ZBack()
         {
             CurrentBlock.Move(0, 0, -1);
             if (!BlockFits()) CurrentBlock.Move(0, 0, 1);
         }
 
-
+        /// <summary>
+        /// Checks if the top two layers of the grid are empty. If not, the game is over.
+        /// </summary>
+        /// <returns><c>true</c> it the game should end. Otherwise, <c>false</c>.</returns>
         public bool CheckGameOver()
         {
             return !(Grid.IsLayerEmpty(Grid.Y - 1) && Grid.IsLayerEmpty(Grid.Y - 2));
         }
 
 
+        /// <summary>
+        /// Places the current block onto the bottom of the game board.
+        /// </summary>
         private void PlaceCurrentBlock()
         {
             foreach (Vector3 v in CurrentBlock.TilePositions())
@@ -149,6 +190,9 @@ namespace Assets.Scripts.Logic
             }
         }
 
+        /// <summary>
+        /// Moves the block one tile down if the new position fits on the board.
+        /// </summary>
         public void MoveBlockDown()
         {
             CurrentBlock.Move(0,-1,0);
@@ -157,9 +201,15 @@ namespace Assets.Scripts.Logic
             {
                 CurrentBlock.Move(0,1,0);
                 PlaceCurrentBlock();
-
             }
         }
+
+        /// <summary>
+        /// Calculates how many empty tiles are directly below the given position 
+        /// until the first occupied tile is encountered (or the bottom of the board).
+        /// </summary>
+        /// <param name="v">The vector representing the position to check from.</param>
+        /// <returns>The number of empty tiles below the given position.</returns>
 
         private int NumOfTilesBelow(Vector3 v)
         {
@@ -170,6 +220,13 @@ namespace Assets.Scripts.Logic
             }
             return drop;
         }
+
+        /// <summary>
+        /// Determines how far the current block can fall vertically
+        /// before colliding with an existing block or the bottom of the grid.
+        /// It calculates the minimum distance to the nearest obstacle for all tiles in the block.
+        /// </summary>
+        /// <returns>The maximum number of tiles the block can drop without overlapping other blocks.</returns>
 
         public int MaxPossibleDrop()
         {
@@ -183,12 +240,19 @@ namespace Assets.Scripts.Logic
             return drop;
         }
 
+        /// <summary>
+        /// Instantly drops the current block to its lowest possible position
+        /// without collision, then places it on the board.
+        /// </summary>
         public void DropBlock()
         {
             CurrentBlock.Move(0,-MaxPossibleDrop(),0);
             PlaceCurrentBlock();
         }
 
+        /// <summary>
+        /// Replaces the current block with the next one from the block holder.
+        /// </summary>
         public void NextBlock()
         {
             CurrentBlock = Holder.GetNewCurrent();

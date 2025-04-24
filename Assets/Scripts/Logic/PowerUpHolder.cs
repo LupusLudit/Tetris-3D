@@ -3,6 +3,7 @@ using Assets.Scripts.Unity;
 
 namespace Assets.Scripts.Logic
 {
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="PowerUpHolder"]/*'/>
     public class PowerUpHolder
     {
 
@@ -30,14 +31,20 @@ namespace Assets.Scripts.Logic
             nextPowerUp = RandomPowerUp();
         }
 
-
-        //TODO: check if the power up wasn't spawned inside another block and improve current block checking (we are not looking at the actual position)
+        /// <summary>
+        /// Picks a random powerup.
+        /// </summary>
+        /// <returns>The picked powerup.</returns>
         private PowerUp RandomPowerUp()
         {
             PowerUp powerUp = powerUps[random.Next(powerUps.Length)];
             return powerUp;
         }
 
+        /// <summary>
+        /// Returns new powerup (the previously saved <see cref="nextPowerUp"/>) and generates new <see cref="nextPowerUp"/>.
+        /// </summary>
+        /// <returns></returns>
         public PowerUp GetNextPowerUp()
         {
             PowerUp temp = nextPowerUp;

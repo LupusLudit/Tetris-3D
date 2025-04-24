@@ -123,4 +123,35 @@
 			Manages players saved options.
 		</summary>
 	</ClassMember>
+
+	<ClassMember name="BlockHolder">
+		<summary>
+			Holds and generates new blocks.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="Game">
+		<summary>
+			Stores the fundamental game data and handles the game logic.
+			It mostly contains methods that control block movements.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="GameGrid">
+		<summary>
+			Represents the 3D game grid used to store and manage placed blocks.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="PowerUpHolder">
+		<summary>
+			Holds and generates new powerups.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="Score">
+		<summary>
+			Handles score calculation and tracking during the game.
+		</summary>
+	</ClassMember>
 </ProjectDocs>
