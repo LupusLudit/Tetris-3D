@@ -139,7 +139,7 @@
 
 	<ClassMember name="GameGrid">
 		<summary>
-			Represents the 3D game grid used to store and manage placed blocks.
+			Represents the 3D game grid. It is used to store and manage placed blocks.
 		</summary>
 	</ClassMember>
 	
@@ -152,6 +152,91 @@
 	<ClassMember name="Score">
 		<summary>
 			Handles score calculation and tracking during the game.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="PowerUp">
+		<summary>
+			Class representing a powerup.
+			Each powerup has a position, title an ID and description. It contains a Use method that is called when the powerup is activated.
+			
+			<see cref="Position"/> is a 3D vector. It tells us where the powerup is located in 3D space.
+			<see cref="Id"/> is a unique identifier that distinguishes the powerup from other powerups.
+			<see cref="Title"/> is the main title that is displayed when the powerup is collected.
+			<see cref="Description"/> is the text explaining the powerup's effect. It is displayed when the powerup is collected.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="AutoNextBlock">
+		<summary>
+			Powerup that instantly replaces the current block with the next one.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="BlindPlayer">
+		<summary>
+			Powerup that temporarily obscures the player's vision, making it harder to see the game area.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="BlockFreezer">
+		<summary>
+			Powerup that temporarily freezes the current block, preventing any movement or rotation.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="Bomb">
+		<summary>
+			Powerup that destroys all blocks located within the defined <see cref="blastRadiusPositions"/> around the activation point.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="ClearColumn">
+		<summary>
+			Powerup that clears all blocks in the column aligned with the powerup's current x and z position.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="ClearLine">
+		<summary>
+			Powerup that clears all blocks in the highest non-empty line of the grid.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="DoubleScore">
+		<summary>
+			Powerup that clears all blocks in the highest non-empty line of the grid.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="InstaDrop">
+		<summary>
+			Powerup that instantly drops the current block to the lowest possible position
+			and immediately spawns the next block.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="DoubleScore">
+		<summary>
+			Powerup that temporarily doubles the score earned by the player for a limited duration.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="LimitMovement">
+		<summary>
+			Powerup that temporarily restricts the player's movement, allowing only downward movement and rotation.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="SlowDown">
+		<summary>
+			Powerup that temporarily slows down the falling speed of the current block.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="SpeedUp">
+		<summary>
+			Powerup that temporarily speeds up the falling speed of the current block.
 		</summary>
 	</ClassMember>
 </ProjectDocs>

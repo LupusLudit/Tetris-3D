@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.PowerUps
 {
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="LimitMovement"]/*'/>
     public class LimitMovement : PowerUp
     {
         public override int Id => 11;
@@ -14,11 +15,17 @@ namespace Assets.Scripts.PowerUps
 
         public LimitMovement(GameExecuter executer) : base(executer) { }
 
+        /// <summary>
+        /// Starts a coroutine that temporarily limits the player's movement controls.
+        /// </summary>
         public override void Use()
         {
             Executer.StartCoroutine(ActivateMovementLimitation());
         }
 
+        /// <summary>
+        /// Limits the player's movement for 10 seconds, then restores full control.
+        /// </summary>
         private IEnumerator ActivateMovementLimitation()
         {
             Executer.Manager.LimitedMovement = true;

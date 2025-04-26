@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.PowerUps
 {
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="Bomb"]/*'/>
     public class Bomb : PowerUp
     {
 
@@ -15,6 +16,10 @@ namespace Assets.Scripts.PowerUps
 
         public override string Description => "Boom! Blocks around you have been destroyed";
 
+
+        /// <summary>
+        /// Represents the positions around the bomb that will be affected by the explosion.
+        /// </summary>
         private Vector3[] blastRadiusPositions;
 
         public Bomb(GameExecuter executer) : base(executer)
@@ -35,6 +40,12 @@ namespace Assets.Scripts.PowerUps
                 new Vector3(1, 1, -1), new Vector3(1, 1, 0), new Vector3(1, 1, 1)
             };
         }
+
+        /// <summary>
+        /// Destroys all tiles located within the defined blast radius.
+        /// Iterates through all current tiles and checks if any tile's position matches a position 
+        /// within the <see cref="blastRadiusPositions"/>.
+        /// </summary>
 
         public override void Use()
         {

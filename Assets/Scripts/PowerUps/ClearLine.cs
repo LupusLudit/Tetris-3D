@@ -3,6 +3,7 @@ using Assets.Scripts.Unity;
 
 namespace Assets.Scripts.PowerUps
 {
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="ClearLine"]/*'/>
     public class ClearLine : PowerUp
     {
 
@@ -17,6 +18,11 @@ namespace Assets.Scripts.PowerUps
         {
             grid = executer.CurrentGame.Grid;
         }
+
+        /// <summary>
+        /// Searches from the top of the grid downward for the first non-empty row,
+        /// and clears all blocks in that row once found.
+        /// </summary>
 
         public override void Use()
         {

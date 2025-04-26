@@ -2,6 +2,7 @@
 
 namespace Assets.Scripts.PowerUps
 {
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="AutoNextBlock"]/*'/>
     public class AutoNextBlock : PowerUp
     {
 
@@ -13,6 +14,9 @@ namespace Assets.Scripts.PowerUps
 
         public AutoNextBlock(GameExecuter executer) : base(executer) { }
 
+        /// <summary>
+        /// Enqueues the action to switch the current block for the next one in game manager.
+        /// </summary>
         public override void Use()
         {
             Executer.EnqueueAction(() =>
