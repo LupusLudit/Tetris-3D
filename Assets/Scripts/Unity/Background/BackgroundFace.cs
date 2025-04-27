@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Unity.Background
 {
-
+    /// <include file='../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="BackgroundFace"]/*'/>
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class BackgroundFace : MonoBehaviour
     {
@@ -20,6 +20,17 @@ namespace Assets.Scripts.Unity.Background
         private int axisA;
         private int axisB;
         private readonly Vector3[] axisVectors = { Vector3.right, Vector3.up, Vector3.forward };
+
+        /// <summary>
+        /// Initializes the background face with dimensions, position, and materials.
+        /// Creates the mesh and draws the grid lines.
+        /// </summary>
+        /// <param name="startingPoint">World space starting corner of the face.</param>
+        /// <param name="x">Length of the face along x-axis.</param>
+        /// <param name="y">Length of the face along y-axis.</param>
+        /// <param name="z">Length of the face along z-axis.</param>
+        /// <param name="faceMaterial">Material used for the face surface.</param>
+        /// <param name="gridMaterial">Material used for grid lines.</param>
         public void Initialize(Vector3 startingPoint, int x, int y, int z, Material faceMaterial, Material gridMaterial)
         {
             this.startingPoint = startingPoint;
@@ -34,6 +45,11 @@ namespace Assets.Scripts.Unity.Background
             CreateFace();
             DrawGrid();
         }
+
+        /// <summary>
+        /// Creates the rectangular face mesh based on the axes and dimensions.
+        /// The mesh consists of two triangles forming a rectangle.
+        /// </summary>
         void CreateFace()
         {
             Vector3 axis1 = axisVectors[axisA];
@@ -61,6 +77,10 @@ namespace Assets.Scripts.Unity.Background
             GetComponent<MeshRenderer>().material = faceMaterial;
         }
 
+        /// <summary>
+        /// Draws grid lines on the face mesh using line segments.
+        /// Creates a child GameObject with MeshFilter and MeshRenderer to display the grid.
+        /// </summary>
         void DrawGrid()
         {
             Vector3 axis1 = axisVectors[axisA];
@@ -110,6 +130,12 @@ namespace Assets.Scripts.Unity.Background
             renderer.receiveShadows = false;
         }
 
+
+        /// <summary>
+        /// Returns the length along the specified axis (0=x, 1=y, 2=z).
+        /// </summary>
+        /// <param name="axis">Axis index.</param>
+        /// <returns>Length of the face along the given axis.</returns>
         private int GetAxisLength(int axis)
         {
             switch(axis)
@@ -125,10 +151,11 @@ namespace Assets.Scripts.Unity.Background
             }
         }
 
-        /*
-         * Note that we always set one of the axis to 0, so we can find the other two
-         * This is a dev tool
-         */
+        /// <summary>
+        /// Determines which two axes the face lies on based on the provided dimensions.
+        /// Assumes one axis is always zero, the other two are non-zero.
+        /// This is used as a development tool to simplify face orientation.
+        /// </summary>
         private void FindAxis()
         {
             if (x != 0 && y != 0)

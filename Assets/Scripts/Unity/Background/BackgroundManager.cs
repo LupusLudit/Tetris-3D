@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Unity.Background
 {
+    /// <summary>
+    /// Represents the four quadrants used to categorize camera rotation angles.
+    /// </summary>
     enum Quadrant
     {
         I,
@@ -12,6 +15,7 @@ namespace Assets.Scripts.Unity.Background
         IV
     }
 
+    /// <include file='../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="BackgroundManager"]/*'/>
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class BackgroundManager : MonoBehaviour
     {
@@ -41,6 +45,11 @@ namespace Assets.Scripts.Unity.Background
             { Quadrant.IV, 0 }
         };
 
+        /// <summary>
+        /// Initializes background faces,
+        /// records initial camera and object positions and rotations,
+        /// and sets the current quadrant based on camera orientation.
+        /// </summary>
         void Start()
         {
             InitializeFaces();
@@ -53,6 +62,10 @@ namespace Assets.Scripts.Unity.Background
             initialRotation = transform.rotation;
         }
 
+        /// <summary>
+        /// Checks if the camera has moved to a different quadrant,
+        /// and if so, rotates the game board accordingly and raises a board rotated event.
+        /// </summary>
         void Update()
         {
             Quadrant quadrant = GetQuadrant(CalculateCameraAngle());
@@ -68,6 +81,10 @@ namespace Assets.Scripts.Unity.Background
 
         }
 
+        /// <summary>
+        /// Resets cameras and the game board to their initial positions and rotations,
+        /// resets the quadrant tracking, and raises a board reset event.
+        /// </summary>
         public void ResetToDefault()
         {
             MainCamera.transform.position = mainCameraInitialPosition;
@@ -84,6 +101,12 @@ namespace Assets.Scripts.Unity.Background
             AdjustKeyEvents.RaiseBoardReset();
         }
 
+        /// <summary>
+        /// Determines the quadrant of a given angle in degrees.
+        /// Quadrants divide the 360° rotation space into four parts.
+        /// </summary>
+        /// <param name="angle">Angle in degrees (0 to 360).</param>
+        /// <returns>The quadrant corresponding to the angle.</returns>
         private Quadrant GetQuadrant(float angle)
         {
             if (angle >= 0 && angle < 90) return Quadrant.I;
@@ -92,6 +115,11 @@ namespace Assets.Scripts.Unity.Background
             else return Quadrant.IV;
         }
 
+        /// <summary>
+        /// Calculates the horizontal angle of the main camera around the center of the game board.
+        /// The angle is measured in degrees.
+        /// </summary>
+        /// <returns>Camera angle in degrees normalized to [0, 360).</returns>
         private float CalculateCameraAngle()
         {
             Vector3 direction = MainCamera.transform.position - new Vector3(XMax / 2f, MainCamera.transform.position.y, ZMax / 2f);
@@ -101,12 +129,20 @@ namespace Assets.Scripts.Unity.Background
             return angle;
         }
 
+        /// <summary>
+        /// Rotates the game board and side camera around the center of the board by a given angle.
+        /// </summary>
+        /// <param name="angle">Rotation angle in degrees.</param>
         private void RotateGameBoard(float angle)
         {
             Vector3 rotationCenter = new Vector3(XMax / 2f, YMax / 2f, ZMax / 2f);
             transform.RotateAround(rotationCenter, Vector3.up, angle);
             SideCamera.transform.RotateAround(rotationCenter, Vector3.up, angle);
         }
+
+        /// <summary>
+        /// Creates the background faces for the game board with specified sizes and materials.
+        /// </summary>
         private void InitializeFaces()
         {
             CreateFace("BottomFace", Vector3.zero, XMax, 0, ZMax, BackgroundMaterial, LineMaterial);
@@ -116,6 +152,16 @@ namespace Assets.Scripts.Unity.Background
             CreateFace("warningFaceB", new Vector3(0, YMax - 2, 0), 0, 2, ZMax, BackgroundMaterial, WarningMaterial);
         }
 
+        /// <summary>
+        /// Helper method to create a background face GameObject and initialize it with given parameters.
+        /// </summary>
+        /// <param name="name">Name of the face GameObject.</param>
+        /// <param name="start">Starting position of the face.</param>
+        /// <param name="x">Length along the x-axis.</param>
+        /// <param name="y">Length along the y-axis.</param>
+        /// <param name="z">Length along the z-axis.</param>
+        /// <param name="background">Material for the face surface.</param>
+        /// <param name="line">Material for the grid lines on the face.</param>
         private void CreateFace(string name, Vector3 start, int x, int y, int z, Material background, Material line)
         {
             BackgroundFace face = new GameObject(name).AddComponent<BackgroundFace>();

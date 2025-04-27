@@ -239,4 +239,52 @@
 			Powerup that temporarily speeds up the falling speed of the current block.
 		</summary>
 	</ClassMember>
+
+	<ClassMember name="MusicController">
+		<summary>
+			Controls background music playback within the game.
+			Manages music tracks, volume, and playback state.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="SoundEffects">
+		<summary>
+			Manages playback of sound effects using an audio source pool to allow overlapping sounds.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="BackgroundFace">
+		<summary>
+			Represents a 2D face of a 3D background grid, drawn as a flat mesh with a grid overlay.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="BackgroundManager">
+		<summary>
+			Manages the background environment for a 3D scene, including faces of the background grid,
+			camera positions, and rotations based on camera orientation.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="TilePoolManager">
+		<summary>
+			Manages pools of reusable tile GameObjects to optimize performance by reducing
+			the overhead of frequent instantiation and destruction.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="TilePoolConfig">
+		<summary>
+			Serializable configuration class that defines
+			a prefab and the initial number of instances to pool.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="PooledTile">
+		<summary>
+			Component attached to pooled tile GameObjects to track
+			which prefab they originated from.
+		</summary>
+	</ClassMember>
+	
 </ProjectDocs>

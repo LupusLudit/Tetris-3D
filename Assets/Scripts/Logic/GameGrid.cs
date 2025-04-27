@@ -10,12 +10,13 @@
         private readonly int[,,] grid;
 
         /*
-         *   y
-         *   |
-         *   |
-         *   |_____z
+         * Basic diagram explaining the axis orientation:
+         *    y
+         *    |
+         *    |
+         *    |_____ z
+         *   /
          *  /
-         * /
          * x
          */
 

@@ -10,6 +10,9 @@ namespace Assets.Scripts.Unity.ObjectPooling
 
         public static TilePoolManager Instance { get; private set; }
 
+        /// <summary>
+        /// Sets up the singleton instance and initializes pools for each configured prefab.
+        /// </summary>
         private void Awake()
         {
             if (Instance == null)
@@ -27,6 +30,12 @@ namespace Assets.Scripts.Unity.ObjectPooling
             }
         }
 
+        /// <summary>
+        /// Retrieves a tile GameObject from the pool corresponding to the given prefab.
+        /// If the pool is empty, a new tile is instantiated and added to the pool before retrieval.
+        /// </summary>
+        /// <param name="prefab">The prefab representing the type of tile to retrieve.</param>
+        /// <returns> Tile GameObject ready for use.</returns>
         public GameObject GetTile(GameObject prefab)
         {
             var pool = pools[prefab];
@@ -41,6 +50,12 @@ namespace Assets.Scripts.Unity.ObjectPooling
             return obj;
         }
 
+        /// <summary>
+        /// Returns a tile GameObject back to its pool (queue) for reuse.
+        /// Deactivates the tile and resets its parent transform to the TilePoolManager.
+        /// The tile does not get destroyed, rather it is set inactive, waiting for the request to be reused again.
+        /// </summary>
+        /// <param name="tile">The tile GameObject to return to the pool.</param>
         public void ReturnTile(GameObject tile)
         {
             tile.isStatic = false;
@@ -51,6 +66,12 @@ namespace Assets.Scripts.Unity.ObjectPooling
             pools[pooledTile.prefabReference].Enqueue(tile);
         }
 
+        /// <summary>
+        /// Instantiates a new tile GameObject from the prefab,
+        /// deactivates it, and adds it to the specified pool (queue).
+        /// </summary>
+        /// <param name="prefab">The prefab to instantiate.</param>
+        /// <param name="pool">The pool queue to add the new tile to.</param>
         private void AddTileToPool(GameObject prefab, Queue<GameObject> pool)
         {
             GameObject tile = Instantiate(prefab);
