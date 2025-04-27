@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace Assets.Scripts.Unity.Settings.KeyBinding
 {
+    /// <include file='../../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="MenuKeyBinding"]/*'/>
     public class MenuKeyBinding : KeyBinding
     {
         protected override void Start()

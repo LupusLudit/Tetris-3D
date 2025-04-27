@@ -1,4 +1,3 @@
-using Assets.Scripts.Logic;
 using Assets.Scripts.Logic.Managers;
 using System.Collections;
 using UnityEngine;
@@ -6,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Unity.Settings.Options
 {
+    /// <include file='../../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="MenuOptions"]/*'/>
     public class MenuOptions : Options
     {
         protected override void Start()

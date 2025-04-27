@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Unity.ObjectPooling
 {
+    /// <include file='../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="TilePoolManager"]/*'/>
     public class TilePoolManager : MonoBehaviour
     {
         public TilePoolConfig[] tileConfigs;
@@ -85,6 +86,7 @@ namespace Assets.Scripts.Unity.ObjectPooling
 
     }
 
+    /// <include file='../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="TilePoolConfig"]/*'/>
     [System.Serializable]
     public class TilePoolConfig
     {
@@ -92,6 +94,7 @@ namespace Assets.Scripts.Unity.ObjectPooling
         public int poolSize = 100;
     }
 
+    /// <include file='../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="PooledTile"]/*'/>
     public class PooledTile : MonoBehaviour
     {
         public GameObject prefabReference;

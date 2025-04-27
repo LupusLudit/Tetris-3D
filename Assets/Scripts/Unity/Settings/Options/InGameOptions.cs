@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Unity.Settings.Options
 {
+    /// <include file='../../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="InGameOptions"]/*'/>
     public class InGameOptions : Options
     {
 
@@ -47,6 +48,9 @@ namespace Assets.Scripts.Unity.Settings.Options
             SetOptionsInteractable(true);
         }
 
+        /// <summary>
+        /// Updates the actual game elements based on the current option values.
+        /// </summary>
         public void AssignValues()
         {
             //Music
@@ -80,6 +84,11 @@ namespace Assets.Scripts.Unity.Settings.Options
             RenderSettings.ambientIntensity = Executer.OptionsManager.Options.Brightness;
         }
 
+        /// <summary>
+        /// Called when user attempts to exit the keybinding menu.
+        /// If keys have changed, shows a confirmation dialog.
+        /// Otherwise, immediately exits.
+        /// </summary>
         public void AskExit()
         {
             if (OptionsHaveChanged())
@@ -90,6 +99,9 @@ namespace Assets.Scripts.Unity.Settings.Options
             else Exit();
         }
 
+        /// <summary>
+        /// Exits the options menu.
+        /// </summary>
         public void Exit()
         {
             ExitConformation.SetActive(false);

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Unity.Settings.KeyBinding
 {
+    /// <include file='../../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="InGameKeyBinding"]/*'/>
     public class InGameKeyBinding : KeyBinding
     {
         public GameExecuter Executer;
@@ -13,6 +14,9 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
         public GameMenu MenuScript;
         public TextMeshProUGUI[] HintLabels;
 
+        /// <summary>
+        /// Initializes references and sets key settings.
+        /// </summary>
         protected override void Start()
         {
             Manager = Executer.KeyManager;
@@ -30,6 +34,11 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
                    button.transform.IsChildOf(ExitConformation.transform);
         }
 
+        /// <summary>
+        /// Called when user attempts to exit the keybinding menu.
+        /// If keys have changed, shows a confirmation dialog.
+        /// Otherwise, immediately exits.
+        /// </summary>
         public void AskExit()
         {
             if (KeybindsHaveChanged())
@@ -39,6 +48,10 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             }
             else Exit();
         }
+
+        /// <summary>
+        /// Exits the keybinding menu.
+        /// </summary>
         public void Exit()
         {
             ExitConformation.SetActive(false);
@@ -64,7 +77,10 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             SetOptionsInteractable(true);
         }
 
-
+        /// <summary>
+        /// Updates all the hint labels to display the currently assigned keys.
+        /// </summary>
+        /// <param name="keys">Array of current key bindings.</param>
         public void UpdateHintLabels(KeyCode[] keys)
         {
             for (int i = 0; i < keys.Length - 1; i++)
@@ -73,6 +89,12 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             }
         }
 
+        /// <summary>
+        /// Updates a single hint label text and also handles special grouping cases
+        /// for some key indices to combine multiple keys in one label.
+        /// </summary>
+        /// <param name="index">Index of the key to update.</param>
+        /// <param name="text">Text representation of the key.</param>
         private void ChangeHintLabel(int index, string text)
         {
             // Handling special cases
@@ -82,6 +104,15 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             else HintLabels[index - 4].text = text;
         }
 
+        /// <summary>
+        /// Helper to update a comma-separated sequence of keys in a hint label.
+        /// Replaces the key at the specified position within the comma-separated string.
+        /// </summary>
+        /// <param name="seqStartIndex">Starting index of the key sequence.</param>
+        /// <param name="actualIndex">Actual key index to update.</param>
+        /// <param name="hintsIndex">Index of the hint label to update.</param>
+        /// <param name="key">Text of the new key.</param>
+        /// <returns>Updated string with the key replaced in sequence.</returns>
         private string SequenceHint(int seqStartIndex, int actualIndex, int hintsIndex, string key)
         {
             string temp = HintLabels[hintsIndex].text;
@@ -91,16 +122,17 @@ namespace Assets.Scripts.Unity.Settings.KeyBinding
             return string.Join(", ", keyArr);
         }
 
-        private bool IsWithin(int num, int min, int max)
-        {
-            return num >= min && num <= max;
-        }
+        /// <summary>
+        /// Checks if a number is within a range [min, max].
+        /// </summary>
+        private bool IsWithin(int num, int min, int max) =>
+            num >= min && num <= max;
 
         protected override IEnumerator Deactivate()
-        {
-            KeyBindingAnimator.SetTrigger("SlideLeft");
-            yield return new WaitForSeconds(1f);
-            KeyBindingUI.SetActive(false);
-        }
+            {
+                KeyBindingAnimator.SetTrigger("SlideLeft");
+                yield return new WaitForSeconds(1f);
+                KeyBindingUI.SetActive(false);
+            }
     }
 }
