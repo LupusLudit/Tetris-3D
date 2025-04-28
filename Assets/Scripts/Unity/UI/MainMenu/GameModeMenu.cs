@@ -10,6 +10,7 @@ using Assets.Scripts.Logic.Managers;
 
 namespace Assets.Scripts.Unity.UI.MainMenu
 {
+    /// <include file='../../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="GameModeMenu"]/*'/>
     public class GameModeMenu : MonoBehaviour
     {
         public GameObject MainMenuUI;
@@ -33,10 +34,18 @@ namespace Assets.Scripts.Unity.UI.MainMenu
             }
         }
 
+        /// <summary>
+        /// Starts the game by loading the scene associated with the selected index.
+        /// </summary>
+        /// <param name="index">Index of the scene to load.</param>
         public void StartGame(int index)
         {
             SceneManager.LoadScene(index);
         }
+
+        /// <summary>
+        /// Returns to the main menu UI, playing a slide animation before switching.
+        /// </summary>
         public void GoBack()
         {
             if (!MainMenuUI.activeSelf)
@@ -47,6 +56,9 @@ namespace Assets.Scripts.Unity.UI.MainMenu
             }
         }
 
+        /// <summary>
+        /// Loads hint texts for each game mode button from a JSON file.
+        /// </summary>
         private void LoadHints()
         {
             string filePath = Path.Combine(Application.persistentDataPath, "gameMode_hints.json");
@@ -60,6 +72,9 @@ namespace Assets.Scripts.Unity.UI.MainMenu
             buttonHints = new List<string>(data.Hints);
         }
 
+        /// <summary>
+        /// Plays a slide-right animation and then deactivates the GameModeMenu UI.
+        /// </summary>
         private IEnumerator SlideRightAndDeactivate()
         {
             animator.SetTrigger("SlideRight");
@@ -67,6 +82,10 @@ namespace Assets.Scripts.Unity.UI.MainMenu
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// Adds hover event triggers to a button at the specified index.
+        /// </summary>
+        /// <param name="index">Button index to set up events for.</param>
         private void CheckForButtonHover(int index)
         {
             EventTrigger trigger = Buttons[index].gameObject.AddComponent<EventTrigger>();
@@ -84,6 +103,10 @@ namespace Assets.Scripts.Unity.UI.MainMenu
             trigger.triggers.Add(entryExit);
         }
 
+        /// <summary>
+        /// Called when the pointer enters a button, updating the hint text.
+        /// </summary>
+        /// <param name="index">Index of the button being hovered over.</param>
         private void OnButtonHover(int index)
         {
             hoveredIndex = index;
@@ -94,6 +117,9 @@ namespace Assets.Scripts.Unity.UI.MainMenu
             }
         }
 
+        /// <summary>
+        /// Called when the pointer exits a button, clearing the hint text.
+        /// </summary>
         private void OnButtonExit()
         {
             hoveredIndex = -1;

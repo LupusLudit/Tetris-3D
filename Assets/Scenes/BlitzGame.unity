@@ -18686,7 +18686,7 @@ MonoBehaviour:
   Timer: {fileID: 1098730035}
   TimePlus: {fileID: 2025767771}
   Warning: {fileID: 1399718197}
-  countdownTime: 180
+  CountdownTime: 180
 --- !u!1 &1230178394
 GameObject:
   m_ObjectHideFlags: 0

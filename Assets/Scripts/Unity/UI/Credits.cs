@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace Assets.Scripts.Unity.UI
 {
+    /// <include file='../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="Credits"]/*'/>
+
     public class Credits : MonoBehaviour
     {
         public RectTransform CreditsText;
@@ -15,6 +17,10 @@ namespace Assets.Scripts.Unity.UI
             textHeight = CreditsText.rect.height;
         }
 
+        /// <summary>
+        /// Updates the position of the credits text to scroll upwards.
+        /// Resets the position once the text has fully passed through the view.
+        /// </summary>
         void Update()
         {
             CreditsText.anchoredPosition += Vector2.up * ScrollSpeed * Time.deltaTime;
@@ -25,11 +31,12 @@ namespace Assets.Scripts.Unity.UI
             }
         }
 
+        /// <summary>
+        /// Loads the Main Menu scene when called.
+        /// </summary>
         public void GoBackToMainMenu()
         {
             SceneManager.LoadScene("MainMenu");
         }
-
-        //music (proper documentation will be added later): https://www.youtube.com/watch?v=0Utp5ogtMxE
     }
 }

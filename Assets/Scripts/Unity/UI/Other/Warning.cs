@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Unity.UI.Other
 {
+    /// <include file='../../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="Warning"]/*'/>
     public class Warning : MonoBehaviour
     {
         public GameObject WarningPanel;
@@ -30,6 +31,9 @@ namespace Assets.Scripts.Unity.UI.Other
             warningImage = WarningPanel.GetComponentInChildren<Image>();
         }
 
+        /// <summary>
+        /// Updates the warning panel based on game activity and specific game conditions.
+        /// </summary>
         void Update()
         {
             if (Executer.IsGameActive())
@@ -47,6 +51,11 @@ namespace Assets.Scripts.Unity.UI.Other
             }
             else WarningPanel.SetActive(false);
         }
+
+        /// <summary>
+        /// Coroutine that briefly shows the warning panel with full opacity and then hides it after a short delay.
+        /// </summary>
+        /// <returns>IEnumerator for coroutine handling.</returns>
         public IEnumerator ShowOnce()
         {
             WarningPanel.SetActive(true);
@@ -57,18 +66,28 @@ namespace Assets.Scripts.Unity.UI.Other
             WarningPanel.SetActive(false);
         }
 
-
+        /// <summary>
+        /// Checks if blocks are reaching near the top of the game grid.
+        /// </summary>
+        /// <returns><c>true</c> if the top layers are occupied and blocks have been placed. Otherwise, <c>false</c>.</returns>
         private bool BlocksNearTop()
         {
             return !Executer.CurrentGame.Grid.IsLayerEmpty(Executer.YMax - 3)
                 && Executer.BlocksPlaced > 0 && canDraw;
         }
 
+        /// <summary>
+        /// Checks if the universal variable falls below the defined universal constant.
+        /// </summary>
+        /// <returns><c>true</c> if a warning should be triggered based on resource shortage. Otherwise, <c>false</c>.</returns>
         private bool NotEnough()
         {
             return UniversalVariable < UniversalConstant;
         }
 
+        /// <summary>
+        /// Makes the warning image blink by adjusting its transparency over time.
+        /// </summary>
         private void Blink()
         {
             if (warningImage != null)

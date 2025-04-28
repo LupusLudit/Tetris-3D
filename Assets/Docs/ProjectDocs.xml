@@ -336,4 +336,111 @@
 		</summary>
 	</ClassMember>
 
+	<ClassMember name="DynamicMessage">
+		<summary>
+			Handles updating a dynamic text message in the UI at runtime.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="LevelUp">
+		<summary>
+			Represents the UI element that displays after level up.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="LinesCompleted">
+		<summary>
+			Represents the UI element that displays after the player completes a line.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="PopUpMessage">
+		<summary>
+			Represents a popup message UI element that displayed when an unspecified event occurs.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="PowerUpMessage">
+		<summary>
+			Represents a power-up message that is displayed when a power-up is activated.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="GameModeMenu">
+		<summary>
+			Controls the Game Mode selection menu inside the main menu.
+			It handles UI transitions, hint display, and scene loading based on the selected mode.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="MainMenu">
+		<summary>
+			Handles the main menu interactions such as navigating to the game mode selection,
+			settings menu, credits scene, and quitting the application.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="ButtonColorSync">
+		<summary>
+			Synchronizes the color of button text elements with the button's interaction states
+			(normal, highlighted, pressed, disabled) based on pointer events.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="StartingCountdown">
+		<summary>
+			Handles the starting countdown animation and audio before gameplay begins.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="Warning">
+		<summary>
+			Controls the display and behavior of the warning panel during gameplay.
+			Shows blinking warnings based on universal conditions or game grid status.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="Credits">
+		<summary>
+			Class handling the credits screen behavior.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="GameMenu">
+		<summary>
+			Represents the in-game pause menu UI, providing options to resume, open settings, or exit to the main menu.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="GameOver">
+		<summary>
+			Manages the Game Over UI, handling transitions after a game ends and asking the player
+			if they want to play again or return to the main menu.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="ImageDrawer">
+		<summary>
+			Handles updating the UI images that display the currently held block and the next upcoming block.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="SplashLoader">
+		<summary>
+			Displays a splash screen for a set amount of time before loading the main menu scene.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="UIBase">
+		<summary>
+			Abstract base class for UI components, providing basic show and hide functionality.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="UIManager">
+		<summary>
+			Manages and updates various UI elements during gameplay,
+			such as score display, level-up messages, game over screen, and pause menu.
+		</summary>
+	</ClassMember>
 </ProjectDocs>

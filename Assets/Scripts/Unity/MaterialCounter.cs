@@ -50,8 +50,8 @@ namespace Assets.Scripts.Unity
 
         private void UpdateMessage(int blocks)
         {
-            if (blocks >= 0) BlocksPlus.DisplayUpdatedMessage($"+ {blocks} extra blocks");
-            else BlocksPlus.DisplayUpdatedMessage($"{blocks} blocks");
+            if (blocks >= 0) BlocksPlus.DisplayUpdatedText($"+ {blocks} extra blocks");
+            else BlocksPlus.DisplayUpdatedText($"{blocks} blocks");
 
             BlockMessage.UpdateMessage($"Blocks remaining: {BlocksRemaining}");
         }

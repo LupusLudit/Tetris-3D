@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Unity.UI.Other
 {
+    /// <include file='../../../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="StartingCountdown"]/*'/>
     public class StartingCountdown : MonoBehaviour
     {
         public MusicController Music;
@@ -19,6 +20,11 @@ namespace Assets.Scripts.Unity.UI.Other
             StartingText.text = "GET READY!";
         }
 
+        /// <summary>
+        /// Coroutine that runs the countdown sequence, updates the UI and triggers sound effects.
+        /// </summary>
+        /// <param name="effects">A function returning a SoundEffects instance used to play countdown sounds.</param>
+        /// <returns>An IEnumerator to be used with StartCoroutine.</returns>
         public IEnumerator StartCounting(Func<SoundEffects> effects)
         {
             yield return new WaitForSeconds(1f); //Giving the game some time to load everything
