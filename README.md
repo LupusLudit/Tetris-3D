@@ -15,7 +15,7 @@ Other game elements used (like the 3D tile models, images, etc.) can be found in
 
 ## Software
 This project now includes a ready-to-play executables. To play the game, simply visit the [latest release](https://github.com/LupusLudit/Tetris-3D/releases/tag/v1.1.0)
-and download the and download the provided files.
+and download the provided files.
 However, if you still wish to inspect or modify the code, you may use the following software:
 
 - **The Unity Game Engine**: [https://unity.com](https://unity.com/download)
