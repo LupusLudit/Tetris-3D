@@ -14,9 +14,9 @@ I linked some software which can be used to inspect the code and run the game wh
 - **Visual Studio** (you can use any other text editor for inspecting the code): [https://visualstudio.microsoft.com](https://visualstudio.microsoft.com/)
 
 ## Notes
-🦺Beware of the fact that this project is still in development and it is not yet finished.🦺
+This project has reached its initial release version.
 
-It also is important to emphasize that this whole game is beeing used as a school project.
+It is important to note that this game was developed as part of a school project.
 
-The reason, the first commit contains so many elements is because
-until the day of first commit (29.09.2024), I didn´t make any significant changes to the project and I stored it only localy.
+The reason the first commit contained so many elements is because
+until the day of the first commit (29.09.2024), I had not made significant changes to the project and stored it only locally.
