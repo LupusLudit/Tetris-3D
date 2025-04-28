@@ -12,6 +12,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Unity
 {
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="GameExecuter"]/*'/>
     public class GameExecuter : MonoBehaviour
     {
 
@@ -74,6 +75,9 @@ namespace Assets.Scripts.Unity
             KeyManager?.Dispose();
         }
 
+        /// <summary>
+        /// Main game loop: handles gameplay flow, checks inputs, updates block falls, and processes queued actions.
+        /// </summary>
         void Update()
         {
             BlocksPlaced = 0;
@@ -103,6 +107,9 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Executes a single game step: block falling and state updating.
+        /// </summary>
         private void ExecuteGameStep()
         {
             if (!Manager.Freezed) CurrentGame.MoveBlockDown();
@@ -114,6 +121,9 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Restarts the cycle after a block has been placed: clears layers, generates next block.
+        /// </summary>
         private void RestartGameCycle()
         {
             BlocksPlaced++;
@@ -130,24 +140,33 @@ namespace Assets.Scripts.Unity
             CurrentGame.BlockPlaced = false;
         }
 
+        /// <summary>
+        /// Calculates the optimal look point for the camera based on board dimensions.
+        /// </summary>
         private Vector3 CalcLookPoint(Vector3 boardDim, Camera camera)
         {
             double cameraY = camera.transform.position.y;
             double angleDown = camera.transform.rotation.eulerAngles.x * (Math.PI / 180);
-            //distance from point 0,0,0
+            // Distance from point 0,0,0
             double x = camera.transform.position.x;
             double z = camera.transform.position.z;
             double distance = Math.Sqrt(x * x + z * z) - Math.Sqrt(boardDim.x / 2 * boardDim.x / 2 + boardDim.z / 2 * boardDim.z / 2);
-            //calculating y distance from look point to the camera
+            // Calculating y distance from look point to the camera
             double yDelta = Math.Tan(angleDown) * distance;
             double actualY = cameraY - yDelta;
 
             return new Vector3(boardDim.x / 2, (float)actualY, boardDim.z / 2);
         }
 
+        /// <summary>
+        /// Checks whether the game is currently active (not paused, not game over).
+        /// </summary>
         public bool IsGameActive() =>
             !CurrentGame.GameOver && !Countdown.CountdownText.gameObject.activeSelf && !UI.GameMenu.IsPaused;
 
+        /// <summary>
+        /// Instantly drops the current block and starts a new cycle.
+        /// </summary>
         public void DropAndRestart()
         {
             CurrentGame.DropBlock();
@@ -155,12 +174,18 @@ namespace Assets.Scripts.Unity
             RestartGameCycle();
         }
 
+        /// <summary>
+        /// Updates the fall delay dynamically based on score and delay multiplier.
+        /// </summary>
         private void UpdateFallDelay()
         {
             delay.AdjustDelay(Score.CurrentScore, DelayMultiplier);
             timeSinceLastFall += Time.deltaTime;
         }
 
+        /// <summary>
+        /// Queues an action to be executed later during the update loop.
+        /// </summary>
         public void EnqueueAction(Action action)
         {
             if (action != null)
@@ -169,6 +194,9 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Executes all queued actions.
+        /// </summary>
         private void ExecuteQueuedActions()
         {
             while (actionQueue.Count > 0)
@@ -177,6 +205,9 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Instantly adjusts the fall delay to a minimum value and updates the score.
+        /// </summary>
         public void AdjustDelay()
         {
             delay.CurrentDelay = 75;
@@ -184,6 +215,9 @@ namespace Assets.Scripts.Unity
             UI.DrawScoreUI(Score.CurrentScore);
         }
 
+        /// <summary>
+        /// Handles logic for holding a block and swapping it with the current one.
+        /// </summary>
         public void HoldAndDrawBlocks()
         {
             if (!CurrentGame.CanHold)

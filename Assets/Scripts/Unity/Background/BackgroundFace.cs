@@ -16,7 +16,7 @@ namespace Assets.Scripts.Unity.Background
         private Material faceMaterial;
         private MeshFilter meshFilter;
 
-        //These axis determine which where to draw the 2D face (each face has always one coordinate set to 0)
+        // These axis determine which where to draw the 2D face (each face has always one coordinate set to 0)
         private int axisA;
         private int axisB;
         private readonly Vector3[] axisVectors = { Vector3.right, Vector3.up, Vector3.forward };
@@ -59,8 +59,8 @@ namespace Assets.Scripts.Unity.Background
 
             Vector3[] vertices = new Vector3[4];
             int[] triangles = {
-                0, 1, 2, // first triangle (bottom-left -> bottom-right -> top-right)
-                0, 2, 3  // second triangle (bottom-left -> top-right -> top-left)
+                0, 1, 2, // First triangle (bottom-left -> bottom-right -> top-right)
+                0, 2, 3  // Second triangle (bottom-left -> top-right -> top-left)
             };
 
             vertices[0] = startingPoint; // bottom-left

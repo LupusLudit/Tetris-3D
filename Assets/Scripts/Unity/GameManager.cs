@@ -10,6 +10,7 @@ using Assets.Scripts.Unity.ObjectPooling;
 
 namespace Assets.Scripts.Unity
 {
+    /// <include file='../../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="GameManager"]/*'/>
     public class GameManager : MonoBehaviour
     {
 
@@ -50,6 +51,10 @@ namespace Assets.Scripts.Unity
             lookPoint = gameExecuter.LookPoint;
         }
 
+        /// <summary>
+        /// Creates the visual and logical representation of the current falling block.
+        /// </summary>
+        /// <param name="block">The block to create.</param>
         public void CreateNewBlock(Block block)
         {
             foreach (Vector3 tilePosition in block.TilePositions())
@@ -59,6 +64,10 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Creates the visual prediction of where the current block will land.
+        /// </summary>
+        /// <param name="block">The block to predict landing position for.</param>
         public void CreateBlockPrediction(Block block)
         {
             int maxDrop = game.MaxPossibleDrop();
@@ -70,6 +79,10 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Updates the positions of the current falling block's tiles based on game logic.
+        /// </summary>
+        /// <param name="block">The block whose tiles to update.</param>
         public void UpdateBlock(Block block)
         {
             foreach (var (tile, position) in currentBlockTiles.Zip(block.TilePositions(), (tile, position) => (tile, position)))
@@ -78,6 +91,10 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Updates the prediction tiles for the current block.
+        /// </summary>
+        /// <param name="block">The block whose prediction to update.</param>
         public void UpdatePrediction(Block block)
         {
             int drop = game.MaxPossibleDrop();
@@ -89,6 +106,9 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Places the current block into the placed blocks set and triggers block placement events.
+        /// </summary>
         public void PlaceCurrentBlock()
         {
             List<Vector3> placedPositions = new List<Vector3>();
@@ -106,7 +126,9 @@ namespace Assets.Scripts.Unity
             ClearCurrentBlocks();
         }
 
-
+        /// <summary>
+        /// Holds the current block, swapping it with the held block if there is any.
+        /// </summary>
         public void HoldCurrentBlock()
         {
             ClearCurrentBlocks();
@@ -116,6 +138,15 @@ namespace Assets.Scripts.Unity
             CreateBlockPrediction(game.CurrentBlock);
             CreateNewBlock(game.CurrentBlock);
         }
+
+        /// <summary>
+        /// Instantiates a tile for the given block at the specified position.
+        /// Contains a boolean that enables prediction mode (optional).
+        /// </summary>
+        /// <param name="block">The block to create a tile for.</param>
+        /// <param name="position">The position to place the tile at.</param>
+        /// <param name="isPrediction">Whether the tile is for prediction purposes.</param>
+        /// <returns>The created tile GameObject.</returns>
         private GameObject InstantiateTile(Block block, Vector3 position, bool isPrediction = false)
         {
             GameObject tile;
@@ -127,6 +158,10 @@ namespace Assets.Scripts.Unity
             return tile;
         }
 
+        /// <summary>
+        /// Clears a list of tile GameObjects, returning them to the object pool.
+        /// </summary>
+        /// <param name="list">The list of tiles to clear.</param>
         private void ClearList(List<GameObject> list)
         {
             foreach (var tile in list)
@@ -136,12 +171,18 @@ namespace Assets.Scripts.Unity
             list.Clear();
         }
 
+        /// <summary>
+        /// Clears both current block and prediction tiles from the scene.
+        /// </summary>
         public void ClearCurrentBlocks()
         {
             ClearList(predictedBlockTiles);
             ClearList(currentBlockTiles);
         }
 
+        /// <summary>
+        /// Clears any full layers from the grid and updates the score accordingly.
+        /// </summary>
         public void ClearFullLayers()
         {
             ClearedLayers = 0;
@@ -167,6 +208,9 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Checks and handles player level-up based on lines cleared and score thresholds.
+        /// </summary>
         public void CheckLevelUp()
         {
             bool leveledUp = false;
@@ -194,8 +238,12 @@ namespace Assets.Scripts.Unity
             }
         }
 
-
-        //We cant remove elements from a collection while iterating over it, so we first load tiles into the tilesToRemove List.
+        /// <summary>
+        /// Clears all blocks in the specified row (y-coordinate).
+        /// SInce  we can not remove elements from a collection while iterating over it,
+        /// we first load tiles into the tilesToRemove List and then remove them from the PlacedBlocks HashSet.
+        /// </summary>
+        /// <param name="y">The row index to clear.</param>
         public void ClearBlocksInRow(int y)
         {
             game.Grid.ClearLayer(y);
@@ -216,6 +264,11 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Clears all blocks in the specified column (x and z coordinates).
+        /// </summary>
+        /// <param name="x">The x-coordinate of the column.</param>
+        /// <param name="z">The z-coordinate of the column.</param>
         public void ClearBlocksInColumn(int x, int z)
         {
             game.Grid.ClearColumn(x, z);
@@ -236,6 +289,11 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Moves all blocks above the specified row down by the specified number of layers.
+        /// </summary>
+        /// <param name="y">The row index to start moving from.</param>
+        /// <param name="drop">The number of rows to move blocks down.</param>
         public void MoveBlocksDown(int y, int drop)
         {
             game.Grid.MoveLayerDown(y, drop);
@@ -250,6 +308,9 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Skips placing the current block and immediately moves to the next block.
+        /// </summary>
         public void NextWithoutPlacing()
         {
             ClearCurrentBlocks();
@@ -259,6 +320,10 @@ namespace Assets.Scripts.Unity
             imageDrawer.DrawNextBlock(game.Holder);
         }
 
+        /// <summary>
+        /// Rotates the camera smoothly around the center of the game board.
+        /// </summary>
+        /// <param name="anglePerSecond">The rotation speed in degrees per second.</param>
         public void RotateCamera(float anglePerSecond)
         {
             float angleThisFrame = anglePerSecond * Time.deltaTime;

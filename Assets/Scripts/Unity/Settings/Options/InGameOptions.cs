@@ -53,34 +53,34 @@ namespace Assets.Scripts.Unity.Settings.Options
         /// </summary>
         public void AssignValues()
         {
-            //Music
+            // Music
             MusicController.ToggleMusic(Executer.OptionsManager.Options.MusicOn);
             MusicController.SetVolume(Executer.OptionsManager.Options.MusicVolume);
             MusicController.SwitchTrack(Executer.OptionsManager.Options.MusicTrack, Executer.OptionsManager.Options.MusicOn);
 
-            //Sound Effects
+            // Sound Effects
             SoundEffects.SetVolume(Executer.OptionsManager.Options.SoundEffectsVolume);
 
-            //UI
+            // UI
             foreach (var item in UIs)
             {
                 item.SetActive(Executer.OptionsManager.Options.UiOn);
             }
 
-            //Hint
+            // Hint
             Hint.SetActive(Executer.OptionsManager.Options.HintOn);
 
-            //Cameras
+            // Cameras
             foreach (var cam in SideCameras)
             {
                 cam.enabled = Executer.OptionsManager.Options.CamerasOn;
             }
 
-            //Shadows
+            // Shadows
             float shadowStrength = Executer.OptionsManager.Options.ShadowsOn ? 1f : 0f;
             GameLight.shadowStrength = shadowStrength;
 
-            //Brightness
+            // Brightness
             RenderSettings.ambientIntensity = Executer.OptionsManager.Options.Brightness;
         }
 

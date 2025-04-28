@@ -443,4 +443,47 @@
 			such as score display, level-up messages, game over screen, and pause menu.
 		</summary>
 	</ClassMember>
+
+	<ClassMember name="BlitzTimer">
+		<summary>
+			Handles the countdown timer logic for a Blitz-style game mode,
+			where players must survive or score as much as possible before time runs out.
+			Also manages adding extra time based on in-game actions and updating warning indicators.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="GameExecuter">
+		<summary>
+			The central controller for executing the game's runtime logic,
+			including block movement, player input handling, scoring, UI updates,
+			and background/game settings management.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="GameManager">
+		<summary>
+			Manages the lifecycle and logic of the game blocks and related logic.
+			It handles block spawning, movement, layer clearing, scoring, level progression, and camera rotation.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="MaterialCounter">
+		<summary>
+			Controls the number of blocks and related logic for the Material game mode,
+			Handles adding and subtracting blocks based on player actions, updates UI messages, and triggers game over when blocks run out.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="PowerUpManager">
+		<summary>
+			Manages spawning, tracking, and usage of PowerUps when in Powerup gamemode.
+			Spawns PowerUps periodically and handles their activation when player's blocks overlap them.
+		</summary>
+	</ClassMember>
+	
+	<ClassMember name="PowerUpComponent">
+		<summary>
+			Component that links a GameObject to its PowerUp data instance.
+		</summary>
+	</ClassMember>
 </ProjectDocs>

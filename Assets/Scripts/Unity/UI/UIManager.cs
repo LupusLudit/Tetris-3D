@@ -39,7 +39,7 @@ namespace Assets.Scripts.Unity.UI
         }
 
         /// <summary>
-        /// Displays the game over screen and stops gameplay.
+        /// Displays the game over screen.
         /// </summary>
         public void DrawGameOverScreen()
         {
