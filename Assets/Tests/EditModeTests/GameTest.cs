@@ -3,18 +3,18 @@ using Assets.Scripts.Logic;
 using NUnit.Framework;
 using UnityEngine;
 
-public class GameTests
+public class GameTest
 {
     [Test]
-    public void GameTest()
+    public void GameConstructorTest()
     {
         // Test cases for different game configurations
         List<Game> testGames = new List<Game>
-            {
-                new Game(10, 22, 10),
-                new Game(6, 14, 6),
-                new Game(5, 20, 15)
-            };
+        {
+            new Game(10, 22, 10),
+            new Game(6, 14, 6),
+            new Game(5, 20, 15)
+        };
 
         foreach (var game in testGames)
         {
@@ -51,14 +51,22 @@ public class GameTests
         Assert.IsFalse(game.CheckGameOver());
 
         for (int x = 0; x < 10; x++)
+        {
             for (int z = 0; z < 10; z++)
+            {
                 game.Grid[x, 21, z] = 1;
+            }
+        }
 
         Assert.IsTrue(game.CheckGameOver());
 
         for (int x = 0; x < 10; x++)
+        {
             for (int z = 0; z < 10; z++)
+            {
                 game.Grid[x, 20, z] = 1;
+            }
+        }
 
         Assert.IsTrue(game.CheckGameOver());
     }
@@ -79,7 +87,6 @@ public class GameTests
             Assert.AreEqual(originalPositions[i].y - 1, newPositions[i].y);
         }
 
-        // Move block down until it places
         for (int i = 0; i < 50 && !game.BlockPlaced; i++)
         {
             game.MoveBlockDown();
@@ -97,8 +104,7 @@ public class GameTests
         int bottomTile = int.MaxValue;
         foreach (var tile in game.CurrentBlock.TilePositions())
         {
-            if(tile.y < bottomTile)
-                bottomTile = (int)tile.y;
+            if (tile.y < bottomTile) bottomTile = (int)tile.y;
         }
 
         /*
