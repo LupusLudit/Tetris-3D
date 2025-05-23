@@ -16,7 +16,6 @@ namespace Assets.Scripts.Logic
             this.executer = executer;
             powerUps = new PowerUp[]
             { 
-                new Bomb(executer),
                 new ClearColumn(executer),
                 new ClearLine(executer),
                 new SlowDown(executer),
