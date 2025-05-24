@@ -3,10 +3,14 @@ using Assets.Scripts.Logic;
 using NUnit.Framework;
 using UnityEngine;
 
+/// <include file='../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="BlockHolderTest"]/*'/>
 public class BlockHolderTest
 {
     private Vector3 multiplier = new Vector3(1, 1, 1);
 
+    /// <summary>
+    /// Tests that the BlockHolder constructor initializes correctly.
+    /// </summary>
     [Test]
     public void BlockHolderConstructorTest()
     {
@@ -18,6 +22,10 @@ public class BlockHolderTest
         }
     }
 
+    /// <summary>
+    /// Tests that GetNewCurrent() returns a new current block and updates the NextBlock.
+    /// It makes sure that the newly set NextBlock is different from the previous one.
+    /// </summary>
     [Test]
     public void GetNewCurrentTest()
     {

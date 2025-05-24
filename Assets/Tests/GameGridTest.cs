@@ -2,10 +2,16 @@ using Assets.Scripts.Logic;
 using NUnit.Framework;
 using System.Collections.Generic;
 
+/// <include file='../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="GameGridTest"]/*'/>
 public class GameGridTest
 {
     private System.Random random = new System.Random();
 
+    /// <summary>
+    /// Generates a list of GameGrid instances with random dimensions for testing.
+    /// </summary>
+    /// <param name="numOfGrids">Number of grids to generate.</param>
+    /// <returns>A list of randomly sized GameGrid instances.</returns>
     private List<GameGrid> GenerateRandomGrids(int numOfGrids)
     {
         List<GameGrid> grids = new List<GameGrid>();
@@ -16,6 +22,9 @@ public class GameGridTest
         return grids;
     }
 
+    /// <summary>
+    /// Tests whether the IsInBounds method correctly identifies in-bound and out-of-bound coordinates.
+    /// </summary>
     [Test]
     public void IsInBoundsTest()
     {
@@ -30,6 +39,9 @@ public class GameGridTest
         }
     }
 
+    /// <summary>
+    /// Tests whether the IsEmpty method correctly identifies if a cell is unoccupied or out of bounds.
+    /// </summary>
     [Test]
     public void IsEmptyTest()
     {
@@ -50,6 +62,9 @@ public class GameGridTest
         }
     }
 
+    /// <summary>
+    /// Tests whether IsLayerFull correctly identifies fully occupied layers and layers with cleared cells.
+    /// </summary>
     [Test]
     public void IsLayerFullTest()
     {
@@ -77,6 +92,9 @@ public class GameGridTest
         }
     }
 
+    /// <summary>
+    /// Tests whether IsLayerEmpty correctly identifies completely empty and non-empty layers.
+    /// </summary>
     [Test]
     public void IsLayerEmptyTest()
     {
@@ -114,6 +132,9 @@ public class GameGridTest
      * Therefore IsLayerEmptyTest and IsLayerFullTest have to be executed before these tests to ensure correct behavior.
      */
 
+    /// <summary>
+    /// Tests whether ClearLayer empties all cells in a randomly picked y-layer.
+    /// </summary>
     [Test]
     public void ClearLayerTest()
     {
@@ -139,6 +160,10 @@ public class GameGridTest
         }
     }
 
+    /// <summary>
+    /// Tests whether ClearColumn removes all values from
+    /// a randomly picked vertical column at (x, z).
+    /// </summary>
     [Test]
     public void ClearColumnTest()
     {
@@ -177,7 +202,10 @@ public class GameGridTest
         }
     }
 
-
+    /// <summary>
+    /// Tests whether MoveLayerDown shifts a layer downward by a randomly generated number of rows,
+    /// and clears the original source layer.
+    /// </summary>
     [Test]
     public void MoveLayerDownTest()
     {

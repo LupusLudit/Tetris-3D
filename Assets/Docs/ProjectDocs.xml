@@ -486,4 +486,33 @@
 			Component that links a GameObject to its PowerUp data instance.
 		</summary>
 	</ClassMember>
+
+	<ClassMember name="BlockHolderTest">
+		<summary>
+			Unit tests for the BlockHolder class.
+			Verifies that the blocks are correctly instantiated and that the block cycling logic works correctly.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="BlocksTest">
+		<summary>
+			Unit test for the Block classes.
+			It contains a list of all block classes and troughout the test it verifies that all blocks work correctly.
+			It checks the functionality of block movement, rotation and position calculations.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="GameGridTest">
+		<summary>
+			Unit tests for the GameGrid class.
+			Handles verification of the functionality for bounds checking,
+			ccupancy state of cells and layers, and operations such as clearing and moving layers.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="GameTest">
+		<summary>
+			Unit tests for the Game class to ensure core game functionalities work as expected.
+		</summary>
+	</ClassMember>
 </ProjectDocs>

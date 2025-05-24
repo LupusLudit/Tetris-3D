@@ -3,9 +3,14 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <include file='../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="BlocksTest"]/*'/>
 public class BlocksTest
 {
     private static Vector3 multiplier = new Vector3(1, 1, 1);
+
+    /// <summary>
+    /// A list of all Tetris block types used in the game.
+    /// </summary>
     List<Block> blocks = new List<Block>()
     {
         new IBlock(multiplier),
@@ -17,6 +22,9 @@ public class BlocksTest
         new ZBlock(multiplier)
     };
 
+    /// <summary>
+    /// Test that each block is initialized with the correct default values.
+    /// </summary>
     [Test]
     public void BlockConstructorTest()
     {
@@ -28,6 +36,9 @@ public class BlocksTest
         }
     }
 
+    /// <summary>
+    /// Test that ResetBlock resets block position and states correctly.
+    /// </summary>
     [Test]
     public void BlockResetTest()
     {
@@ -47,24 +58,36 @@ public class BlocksTest
         }
     }
 
+    /// <summary>
+    /// Tests that the Move() method correctly changes all tile positions
+    /// after moving the block by a randomly generated offset (xOffset, yOffset, zOffset).
+    /// </summary>
     [Test]
     public void BlockMovementTest()
     {
+        System.Random random = new System.Random();
         foreach (var block in blocks)
         {
+            int xOffset = random.Next(-5, 11);
+            int yOffset = random.Next(-5, 11);
+            int zOffset = random.Next(-5, 11);
+
             var original = new List<Vector3>(block.TilePositions());
-            block.Move(2, -5, 1);
+            block.Move(xOffset, yOffset, zOffset);
             var moved = new List<Vector3>(block.TilePositions());
 
             for (int i = 0; i < original.Count; i++)
             {
-                Assert.AreEqual(original[i].x + 2, moved[i].x);
-                Assert.AreEqual(original[i].y - 5, moved[i].y);
-                Assert.AreEqual(original[i].z + 1, moved[i].z);
+                Assert.AreEqual(original[i].x + xOffset, moved[i].x);
+                Assert.AreEqual(original[i].y + yOffset, moved[i].y);
+                Assert.AreEqual(original[i].z + zOffset, moved[i].z);
             }
         }
     }
 
+    /// <summary>
+    /// Tests if rotating a block clockwise and then counterclockwise results in the original state.
+    /// </summary>
     [Test]
     public void BlockRotationTest()
     {
@@ -83,6 +106,9 @@ public class BlocksTest
         }
     }
 
+    /// <summary>
+    /// Tests if the SwitchAxis() method correctly changes the block's axis state.
+    /// </summary>
     [Test]
     public void BlockAxisSwitchingTest()
     {

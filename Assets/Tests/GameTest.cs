@@ -3,8 +3,14 @@ using Assets.Scripts.Logic;
 using NUnit.Framework;
 using UnityEngine;
 
+/// <include file='../Docs/ProjectDocs.xml' path='ProjectDocs/ClassMember[@name="GameTest"]/*'/>
 public class GameTest
 {
+
+    /// <summary>
+    /// Tests the Game constructor to ensure that essential components (grid, holder, current block)
+    /// are properly initialized and that the game starts in a valid state.
+    /// </summary>
     [Test]
     public void GameConstructorTest()
     {
@@ -26,6 +32,10 @@ public class GameTest
         }
     }
 
+    /// <summary>
+    /// Tests the HoldBlock functionality. Verifies the block can be held, swapped,
+    /// and that the CanHold bool behaves correctly.
+    /// </summary>
     [Test]
     public void HoldBlockTest()
     {
@@ -43,6 +53,10 @@ public class GameTest
         Assert.AreEqual(originalBlock, game.CurrentBlock);
     }
 
+    /// <summary>
+    /// Tests the CheckGameOver method to ensure the game correctly identifies
+    /// when the top rows are occupied, indicating that the game should end.
+    /// </summary>
     [Test]
     public void CheckGameOverTest()
     {
@@ -71,6 +85,10 @@ public class GameTest
         Assert.IsTrue(game.CheckGameOver());
     }
 
+    /// <summary>
+    /// Tests the MoveBlockDown method to make sure that the block moves down correctly by one unit
+    /// and that it is eventually placed after multiple moves.
+    /// </summary>
     [Test]
     public void MoveBlockDownTest()
     {
@@ -95,6 +113,10 @@ public class GameTest
         Assert.IsTrue(game.BlockPlaced);
     }
 
+    /// <summary>
+    /// Tests the MaxPossibleDrop method to ensure it correctly calculates the
+    /// maximum vertical distance the current block can fall.
+    /// </summary>
     [Test]
     public void MaxPossibleDropTest()
     {
@@ -114,6 +136,10 @@ public class GameTest
         Assert.AreEqual(bottomTile, maxDrop);
     }
 
+    /// <summary>
+    /// Tests the DropBlock method to ensure that the current block drops as it should,
+    /// and that it is correctly placed in the game grid.
+    /// </summary>
     [Test]
     public void DropBlockTest()
     {
@@ -131,6 +157,11 @@ public class GameTest
         Assert.IsTrue(game.BlockPlaced);
     }
 
+    /// <summary>
+    /// Tests the NextBlock method to ensure the current block is updated to a new one
+    /// (the new block should be different from the original one)
+    /// and that the CanHold bool was set to true.
+    /// </summary>
     [Test]
     public void NextBlockTest()
     {
