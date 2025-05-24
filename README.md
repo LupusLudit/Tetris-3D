@@ -5,7 +5,6 @@ This project challenges players to think spatially by rotating and positioning b
 The game features many gameplay mechanics introduced in the original Tetris, such as block spawning, rotation, movement, collision detection, and line clearing.
 However, it also introduces brand-new concepts that could not be achieved in two dimensions. For example, players can rotate the entire game board to better visualize the playing field.
 
-3D models for this game were designed in [blender](https://www.blender.org/).
 The project also features custom-made UI elements and animations to enhance the visual experience.
 
 ## Introduction and basic file structure description
