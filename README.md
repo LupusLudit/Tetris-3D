@@ -15,7 +15,7 @@ If you want to test the game, I have created a set of tests for the main game lo
 The entire project is commented to make the code easier to navigate. Each class includes a description in the ProjectDocs.xml file, located in `Tetris-3D > Assets > Docs`.
 
 ## How to play
-This project now includes a ready-to-play executables. To play the game, simply visit the [latest release](https://github.com/LupusLudit/Tetris-3D/releases/tag/v1.1.0)
+This project now includes a ready-to-play executables. To play the game, simply visit the [latest release](https://github.com/LupusLudit/Tetris-3D/releases/tag/v1.1.1)
 and download the provided files. The program allows you to change the game settings. It will automatically create a directory for these settings, so the user doesn't need to do anything manually. Please note, however, that any changes made to the settings will only be saved locally.
 
 ## Software used
