@@ -18,10 +18,10 @@ namespace Assets.Scripts.Blocks
         /// </value>
         protected abstract Vector3[][][] Tiles { get; }
         protected abstract Vector3 StartingOffset { get; }
-        public abstract int Id { get; }
-        public int CurrentState { get; private set; } = 0;
-        public int CurrentRotationState { get; private set; } = 0;
         public Vector3 CurrentOffset { get; private set; }
+        public abstract int Id { get; }
+        public int CurrentAxisState { get; private set; } = 0;
+        public int CurrentRotationState { get; private set; } = 0;
 
         /// <summary>
         /// The offset multiplier - determines how much should the block really be offset from the original position.
@@ -47,24 +47,24 @@ namespace Assets.Scripts.Blocks
         /// </returns>
         public IEnumerable<Vector3> TilePositions()
         {
-            foreach (Vector3 tile in Tiles[CurrentState][CurrentRotationState])
+            foreach (Vector3 tile in Tiles[CurrentAxisState][CurrentRotationState])
             {
                 yield return tile + CurrentOffset;
             }
         }
 
         /// <summary>
-        /// Rotates the block clockwise.
+        /// Rotates the block to the right -> (clockwise).
         /// </summary>
-        public void RotateCW()
+        public void RotateBlockToRight()
         {
             CurrentRotationState = (CurrentRotationState + 1) % Tiles[0].Length;
         }
 
         /// <summary>
-        /// Rotates the block counter clockwise.
+        /// Rotates the block to the left <- (counter-clockwise).
         /// </summary>
-        public void RotateCCW()
+        public void RotateBlockToLeft()
         {
             CurrentRotationState = (CurrentRotationState == 0) ? Tiles[0].Length - 1 : CurrentRotationState - 1;
         }
@@ -75,7 +75,7 @@ namespace Assets.Scripts.Blocks
         /// <param name="axis">The axis.</param>
         public void SwitchAxis(int axis)
         {
-            CurrentState = axis;
+            CurrentAxisState = axis;
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Blocks
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         /// <param name="z">The z coordinate.</param>
-        public void Move(int x, int y, int z)
+        public void MoveBlock(int x, int y, int z)
         {
             CurrentOffset += new Vector3(x, y, z);
         }
@@ -94,7 +94,7 @@ namespace Assets.Scripts.Blocks
         /// </summary>
         public void ResetBlock()
         {
-            CurrentState = 0;
+            CurrentAxisState = 0;
             CurrentRotationState = 0;
             CurrentOffset = StartingOffset;
         }

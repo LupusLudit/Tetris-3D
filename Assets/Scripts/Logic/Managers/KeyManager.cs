@@ -200,24 +200,24 @@ namespace Assets.Scripts.Logic.Managers
             () => { if (!manager.LimitedMovement) { game.XForward(); soundEffects.PlayEffect(1); } },
             () => { if (!manager.LimitedMovement) { game.ZBack(); soundEffects.PlayEffect(1);  } },
             () => { if (!manager.LimitedMovement) { game.ZForward(); soundEffects.PlayEffect(1);  } },
-            () => { game.RotateBlockCCW(); soundEffects.PlayEffect(1); },
-            () => { game.RotateBlockCW(); soundEffects.PlayEffect(1); },
+            () => { game.TryRotatingBlockToLeft(); soundEffects.PlayEffect(1); },
+            () => { game.TryRotatingBlockToRight(); soundEffects.PlayEffect(1); },
             () => {
-                if(game.CurrentBlock.CurrentState != 0)
+                if(game.CurrentBlock.CurrentAxisState != 0)
                 {
                     game.SwitchToDifAxis(0);
                     soundEffects.PlayEffect(1);
                 }
             },
             () => {
-                if(game.CurrentBlock.CurrentState != 1)
+                if(game.CurrentBlock.CurrentAxisState != 1)
                 {
                     game.SwitchToDifAxis(1);
                     soundEffects.PlayEffect(1);
                 }
             },
             () => {
-                if(game.CurrentBlock.CurrentState != 2)
+                if(game.CurrentBlock.CurrentAxisState != 2)
                 {
                     game.SwitchToDifAxis(2);
                     soundEffects.PlayEffect(1);

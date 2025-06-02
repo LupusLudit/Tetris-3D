@@ -17,10 +17,10 @@ namespace Assets.Scripts.Logic
                 currentBlock.ResetBlock();
                 for (int i = 0; i < 2; i++)
                 {
-                    currentBlock.Move(0,-1,0);
+                    currentBlock.MoveBlock(0,-1,0);
                     if (!BlockFits())
                     {
-                        currentBlock.Move(0,1,0);
+                        currentBlock.MoveBlock(0,1,0);
                     }
                 }
             }
@@ -87,28 +87,28 @@ namespace Assets.Scripts.Logic
         }
 
         /// <summary>
-        /// Rotates the block clockwise if the new orientation fits on the board.
+        /// Rotates the block to the right if the new orientation fits on the board.
         /// </summary>
-        public void RotateBlockCW()
+        public void TryRotatingBlockToRight()
         {
-            CurrentBlock.RotateCW();
+            CurrentBlock.RotateBlockToRight();
 
             if (!BlockFits())
             {
-                CurrentBlock.RotateCCW();
+                CurrentBlock.RotateBlockToLeft();
             }
         }
 
         /// <summary>
-        /// Rotates the block counter clockwise if the new orientation fits on the board.
+        /// Rotates the block to the left if the new orientation fits on the board.
         /// </summary>
-        public void RotateBlockCCW()
+        public void TryRotatingBlockToLeft()
         {
-            CurrentBlock.RotateCCW();
+            CurrentBlock.RotateBlockToLeft();
 
             if (!BlockFits())
             {
-                CurrentBlock.RotateCW();
+                CurrentBlock.RotateBlockToRight();
             }
         }
 
@@ -118,7 +118,7 @@ namespace Assets.Scripts.Logic
         /// <param name="axis">The axis "to which we switch".</param>
         public void SwitchToDifAxis(int axis)
         {
-            int prevAxis = CurrentBlock.CurrentState;
+            int prevAxis = CurrentBlock.CurrentAxisState;
             CurrentBlock.SwitchAxis(axis);
             if (!BlockFits()) 
             {
@@ -131,8 +131,8 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void XForward()
         {
-            CurrentBlock.Move(1,0,0);
-            if (!BlockFits()) CurrentBlock.Move(-1, 0, 0);
+            CurrentBlock.MoveBlock(1,0,0);
+            if (!BlockFits()) CurrentBlock.MoveBlock(-1, 0, 0);
         }
 
         /// <summary>
@@ -140,8 +140,8 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void XBack()
         {
-            CurrentBlock.Move(-1, 0, 0);
-            if (!BlockFits()) CurrentBlock.Move(1, 0, 0);
+            CurrentBlock.MoveBlock(-1, 0, 0);
+            if (!BlockFits()) CurrentBlock.MoveBlock(1, 0, 0);
         }
 
         /// <summary>
@@ -149,8 +149,8 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void ZForward()
         {
-            CurrentBlock.Move(0, 0, 1);
-            if (!BlockFits()) CurrentBlock.Move(0, 0, -1);
+            CurrentBlock.MoveBlock(0, 0, 1);
+            if (!BlockFits()) CurrentBlock.MoveBlock(0, 0, -1);
         }
 
         /// <summary>
@@ -158,8 +158,8 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void ZBack()
         {
-            CurrentBlock.Move(0, 0, -1);
-            if (!BlockFits()) CurrentBlock.Move(0, 0, 1);
+            CurrentBlock.MoveBlock(0, 0, -1);
+            if (!BlockFits()) CurrentBlock.MoveBlock(0, 0, 1);
         }
 
         /// <summary>
@@ -195,11 +195,11 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void MoveBlockDown()
         {
-            CurrentBlock.Move(0,-1,0);
+            CurrentBlock.MoveBlock(0,-1,0);
 
             if (!BlockFits())
             {
-                CurrentBlock.Move(0,1,0);
+                CurrentBlock.MoveBlock(0,1,0);
                 PlaceCurrentBlock();
             }
         }
@@ -246,7 +246,7 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void DropBlock()
         {
-            CurrentBlock.Move(0,-MaxPossibleDrop(),0);
+            CurrentBlock.MoveBlock(0,-MaxPossibleDrop(),0);
             PlaceCurrentBlock();
         }
 
