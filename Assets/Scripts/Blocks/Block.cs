@@ -56,7 +56,7 @@ namespace Assets.Scripts.Blocks
         /// <summary>
         /// Rotates the block to the right -> (clockwise).
         /// </summary>
-        public void RotateBlockToRight()
+        public void RotateRight()
         {
             CurrentRotationState = (CurrentRotationState + 1) % Tiles[0].Length;
         }
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Blocks
         /// <summary>
         /// Rotates the block to the left <- (counter-clockwise).
         /// </summary>
-        public void RotateBlockToLeft()
+        public void RotateLeft()
         {
             CurrentRotationState = (CurrentRotationState == 0) ? Tiles[0].Length - 1 : CurrentRotationState - 1;
         }
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Blocks
         /// <param name="x">The x coordinate.</param>
         /// <param name="y">The y coordinate.</param>
         /// <param name="z">The z coordinate.</param>
-        public void MoveBlock(int x, int y, int z)
+        public void Move(int x, int y, int z)
         {
             CurrentOffset += new Vector3(x, y, z);
         }

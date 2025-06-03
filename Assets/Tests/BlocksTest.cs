@@ -45,7 +45,7 @@ public class BlocksTest
 
         foreach (var block in blocks)
         {
-            block.MoveBlock(1, -1, 2);
+            block.Move(1, -1, 2);
             block.ResetBlock();
 
             foreach (var tile in block.TilePositions())
@@ -73,7 +73,7 @@ public class BlocksTest
             int zOffset = random.Next(-5, 11);
 
             var original = new List<Vector3>(block.TilePositions());
-            block.MoveBlock(xOffset, yOffset, zOffset);
+            block.Move(xOffset, yOffset, zOffset);
             var moved = new List<Vector3>(block.TilePositions());
 
             for (int i = 0; i < original.Count; i++)
@@ -94,8 +94,8 @@ public class BlocksTest
         foreach (var block in blocks)
         {
             var before = new List<Vector3>(block.TilePositions());
-            block.RotateBlockToRight();
-            block.RotateBlockToLeft();
+            block.RotateRight();
+            block.RotateLeft();
             var afterCCW = new List<Vector3>(block.TilePositions());
 
             // After rotating CW and then CCW, the block should be in its original position

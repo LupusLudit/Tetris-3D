@@ -17,10 +17,10 @@ namespace Assets.Scripts.Logic
                 currentBlock.ResetBlock();
                 for (int i = 0; i < 2; i++)
                 {
-                    currentBlock.MoveBlock(0,-1,0);
-                    if (!BlockFits())
+                    currentBlock.Move(0,-1,0);
+                    if (!TilePositionsFit())
                     {
-                        currentBlock.MoveBlock(0,1,0);
+                        currentBlock.Move(0,1,0);
                     }
                 }
             }
@@ -55,10 +55,10 @@ namespace Assets.Scripts.Logic
         }
 
         /// <summary>
-        /// Checks whether the block fits on the board.
+        /// Checks whether the blocks tiles fit on the board.
         /// </summary>
         /// <returns><c>true</c> it the block fits. Otherwise, <c>false</c>.</returns>
-        private bool BlockFits()
+        private bool TilePositionsFit()
         {
             foreach (Vector3 v in CurrentBlock.TilePositions())
             {
@@ -89,27 +89,21 @@ namespace Assets.Scripts.Logic
         /// <summary>
         /// Rotates the block to the right if the new orientation fits on the board.
         /// </summary>
-        public void TryRotatingBlockToRight()
+        public void TryRotatingBlockRight()
         {
-            CurrentBlock.RotateBlockToRight();
+            CurrentBlock.RotateRight();
 
-            if (!BlockFits())
-            {
-                CurrentBlock.RotateBlockToLeft();
-            }
+            if (!TilePositionsFit()) CurrentBlock.RotateLeft();
         }
 
         /// <summary>
         /// Rotates the block to the left if the new orientation fits on the board.
         /// </summary>
-        public void TryRotatingBlockToLeft()
+        public void TryRotatingBlockLeft()
         {
-            CurrentBlock.RotateBlockToLeft();
+            CurrentBlock.RotateLeft();
 
-            if (!BlockFits())
-            {
-                CurrentBlock.RotateBlockToRight();
-            }
+            if (!TilePositionsFit()) CurrentBlock.RotateRight();
         }
 
         /// <summary>
@@ -120,10 +114,8 @@ namespace Assets.Scripts.Logic
         {
             int prevAxis = CurrentBlock.CurrentAxisState;
             CurrentBlock.SwitchAxis(axis);
-            if (!BlockFits()) 
-            {
-                CurrentBlock.SwitchAxis(prevAxis);
-            }
+
+            if (!TilePositionsFit()) CurrentBlock.SwitchAxis(prevAxis);
         }
 
         /// <summary>
@@ -131,8 +123,8 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void XForward()
         {
-            CurrentBlock.MoveBlock(1,0,0);
-            if (!BlockFits()) CurrentBlock.MoveBlock(-1, 0, 0);
+            CurrentBlock.Move(1,0,0);
+            if (!TilePositionsFit()) CurrentBlock.Move(-1, 0, 0);
         }
 
         /// <summary>
@@ -140,8 +132,8 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void XBack()
         {
-            CurrentBlock.MoveBlock(-1, 0, 0);
-            if (!BlockFits()) CurrentBlock.MoveBlock(1, 0, 0);
+            CurrentBlock.Move(-1, 0, 0);
+            if (!TilePositionsFit()) CurrentBlock.Move(1, 0, 0);
         }
 
         /// <summary>
@@ -149,8 +141,8 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void ZForward()
         {
-            CurrentBlock.MoveBlock(0, 0, 1);
-            if (!BlockFits()) CurrentBlock.MoveBlock(0, 0, -1);
+            CurrentBlock.Move(0, 0, 1);
+            if (!TilePositionsFit()) CurrentBlock.Move(0, 0, -1);
         }
 
         /// <summary>
@@ -158,8 +150,8 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void ZBack()
         {
-            CurrentBlock.MoveBlock(0, 0, -1);
-            if (!BlockFits()) CurrentBlock.MoveBlock(0, 0, 1);
+            CurrentBlock.Move(0, 0, -1);
+            if (!TilePositionsFit()) CurrentBlock.Move(0, 0, 1);
         }
 
         /// <summary>
@@ -195,11 +187,11 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void MoveBlockDown()
         {
-            CurrentBlock.MoveBlock(0,-1,0);
+            CurrentBlock.Move(0,-1,0);
 
-            if (!BlockFits())
+            if (!TilePositionsFit())
             {
-                CurrentBlock.MoveBlock(0,1,0);
+                CurrentBlock.Move(0,1,0);
                 PlaceCurrentBlock();
             }
         }
@@ -246,7 +238,7 @@ namespace Assets.Scripts.Logic
         /// </summary>
         public void DropBlock()
         {
-            CurrentBlock.MoveBlock(0,-MaxPossibleDrop(),0);
+            CurrentBlock.Move(0,-MaxPossibleDrop(),0);
             PlaceCurrentBlock();
         }
 

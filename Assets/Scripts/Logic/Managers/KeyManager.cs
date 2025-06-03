@@ -200,8 +200,8 @@ namespace Assets.Scripts.Logic.Managers
             () => { if (!manager.LimitedMovement) { game.XForward(); soundEffects.PlayEffect(1); } },
             () => { if (!manager.LimitedMovement) { game.ZBack(); soundEffects.PlayEffect(1);  } },
             () => { if (!manager.LimitedMovement) { game.ZForward(); soundEffects.PlayEffect(1);  } },
-            () => { game.TryRotatingBlockToLeft(); soundEffects.PlayEffect(1); },
-            () => { game.TryRotatingBlockToRight(); soundEffects.PlayEffect(1); },
+            () => { game.TryRotatingBlockLeft(); soundEffects.PlayEffect(1); },
+            () => { game.TryRotatingBlockRight(); soundEffects.PlayEffect(1); },
             () => {
                 if(game.CurrentBlock.CurrentAxisState != 0)
                 {
