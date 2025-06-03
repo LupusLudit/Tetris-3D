@@ -1,5 +1,5 @@
 using Assets.Scripts.Events;
-using Assets.Scripts.Logic;
+using Assets.Scripts.Logic.Holders;
 using Assets.Scripts.PowerUps;
 using Assets.Scripts.Unity.ObjectPooling;
 using Assets.Scripts.Unity.UI.DynamicMessages;

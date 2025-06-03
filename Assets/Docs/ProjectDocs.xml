@@ -124,9 +124,22 @@
 		</summary>
 	</ClassMember>
 
+	<ClassMember name="BaseHolder">
+		<summary>
+			A base class for the holder classes.
+			It contains methods that get a random item, get the next item, get the items id and generate the item array.
+		</summary>
+	</ClassMember>
+
 	<ClassMember name="BlockHolder">
 		<summary>
 			Holds and generates new blocks.
+		</summary>
+	</ClassMember>
+
+	<ClassMember name="PowerUpHolder">
+		<summary>
+			Holds and generates new powerups.
 		</summary>
 	</ClassMember>
 
@@ -140,12 +153,6 @@
 	<ClassMember name="GameGrid">
 		<summary>
 			Represents the 3D game grid. It is used to store and manage placed blocks.
-		</summary>
-	</ClassMember>
-	
-	<ClassMember name="PowerUpHolder">
-		<summary>
-			Holds and generates new powerups.
 		</summary>
 	</ClassMember>
 	

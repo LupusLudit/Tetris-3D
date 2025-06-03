@@ -1,5 +1,5 @@
 using Assets.Scripts.Blocks;
-using Assets.Scripts.Logic;
+using Assets.Scripts.Logic.Holders;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -45,6 +45,4 @@ public class BlockHolderTest
             }
         }
     }
-
-
 }
